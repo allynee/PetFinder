@@ -1,333 +1,148 @@
 <template>
-    <v-container class="brown lighten-5 pa-5">
-        <v-row wrap>
+<div class="white pa-15">
+    <v-container class="brown lighten-5 pa-10">
+        <!-- top -->
+        <v-row align="center" class="text-center mb-10">
             <v-col cols="12">
-                <h1 class="text-h4 text-capitalize brown--text text-center">REPORT A LOST/FOUND PET</h1>
-                    <v-form class="px-3" ref="form" @submit.prevent="submit">
-                        <!-- <div class="container"> -->
-                            <v-row wrap>
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                sm="6"
-                                >
-                                <v-btn
-                                    depressed
-                                    elevation="2"
-                                    rounded
-                                    large
-                                    class="my-8"
-                                    color="brown lighten-4"
-                                    >
-                                    <v-checkbox
-                                    v-model="checkbox"
-                                    label="Lost Pet"
-                                    type="checkbox"
-                                    required
-                                    ></v-checkbox>
-                                </v-btn>
-                                </v-col>
-                                <v-spacer></v-spacer>
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                sm="6"
-                                class="d-flex justify-end"
-                                >
-                                <v-btn
-                                depressed
-                                elevation="2"
-                                rounded
-                                large
-                                class="my-8"
-                                color="brown lighten-4"
-                                >
-                                    <v-checkbox
-                                    v-model="checkbox"
-                                    label="Found Pet"
-                                    type="checkbox"
-                                    required
-                                    ></v-checkbox>
-                                </v-btn>
-                                </v-col>
-<!-- text fields start -->
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                md="6"
-                                >
-                                <v-text-field
-                                    label="Pet's name"
-                                    placeholder="Type the pet's name ..."
-                                    :rules="inputRules"
-                                    name:pname
-                                    outlined
-                                ></v-text-field>
-                                </v-col>
-
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                md="6"
-                                >
-                                <v-text-field
-                                    label="Last seen location"
-                                    placeholder="Type the pet's last seen location ..."
-                                    :rules="inputRules"
-                                    v-model=loc
-                                    outlined
-                                ></v-text-field>
-                                </v-col>
-
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                md="6"
-                                >
-                                <v-menu
-                                    ref="menu"
-                                    v-model="menu"
-                                    :close-on-content-click="false"
-                                    :return-value.sync="date"
-                                    transition="scale-transition"
-                                    offset-y
-                                    min-width="auto"
-                                >
-                                    <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                        v-model="date"
-                                        label="Last seen date"
-                                        outlined
-                                        v-bind="attrs"
-                                        v-on="on"
-                                    ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                    v-model="date"
-                                    no-title
-                                    scrollable
-                                    >
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="menu = false"
-                                    >
-                                        Cancel
-                                    </v-btn>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="$refs.menu.save(date)"
-                                    >
-                                        OK
-                                    </v-btn>
-                                    </v-date-picker>
-                                </v-menu>
-                                </v-col>
-
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                md="6"
-                                >
-                                <v-text-field
-                                    label="Zip"
-                                    placeholder="Zip of location"
-                                    :rules =zipRule
-                                    name=zip
-                                    outlined
-                                ></v-text-field>
-                                </v-col>
-
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                md="6"
-                                >
-                                <v-text-field
-                                    label="Type"
-                                    placeholder="Type the pet's type ..."
-                                    large
-                                    :rules=inputRules
-                                    outlined
-                                ></v-text-field>
-                                </v-col>
-
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                md="6"
-                                >
-                                <v-text-field
-                                    label="Breed"
-                                    placeholder="Type the pet's breed ..."
-                                    large
-                                    :rules=inputRules
-                                    outlined
-                                ></v-text-field>
-                                </v-col>
-                            </v-row>
-<!-- dropdowns -->          
-                            <!-- <v-row class="d-flex justify-space-between">
-                                <v-col
-                                cols="12"
-                                xs="12"
-                                sm="6"
-                                md="3"
-                                lg="3"
-                                > -->
-                            <v-card flat class="brown lighten-5 pa-5
-                            d-flex justify-space-between mb-6">
-                            <v-menu offset-y>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                color="primary lighten-2"
-                                v-bind="attrs"
-                                v-on="on"
-                                class="px-2"
-                                outlined
-                                large
-                                >
-                                Pet Colour
-                                <v-icon right>
-                                    mdi-arrow-down
-                                </v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list>
-                                <v-list-item
-                                v-for="(petColor) in petColors"
-                                :key="petColor"
-                                >
-                                <v-list-item-title>{{ petColor}}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                            </v-menu>
-                            <!-- </v-col> -->
-
-                            <!-- <v-col
-                            cols="12"
-                            xs="12"
-                            sm="6"
-                            md="3"
-                            lg="3"
-                            > -->
-                            <v-menu offset-y>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                color="primary lighten-2"
-                                v-bind="attrs"
-                                v-on="on"
-                                class="px-2"
-                                outlined
-                                large
-                                >
-                                collar color
-                                <v-icon right>
-                                    mdi-arrow-down
-                                </v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list>
-                                <v-list-item
-                                v-for="(collarColor) in collarColors"
-                                :key="collarColor"
-                                >
-                                <v-list-item-title>{{ collarColor}}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                            </v-menu>
-                            <!-- </v-col> -->
-
-                            <!-- <v-col
-                            cols="12"
-                            xs="12"
-                            sm="6"
-                            md="3"
-                            lg="3"
-                            > -->
-                            <v-menu offset-y>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                color="primary lighten-2"
-                                v-bind="attrs"
-                                v-on="on"
-                                large
-                                class="px-2"
-                                outlined
-                                >
-                                Pet size
-                                <v-icon right>
-                                    mdi-arrow-down
-                                </v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list>
-                                <v-list-item
-                                v-for="(petSize) in petSizes"
-                                :key="petSize"
-                                >
-                                <v-list-item-title>{{ petSize}}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                            </v-menu>
-                            <!-- </v-col> -->
-
-                            <!-- <v-col
-                            cols="12"
-                            xs="12"
-                            sm="6"
-                            md="3"
-                            lg="3"
-                            > -->
-                            <v-menu offset-y>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                color="primary lighten-2"
-                                v-bind="attrs"
-                                v-on="on"
-                                large
-                                class="px-2"
-                                outlined
-                                >
-                                Pet Gender
-                                <v-icon right>
-                                    mdi-arrow-down
-                                </v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list>
-                                <v-list-item
-                                v-for="(petGender) in petGenders"
-                                :key="petGender"
-                                >
-                                <v-list-item-title>{{ petGender}}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                            </v-menu>
-                            <!-- </v-col> -->
-                            </v-card>
-
-                            <div class="text-center mx-auto mt-9">
-                                    <template>
-                                    <v-file-input
-                                        label="Image of Pet"
-                                        filled
-                                        prepend-icon="mdi-camera"
-                                    ></v-file-input>
-                                    </template>
-                            </div>
-
-                            <!-- </v-row> -->
-                            <v-btn block 
-                                class="mb-4 " color="brown" outlined>
-                                Submit
-                            </v-btn>
-                    </v-form>
+                <v-img :src="require('../assets/DogCat.png')" class="my-3" contain height="150"/>
+            </v-col>
+            <v-col cols="12">
+                <h1 class="text-h4 brown--text text-center">Report a Lost/Found Pet</h1>
             </v-col>
         </v-row>
+        <v-divider></v-divider>
+        <v-form class="px-3 my-5" ref="form" @submit.prevent="submit">
+            <v-row class="my-5">
+            <!-- Choose btwn lost and found -->
+            <!-- small screen -->
+            <v-col cols="12" class="hidden-md-and-up">
+                <v-btn rounded depressed large color="brown lighten-4 mx-5" @click="setOptions">
+                    <v-checkbox v-model="checkedBox" label="Lost Pet" value="Lost Pet" required></v-checkbox>
+                </v-btn>
+            </v-col>
+            <v-col cols="12" class="hidden-md-and-up">
+                <v-btn rounded depressed large color="brown lighten-4 mx-5" @click="setOptions">
+                    <v-checkbox v-model="checkedBox" label="Found Pet" value="Found Pet" required></v-checkbox>
+                </v-btn>
+            </v-col>
+            <!-- mid screen -->
+            <v-col cols="12" align="center">
+                <h2 class="text-h6 brown--text font-weight-light">I am reporting a...</h2>
+            </v-col>
+            <v-col cols="12" md="6" align="center" align-content-md="end">
+                    <v-btn rounded depressed large color="brown lighten-4 mx-5" @click="setOptions">
+                        <v-checkbox v-model="checkedBox" label="Lost Pet" value="Lost Pet" required></v-checkbox>
+                    </v-btn>
+            </v-col>
+            <v-col cols="12" md="6" align-content="center" align-content-md="start">
+                <v-btn rounded depressed large color="brown lighten-4 mx-5" @click="setOptions">
+                    <v-checkbox v-model="checkedBox" label="Found Pet" value="Found Pet" required></v-checkbox>
+                </v-btn>
+            </v-col>
+            </v-row>
+            <v-row justify="center mb-3">
+            <!-- Pet's Name -->
+                <v-col cols="12" md="6">
+                    <v-text-field label="Pet's Name" placeholder="Enter the pet's name..."
+                    :rules="inputRules" name:pname outlined>
+                    </v-text-field>
+                </v-col>
+            <!-- Last seen Location-->
+                <v-col cols="12" md="6">
+                    <v-text-field
+                            label="Pet's Last Seen Location"
+                            placeholder="Enter the pet's last seen location..."
+                            :rules="inputRules"
+                            v-model=loc
+                            outlined
+                    ></v-text-field>
+                </v-col>
+            <!-- Date -->
+            <v-col cols="12" md="6">
+                        <v-menu
+                            ref="menu"
+                            v-model="menu"
+                            :close-on-content-click="false"
+                            :return-value.sync="date"
+                            transition="scale-transition"
+                            offset-y
+                            min-width="auto"
+                        >
+                            <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                v-model="date"
+                                label="Pet's Last Seen Date"
+                                outlined
+                                v-bind="attrs"
+                                v-on="on"
+                            ></v-text-field>
+                            </template>
+                            <v-date-picker
+                            v-model="date"
+                            no-title
+                            scrollable
+                            >
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                text
+                                color="primary"
+                                @click="menu = false"
+                            >
+                                Cancel
+                            </v-btn>
+                            <v-btn
+                                text
+                                color="primary"
+                                @click="$refs.menu.save(date)"
+                            >
+                                OK
+                            </v-btn>
+                            </v-date-picker>
+                        </v-menu>
+                </v-col>
+            <!-- Pet type-->
+                <v-col cols="12" md="6">
+                    <v-combobox outlined :items="petTypes" label="Pet's Type" placeholder="Select the Pet's Type..." class="text-brown"></v-combobox>
+                </v-col>
+            <!-- Breed -->
+                <v-col cols="12" md="6">
+                    <v-combobox outlined :items="petTypes" label="Pet's Breed" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
+                </v-col>
+            <!-- Colour -->
+            <v-col cols="12" md="6">
+                <v-combobox outlined :items="petColours" label="Pet's Colour" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
+            </v-col>
+            <!-- Collar colour -->
+            <v-col cols="12" md="6">
+                <v-combobox outlined :items="collarColours" label="Pet's Collar Colour" placeholder="Select the Pet's Collar Colour..." class="text-brown"></v-combobox>
+            </v-col>
+            <!-- Size -->
+            <v-col cols="12" md="6">
+                <v-combobox outlined :items="petSizes" label="Pet's Size" placeholder="Select the Pet's Size.." class="text-brown"></v-combobox>
+            </v-col>
+            <!-- Gender -->
+            <v-col cols="12" md="6">
+                <v-combobox outlined :items="petGenders" label="Pet's Gender" placeholder="Select the Pet's Gender..." class="text-brown"></v-combobox>
+            </v-col>
+            <!-- Submit Photo -->
+            <v-col cols="12" md="6">
+                <v-file-input outlined label="Pet's Image" 
+                    placeholder="Upload an Image of the Pet"
+                                prepend-icon="mdi-camera"
+                            ><v-icon>mdi-camera</v-icon></v-file-input>
+            </v-col>
+            </v-row>
+            <!-- Submit -->
+            <v-row align="center" justify="center" class="mt-5">
+                <v-col cols="12" align="center">
+                    <v-btn x-large depressed color="brown lighten-4">
+                        Submit
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-form>
     </v-container>
+</div>
 </template>
 
 <script>
@@ -337,12 +152,12 @@
 export default {
 data(){
   return {
-      //no data for now
-    //   petTypes: ["Bird","Cat","Dog","Fish","Guinea Pig","Hamster","Terrapin","Others"],
-      petColors: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
-      collarColors: ["Beige", "Black","Brown", "Grey", "White", "Others"],
-      petGenders: ['Male','Female'],
-      petSizes: ['Small', 'Medium', 'Large'],
+    checkedBox: [],
+    petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"], 
+    petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
+    collarColours: ["Beige", "Black","Brown", "Grey", "White", "Others"],
+    petGenders: ['Male','Female'],
+    petSizes: ['Small', 'Medium', 'Large'],
       colour: [1,4],
       fromDateMenu: false,
       fromDateVal: null,
@@ -375,7 +190,10 @@ methods: {
     submitForm() {
         this.v$.validate()
 
-    }
+    },
+    setOptions (e) {
+        this.checkedBox = [e.target.value];
+    },
 },
     computed: {
       fromDateDisp() {
