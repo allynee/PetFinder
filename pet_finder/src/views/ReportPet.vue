@@ -2,7 +2,7 @@
 <div class="white pa-15">
     <v-container class="brown lighten-5 pa-10">
         <!-- top -->
-        <v-row align="center" class="text-center mb-10">
+        <v-row justify="center" class="text-center mb-10" data-aos="fade-down">
             <v-col cols="12">
                 <v-img :src="require('../assets/DogCat.png')" class="my-3" contain height="150"/>
             </v-col>
@@ -11,34 +11,22 @@
             </v-col>
         </v-row>
         <v-divider></v-divider>
-        <v-form class="px-3 my-5" ref="form" @submit.prevent="submit">
-            <v-row class="my-5">
+        <v-form class="px-3 my-5" ref="form" @submit.prevent="submit" data-aos="fade-down">
+            <v-row justify="center" class="my-5">
             <!-- Choose btwn lost and found -->
-            <!-- small screen -->
-            <v-col cols="12" class="hidden-md-and-up">
-                <v-btn rounded depressed large color="brown lighten-4 mx-5" @click="setOptions">
-                    <v-checkbox v-model="checkedBox" label="Lost Pet" value="Lost Pet" required></v-checkbox>
-                </v-btn>
+            <v-col cols="12">
+                <h1 class="text-h6 brown--text text-center font-weight-light ">I am reporting a...</h1>
             </v-col>
-            <v-col cols="12" class="hidden-md-and-up">
-                <v-btn rounded depressed large color="brown lighten-4 mx-5" @click="setOptions">
-                    <v-checkbox v-model="checkedBox" label="Found Pet" value="Found Pet" required></v-checkbox>
-                </v-btn>
-            </v-col>
-            <!-- mid screen -->
+            <v-radio-group v-model="radioGroup">
             <v-col cols="12" align="center">
-                <h2 class="text-h6 brown--text font-weight-light">I am reporting a...</h2>
-            </v-col>
-            <v-col cols="12" md="6" align="center" align-content-md="end">
-                    <v-btn rounded depressed large color="brown lighten-4 mx-5" @click="setOptions">
-                        <v-checkbox v-model="checkedBox" label="Lost Pet" value="Lost Pet" required></v-checkbox>
-                    </v-btn>
-            </v-col>
-            <v-col cols="12" md="6" align-content="center" align-content-md="start">
-                <v-btn rounded depressed large color="brown lighten-4 mx-5" @click="setOptions">
-                    <v-checkbox v-model="checkedBox" label="Found Pet" value="Found Pet" required></v-checkbox>
+                <v-btn rounded depressed large color="brown lighten-4 mx-4">
+                    <v-radio label="Lost Pet" value="Lost Pet" required></v-radio>
+                </v-btn>
+                <v-btn rounded depressed large color="brown lighten-4 mx-4" >
+                    <v-radio label="Found Pet" value="Found Pet" required></v-radio>
                 </v-btn>
             </v-col>
+            </v-radio-group>
             </v-row>
             <v-row justify="center mb-3">
             <!-- Pet's Name -->
@@ -142,17 +130,27 @@
             </v-row>
         </v-form>
     </v-container>
+    <!-- scroll to top button -->
+    <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
+    <v-icon>mdi-chevron-up</v-icon>
+    </v-btn>
 </div>
 </template>
 
 <script>
+import AOS from 'aos'
 // const { validationMixin, default: Vuelidate } = require('vuelidate')
 // const { required} = require('vuelidate/lib/validators')
 
 export default {
+mounted() {
+    AOS.init({
+    duration: 1000,
+})},
 data(){
   return {
-    checkedBox: [],
+    fab: false,
+    radioGroup: 1,
     petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"], 
     petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
     collarColours: ["Beige", "Black","Brown", "Grey", "White", "Others"],
@@ -191,9 +189,14 @@ methods: {
         this.v$.validate()
 
     },
-    setOptions (e) {
-        this.checkedBox = [e.target.value];
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      this.fab = top > 20
     },
+    toTop () {
+      this.$vuetify.goTo(0)
+    }
 },
     computed: {
       fromDateDisp() {
