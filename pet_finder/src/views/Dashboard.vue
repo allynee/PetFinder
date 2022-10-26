@@ -23,7 +23,7 @@
               <v-combobox v-model="petTypesSelected" :items="petTypes" label="Select Pet Type" multiple></v-combobox>
             </v-col>
             <v-col cols="12" md="6" lg="3">
-              <v-combobox v-model="coloursSelected" :items="colours" label="Select Pet Colour" multiple></v-combobox>
+              <v-combobox v-model="petColoursSelected" :items="colours" label="Select Pet Colour" multiple></v-combobox>
             </v-col>
           </v-row>
         </v-card>
@@ -43,8 +43,8 @@
                   <v-icon small right>mdi-window-close</v-icon>
               </v-chip>
             </v-chip-group>
-            <v-chip-group column v-model="coloursSelected" multiple>
-              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="colour in coloursSelected" :key="colour" :value="colour">
+            <v-chip-group column v-model="petColoursSelected" multiple>
+              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="colour in petColoursSelected" :key="colour" :value="colour">
                   <span> {{ colour }} </span>
                   <v-icon small right>mdi-window-close</v-icon>
               </v-chip>
@@ -58,21 +58,23 @@
         <v-divider></v-divider>
   
         <!-- Dashboard -->
-        <br>
   
-        <v-row>
-              <v-col cols="12" md="6" lg="3">
-  
-              <v-card flat maxwidth="400" class="py-5 px-2" outlined v-for="aPet in myPets" :key="aPet.id">
+        <v-row class="my-5">
+              <v-col cols="12" md="6" lg="4">
+              <v-row>
+              <v-card flat maxwidth="400" class="py-5" outlined v-for="aPet in myPets" :key="aPet.id">
+                <!-- img -->
+                <v-card-text>
+                  <v-img :src="require('../assets/testimg.png')" class="my-2" contain max-height="1500" max-width="1500"/>
+                </v-card-text>
+                <!-- text -->
+                <div class="mx-2">
                 <v-list-item two-line>
                   <v-list-item-content>
                     <v-list-item-title class="text-h5 primary--text"> {{aPet.petName}} </v-list-item-title>
                     <v-list-item-subtitle class="secondary--text"> {{ aPet.id }} </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
-                <v-card-text>
-                  <v-img :src="require('../assets/testimg.png')" class="my-3" contain max-height="600" max-width="1000"/>
-                </v-card-text>
                 <v-list-item>
                   <v-list-item-icon >
                     <v-icon class="primary--text">mdi-map-marker</v-icon>
@@ -95,9 +97,10 @@
                       <v-icon right class="primary--text">mdi-arrow-top-right</v-icon>
                     </v-btn>
                 </v-card-actions>
+                </div>
               </v-card>
-              </v-col>
-  
+            </v-row>
+            </v-col>
             </v-row>
     </v-col></v-row>
     </v-container>
@@ -109,8 +112,8 @@
     return {
         petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"],
         petTypesSelected: [],
-        colours: ["White","Black","Brown","Orange","Other Colours"],
-        coloursSelected: [],
+        petColours: ["White","Black","Brown","Orange","Other Colours"],
+        petColoursSelected: [],
   
         //array of objects
         // (_id, PetName, MissingSince, Type, Breed, Gender, NearestLoc, Zip, Color, Collar, Size)
@@ -127,8 +130,8 @@
           if(this.petTypesSelected.length!=0){
             finalFilter += `${this.petTypesSelected.includes(pet.type)}`;
           }
-          if(this.coloursSelected.length!=0){
-            finalFilter += `${this.coloursSelected.includes(pet.colour)}`;
+          if(this.petColoursSelected.length!=0){
+            finalFilter += `${this.petColoursSelected.includes(pet.colour)}`;
           }
           // will need to do the same for other categories
   

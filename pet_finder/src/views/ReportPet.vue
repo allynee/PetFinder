@@ -47,46 +47,22 @@
                 </v-col>
             <!-- Date -->
             <v-col cols="12" md="6">
-                        <v-menu
-                            ref="menu"
-                            v-model="menu"
-                            :close-on-content-click="false"
-                            :return-value.sync="date"
-                            transition="scale-transition"
-                            offset-y
-                            min-width="auto"
-                        >
-                            <template v-slot:activator="{ on, attrs }">
-                            <v-text-field
-                                v-model="date"
-                                label="Pet's Last Seen Date"
-                                outlined
-                                v-bind="attrs"
-                                v-on="on"
-                            ></v-text-field>
-                            </template>
-                            <v-date-picker
-                            v-model="date"
-                            no-title
-                            scrollable
-                            >
-                            <v-spacer></v-spacer>
-                            <v-btn
-                                text
-                                color="primary"
-                                @click="menu = false"
-                            >
-                                Cancel
-                            </v-btn>
-                            <v-btn
-                                text
-                                color="primary"
-                                @click="$refs.menu.save(date)"
-                            >
-                                OK
-                            </v-btn>
-                            </v-date-picker>
-                        </v-menu>
+                <v-menu ref="menu" v-model="menu" :close-on-content-click="false" :return-value.sync="date"
+                            transition="scale-transition" offset-y min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-text-field v-model="date" label="Pet's Last Seen Date" outlined
+                                v-bind="attrs" v-on="on"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" no-title scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="menu = false">
+                        Cancel
+                    </v-btn>
+                    <v-btn text color="primary" @click="$refs.menu.save(date)">
+                        OK
+                    </v-btn>
+                    </v-date-picker>
+                    </v-menu>
                 </v-col>
             <!-- Pet type-->
                 <v-col cols="12" md="6">
@@ -117,7 +93,7 @@
                 <v-file-input outlined label="Pet's Image" 
                     placeholder="Upload an Image of the Pet"
                                 prepend-icon="mdi-camera"
-                            ><v-icon>mdi-camera</v-icon></v-file-input>
+                ><v-icon>mdi-camera</v-icon></v-file-input>
             </v-col>
             </v-row>
             <!-- Submit -->
@@ -153,8 +129,8 @@ data(){
     radioGroup: 1,
     petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"], 
     petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
-    collarColours: ["Beige", "Black","Brown", "Grey", "White", "Others"],
-    petGenders: ['Male','Female'],
+    collarColours: ["Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
+    petGenders: ['Male','Female',"Unknown"],
     petSizes: ['Small', 'Medium', 'Large'],
       colour: [1,4],
       fromDateMenu: false,
@@ -184,11 +160,11 @@ validations (){
     // }
 },
 methods: {
-    //   no methods for now
     submitForm() {
         this.v$.validate()
 
     },
+    // functions for scrolling to top
     onScroll (e) {
       if (typeof window === 'undefined') return
       const top = window.pageYOffset ||   e.target.scrollTop || 0
