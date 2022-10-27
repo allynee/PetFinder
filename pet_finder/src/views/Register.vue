@@ -114,7 +114,8 @@
       },
       methods:{
         onRegister(){
-            console.log('account created')
+            this.$store.dispatch('register', {email:this.email, password:this.password,})
+            // console.log('account created')
         }
       }
     }

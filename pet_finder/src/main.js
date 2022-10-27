@@ -5,6 +5,7 @@ import vuetify from './plugins/vuetify'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 //backend stuff
+import { store } from './store/index'
 import "./firebase/index"
 import { 
     getFirestore, collection, getDocs
@@ -27,6 +28,7 @@ new Vue({
   router,
   vuetify,
   db,
+  store,
   render: h => h(App),
   mounted() {
     AOS.init()
