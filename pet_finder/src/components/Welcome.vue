@@ -205,6 +205,11 @@
       </v-col>
     </v-row>
 </v-container>
+
+<!-- scroll to top button -->
+<v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
+  <v-icon>mdi-chevron-up</v-icon>
+</v-btn>
 </div>
 </template>
 
@@ -218,6 +223,7 @@
       })
     },
     data: () => ({
+      fab: false,
       ecosystem: [
         {
           text: 'vuetify-loader',
@@ -269,5 +275,15 @@
         },
       ],
     }),
+    methods: {
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      this.fab = top > 20
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    }
+  }
   }
 </script>
