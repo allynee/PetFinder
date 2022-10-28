@@ -105,16 +105,20 @@
             username:'',
             password:'',
             confirmpassword:'',
+            userid:'',
         }
       },
       computed:{
         comparePasswords(){
             return this.password!=this.confirmpassword ? 'Passwords do not match!': ''
-        }
+        },
+    
+      
       },
       methods:{
         onRegister(){
-            this.$store.dispatch('register', {email:this.email, password:this.password,})
+            this.$store.dispatch('register', {email:this.email, password:this.password, fullname:this.fullname, username:this.username})
+            console.log()
             // console.log('account created')
         }
       }

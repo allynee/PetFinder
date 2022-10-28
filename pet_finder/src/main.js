@@ -28,7 +28,7 @@ new Vue({
   router,
   vuetify,
   db,
-  store,
+  store:store,
   render: h => h(App),
   mounted() {
     AOS.init()

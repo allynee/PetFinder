@@ -11,28 +11,30 @@
             </v-col>
         </v-row>
         <v-divider></v-divider>
-        <v-form class="px-3 my-5" ref="form" @submit.prevent="submit" data-aos="fade-down">
+        <v-form class="px-3 my-5" ref="form" @submit.prevent="submitted" data-aos="fade-down">
             <v-row justify="center" class="my-5">
             <!-- Choose btwn lost and found -->
             <v-col cols="12">
                 <h1 class="text-h6 brown--text text-center font-weight-light ">I am reporting a...</h1>
             </v-col>
-            <v-radio-group v-model="radioGroup">
+            <v-radio-group v-model="formType">
             <v-col cols="12" align="center">
-                <v-btn rounded depressed large color="brown lighten-4 mx-4">
-                    <v-radio label="Lost Pet" value="Lost Pet" required></v-radio>
-                </v-btn>
-                <v-btn rounded depressed large color="brown lighten-4 mx-4" >
-                    <v-radio label="Found Pet" value="Found Pet" required></v-radio>
-                </v-btn>
+                
+                    <v-btn rounded depressed large color="brown lighten-4 mx-4">
+                        <v-radio label="Lost Pet" value="Lost Pet" required ></v-radio>
+                    </v-btn> 
+                    <v-btn rounded depressed large color="brown lighten-4 mx-4" >
+                        <v-radio label="Found Pet" value="Found Pet" required ></v-radio>
+                    </v-btn>
+             
             </v-col>
             </v-radio-group>
             </v-row>
             <v-row justify="center mb-3">
             <!-- Pet's Name -->
                 <v-col cols="12" md="6">
-                    <v-text-field label="Pet's Name" placeholder="Enter the pet's name..."
-                    :rules="inputRules" name:pname outlined>
+                    <v-text-field label="Pet's Name" placeholder="Enter unknown if pet's name is not known..."
+                    :rules="inputRules" name:pname outlined v-model="petName">
                     </v-text-field>
                 </v-col>
             <!-- Last seen Location-->
@@ -40,8 +42,8 @@
                     <v-text-field
                             label="Pet's Last Seen Location"
                             placeholder="Enter the pet's last seen location..."
-                            :rules="inputRules"
-                            v-model=loc
+                            :rules="zipRule"
+                            v-model="petLocation"
                             outlined
                     ></v-text-field>
                 </v-col>
@@ -66,27 +68,27 @@
                 </v-col>
             <!-- Pet type-->
                 <v-col cols="12" md="6">
-                    <v-combobox outlined :items="petTypes" label="Pet's Type" placeholder="Select the Pet's Type..." class="text-brown"></v-combobox>
+                    <v-combobox v-model="petType" outlined :items="petTypes" label="Pet's Type" placeholder="Select the Pet's Type..." class="text-brown"></v-combobox>
                 </v-col>
             <!-- Breed -->
                 <v-col cols="12" md="6">
-                    <v-combobox outlined :items="petTypes" label="Pet's Breed" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
+                    <v-combobox v-model="petBreed" outlined :items="petTypes" label="Pet's Breed" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
                 </v-col>
             <!-- Colour -->
             <v-col cols="12" md="6">
-                <v-combobox outlined :items="petColours" label="Pet's Colour" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
+                <v-combobox v-model="petColor" outlined :items="petColours" label="Pet's Colour" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
             </v-col>
             <!-- Collar colour -->
             <v-col cols="12" md="6">
-                <v-combobox outlined :items="collarColours" label="Pet's Collar Colour" placeholder="Select the Pet's Collar Colour..." class="text-brown"></v-combobox>
+                <v-combobox v-model="collarColor" outlined :items="collarColours" label="Pet's Collar Colour" placeholder="Select the Pet's Collar Colour..." class="text-brown"></v-combobox>
             </v-col>
             <!-- Size -->
             <v-col cols="12" md="6">
-                <v-combobox outlined :items="petSizes" label="Pet's Size" placeholder="Select the Pet's Size.." class="text-brown"></v-combobox>
+                <v-combobox v-model="petSize" outlined :items="petSizes" label="Pet's Size" placeholder="Select the Pet's Size.." class="text-brown"></v-combobox>
             </v-col>
             <!-- Gender -->
             <v-col cols="12" md="6">
-                <v-combobox outlined :items="petGenders" label="Pet's Gender" placeholder="Select the Pet's Gender..." class="text-brown"></v-combobox>
+                <v-combobox v-model="petGender" outlined :items="petGenders" label="Pet's Gender" placeholder="Select the Pet's Gender..." class="text-brown"></v-combobox>
             </v-col>
             <!-- Submit Photo -->
             <v-col cols="12" md="6">
@@ -99,7 +101,7 @@
             <!-- Submit -->
             <v-row align="center" justify="center" class="mt-5">
                 <v-col cols="12" align="center">
-                    <v-btn x-large depressed color="brown lighten-4">
+                    <v-btn x-large depressed color="brown lighten-4" type="submit" :disabled="!formIsValid" >
                         Submit
                     </v-btn>
                 </v-col>
@@ -118,7 +120,10 @@ import AOS from 'aos'
 // const { validationMixin, default: Vuelidate } = require('vuelidate')
 // const { required} = require('vuelidate/lib/validators')
 
+
+
 export default {
+name:'reportpet',
 mounted() {
     AOS.init({
     duration: 1000,
@@ -136,16 +141,44 @@ data(){
       fromDateMenu: false,
       fromDateVal: null,
       minDate: "2019-07-04",
-      inputRules: [
+
+        
+    //bind form data to submitted_pet 
+    formType:'',
+    petLocation:'',
+    petName:'',
+    petType:'',
+    petColor:'',
+    petGender:'',
+    collarColor:'',
+    breed:'',
+    petSize:'',
+    //use this.date to access date (string format)
+    //left with img
+
+
+    inputRules: [
             v => v.length >= 3 || 'Minimum length is 3 characters'
         ],
         zipRule: [
             v => Number.isInteger(Number(v)) || 'Zip must be numeric',
             v => v.length == 6 || 'Zip length must be 6 characters'
-        ]
+        ],
+
+
+    // submitted_pet: {
+    //     formType:'',
+    //     name:'',
+    //     petType:'',
+    //     color:'',
+    //     gender:'',
+    //     collarColor:'',
+    //     breed:'',
+    //     size:'',
+    // },
   }
 },
-validations (){
+// validations (){
     // return {
     //     pname: {required},
     //     loc: {required},
@@ -158,10 +191,17 @@ validations (){
     //     gen: {required},
     //     petSize: {required}
     // }
-},
+// },
 methods: {
+    submitted(){
+    },
     submitForm() {
         this.v$.validate()
+        this.$store.dispatch('addpet', {
+            email:this.email, 
+            password:this.password, 
+            fullname:this.fullname, 
+            username:this.username})
 
     },
     // functions for scrolling to top
@@ -174,13 +214,25 @@ methods: {
       this.$vuetify.goTo(0)
     }
 },
-    computed: {
-      fromDateDisp() {
-        return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
-        // format date, apply validations, etc. Example below.
-        // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
+computed: {
+    //   fromDateDisp() {
+    //     return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
+    //     // format date, apply validations, etc. Example below.
+    //     // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
+    //   },
+      formIsValid() {
+        return this.formType!='' && 
+        this.petName!='' && 
+        this.petType!='' && 
+        this.petColor!='' && 
+        this.petGender!=''&& 
+        this.collarColor!=''&& 
+        this.breed!=''&& 
+        this.petSize!=''&&
+        this.petLocation!=''
       },
     },
 }
+
 
 </script>
