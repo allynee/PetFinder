@@ -68,8 +68,66 @@
                 </v-row>
             </template>
         </v-tab-item>
-        <v-tab-item>
-            <p>huh</p>
+        <v-tab-item class="brown lighten-5">
+            <v-row
+                class="mt-5"
+            >
+                <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
+                All
+                </v-btn>
+                <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
+                Dogs
+                </v-btn>
+                <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
+                Cats
+                </v-btn>
+            </v-row>
+            <v-card
+            elevation="24"
+            max-width="500"
+            class="mx-auto mt-15">
+                <v-carousel hide-delimiters
+                
+                >
+                <template v-slot:prev="{ on, attrs }">
+                <v-btn
+                color="brown lighten-4"
+                    v-bind="attrs"
+                    v-on="on"
+                    onclick="getsPetsList"
+                    fab
+                ><v-icon>mdi-chevron-left</v-icon></v-btn>
+                </template>
+                <template v-slot:next="{ on, attrs }">
+                <v-btn
+                color="brown lighten-4"
+                    v-bind="attrs"
+                    v-on="on"
+                    onclick="getPetsList"
+                    fab
+                ><v-icon>mdi-chevron-right</v-icon></v-btn>
+                </template>
+                <v-carousel-item
+                    v-for="breed in filteredPets"
+                    :key="breed"
+                    :src="breed.image"
+                    >
+                </v-carousel-item>
+                </v-carousel>
+                <v-list>
+                    <v-list-item v-for="pet in getPetsList"
+                        :key="pet">
+                                <v-btn
+                                block
+                                outlined
+                                color="primary"
+                                class="mx-auto"
+                                >
+                                {{pet}}
+                                </v-btn>
+                    </v-list-item>
+                </v-list>
+            </v-card>
         </v-tab-item>
       </v-tabs-items>
     </v-container>
@@ -124,39 +182,39 @@ export default {
             {name:'Welsh Corgi Dog', image:'dog49.png', pet:'dog'},
             {name:'Yorkshire Terrier Dog', image:'dog50.png', pet:'dog'},
             
-            {name:'Abyssinian Cat', image:'cat1.png', pet:'cat'},
+            {name:'Abyssinian Cat', image:'cat39.png', pet:'cat'},
             {name:'American Bobtail Cat', image:'cat2.png', pet:'cat'},
-            {name:'American Curl Cat',image:'cat3.png', pet:'cat'},
+            {name:'American Curl Cat',image:'cat40.png', pet:'cat'},
             {name:'Birman Cat',image:'cat19.png',pet:'cat'},
             {name:'Bombay Cat',image:'cat4.png', pet:'cat'},
             {name:'Burmese Cat',image:'cat21.png',pet:'cat'},
-            {name:'Chartreux Cat',image:'cat5.png', pet:'cat'},
-            {name:'Cornish Rex Cat', image:'cat22.png', pet:'cat'},
+            {name:'Chartreux Cat',image:'cat41.png', pet:'cat'},
+            {name:'Cornish Rex Cat', image:'cat42.png', pet:'cat'},
             {name:'Devon Rex Cat',image:'cat20.png',pet:'cat'},
-            {name:'Egyptian Mau Cat',image:'cat6.png', pet:'cat'},
-            {name:'Exotic Shorthair Cat',image:'cat23.png',pet:'cat'},
+            {name:'Egyptian Mau Cat',image:'cat43.png', pet:'cat'},
+            {name:'Exotic Shorthair Cat',image:'cat44.png',pet:'cat'},
             {name:'Havana Brown Cat',image:'cat24.png',pet:'cat'},
             {name:'Himalayan Cat',image:'cat7.png', pet:'cat'},
             {name:'Japanese Bobtail Cat',image:'cat25.png',pet:'cat'},
             {name:'LaPerm Cat',image:'cat26.png',pet:'cat'},
             {name:'Maine Coon Cat',image:'cat27.png',pet:'cat'},
-            {name:'Manx Cat',image:'cat8.png', pet:'cat'},
+            {name:'Manx Cat',image:'cat45.png', pet:'cat'},
             {name:'Munchkin Cat',image:'cat9.png', pet:'cat'},
-            {name:'Norwegian Forest Cat',image:'cat28.png', pet:'cat'},
+            {name:'Norwegian Forest Cat',image:'cat46.png', pet:'cat'},
             {name:'Ocicat Cat',image:'cat10.png', pet:'cat'},
-            {name:'Oriental Shorthair Cat', image:'cat37.png',pet:'cat'},
-            {name:'Persian Cat',image:'cat11.png', pet:'cat'},
+            {name:'Oriental Shorthair Cat', image:'cat47.png',pet:'cat'},
+            {name:'Persian Cat',image:'cat48.png', pet:'cat'},
             {name:'Pixiebob Cat',image:'cat29.png',pet:'cat'},
             {name:'Ragamuffin Cat',image:'cat12.png', pet:'cat'},
-            {name:'Ragdoll Cat',image:'cat38.png', pet:'cat'},
+            {name:'Ragdoll Cat',image:'cat49.png', pet:'cat'},
             {name:'Russian Blue Cat',image:'cat30.png',pet:'cat'},
             {name:'Savannah Cat',image:'cat31.png',pet:'cat'},
             {name:'Scottish Fold Cat',image:'cat32.png',pet:'cat'},
             {name:'Selkirk Rex Cat',image:'cat33.png',pet:'cat'},
             {name:'Siamese Cat',image:'cat14.png', pet:'cat'},
             {name:'Siberian Cat',image:'cat15.png', pet:'cat'},
-            {name:'Singapura Cat',image:'cat16.png', pet:'cat'},
-            {name:'Somali Cat',image:'cat17.png', pet:'cat'},
+            {name:'Singapura Cat',image:'cat51.png', pet:'cat'},
+            {name:'Somali Cat',image:'cat50.png', pet:'cat'},
             {name:'Tonkinese Cat',image:'cat35.png',pet:'cat'},
             {name:'Turkish Angora Cat',image:'cat18.png', pet:'cat'},
             {name:'Turkish Van Cat',image:'cat36.png',pet:'cat'}
@@ -164,13 +222,17 @@ export default {
 
         ],
         called: '',
+        petBreed: '',
     }
   },
   methods: {
     callDogs() 
     {this.called = "dog";},
     callCats() 
-    {this.called = "cat";}
+    {this.called = "cat";},
+    currImg()
+    {this.petBreed == this.breed.name}
+    
 },
   computed: {
     filteredPets() {
@@ -183,6 +245,16 @@ export default {
         else {
             return this.breeds;
         }
+    },
+    getPetsList() {
+        var petsList = [];
+        for(var i=0; i<3;i++){
+            var id = Math.ceil(Math.random()*this.breeds.length)
+            var petName = this.breeds[id].name
+            petsList.push(petName)
+        }
+        petsList.push(this.petBreed)
+        return petsList.sort((a, b) => a < b ? -1 : 1)
     }
   }
 }
