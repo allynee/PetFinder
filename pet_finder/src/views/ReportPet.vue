@@ -129,7 +129,7 @@ data(){
     radioGroup: 1,
     petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"], 
     petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
-    collarColours: ["Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
+    collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
     petGenders: ['Male','Female',"Unknown"],
     petSizes: ['Small', 'Medium', 'Large'],
       colour: [1,4],
