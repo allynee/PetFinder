@@ -178,7 +178,7 @@
         //array of objects
         // (_id, PetName, MissingSince, Type, Breed, Gender, NearestLoc, Zip, Color, Collar, Size)
         allPets: [
-          {id: "123456789", petImage: "testimg.png", petName: "Snoop Dog", petType: "Dog", petBreed: "Corgi", petColour: "Brown", missingSince: "20th Jan 2022", petGender: "Male", collarColour: "No Collar", petSize: "medium"},
+          {id: "123456789", petImage: "testimg.png", petName: "Snoop Dog", petType: "Dog", petBreed: "Corgi", petColour: "Brown", missingSince: "20th Jan 2022", petGender: "Male", collarColour: "No Collar", petSize: "Medium"},
         ],
     }
   },
