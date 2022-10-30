@@ -203,7 +203,7 @@ methods: {
             console.log(doc)
             const docRef= addDoc(collection(db, 'LostPets'), doc)
             .then( ()=> {
-                alert('Document added with ID', docRef.id)
+                alert('Lost pet listed with ID', docRef.id)
             })
             .catch( (err)=>{
                 console.log(err)
@@ -227,7 +227,7 @@ methods: {
             console.log(doc)
             const docRef= addDoc(collection(db, 'FoundPets'), doc)
             .then( ()=> {
-                alert('Document added with ID', docRef.id)
+                alert('Found pet listed with ID', docRef.id)
             })
             .catch( (err)=>{
                 console.log(err)

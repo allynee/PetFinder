@@ -53,7 +53,7 @@
                                         id="password"
                                         v-model="password"
                                         type="password"
-                                        required>
+                                        :rules="[passwordLength]">
                                         </v-text-field>
                                     </v-flex>
                                 </v-layout>
@@ -73,7 +73,7 @@
 
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit">
+                                        <v-btn type="submit" :disabled="!formIsValid">
                                             Register
                                         </v-btn>
                                     </v-flex>
@@ -93,7 +93,10 @@
   </template>
   
   <script>
-    
+    import db from '../firebase/index'
+    // import router from '../router/index'
+    import { addDoc,collection } from 'firebase/firestore'
+    import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
   
     export default {
 
@@ -112,13 +115,53 @@
         comparePasswords(){
             return this.password!=this.confirmpassword ? 'Passwords do not match!': ''
         },
+        passwordLength(){
+            return this.password.length<6 ? 'Password must have at least 6 characters long!' :''
+        },
+        formIsValid(){
+            return this.fullname!='' && 
+            this.email!='' &&
+            this.username!=''&&
+            this.password!='' &&
+            this.confirmpassword!=''&&
+            this.password==this.confirmpassword
+        }
     
       
       },
       methods:{
+
         onRegister(){
-            this.$store.dispatch('register', {email:this.email, password:this.password, fullname:this.fullname, username:this.username})
-            console.log()
+            const auth=getAuth()
+            //Async Create User function
+            createUserWithEmailAndPassword(auth, this.email, this.password)
+            .then( user=>{
+                this.userid=user.user.uid
+                const newUser={
+                    userid: this.userid,
+                    fullname:this.fullname,
+                    email: this.email, 
+                    username: this.username,
+                    password:this.password,
+                    listedPets:[],
+                }
+                //Async function to add this user into collection (inner async loop)
+                addDoc(collection(db, 'Users'), newUser)
+                .then( ()=>{
+                    alert('Registration successful!')
+                    this.$router.push('/login')
+                })
+                .catch( (err)=>{
+                    console.log(err)
+                    alert('Email already in use! Please retry!')
+                    return
+                })
+            })
+            .catch( (err)=>{
+                console.log(err)
+                alert('Email already in use! Please retry!')
+                return
+            })
             // console.log('account created')
         }
       }
