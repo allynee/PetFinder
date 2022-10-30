@@ -11,7 +11,7 @@
             </v-col>
         </v-row>
         <v-divider></v-divider>
-        <v-form class="px-3 my-5" ref="form" @submit.prevent="submitted" data-aos="fade-down">
+        <v-form class="px-3 my-5" ref="form" @submit.prevent="submitForm" data-aos="fade-down">
             <v-row justify="center" class="my-5">
             <!-- Choose btwn lost and found -->
             <v-col cols="12">
@@ -92,7 +92,7 @@
             </v-col>
             <!-- Submit Photo -->
             <v-col cols="12" md="6">
-                <v-file-input outlined label="Pet's Image" 
+                <v-file-input outlined label="Pet's Image" accept="image/*"
                     placeholder="Upload an Image of the Pet"
                                 prepend-icon="mdi-camera"
                 ><v-icon>mdi-camera</v-icon></v-file-input>
@@ -119,6 +119,9 @@
 import AOS from 'aos'
 // const { validationMixin, default: Vuelidate } = require('vuelidate')
 // const { required} = require('vuelidate/lib/validators')
+import db from '../firebase/index'
+import { collection, addDoc } from 'firebase/firestore'
+//collection ref
 
 
 
@@ -151,8 +154,9 @@ data(){
     petColor:'',
     petGender:'',
     collarColor:'',
-    breed:'',
+    petBreed:'',
     petSize:'',
+    date:null,
     //use this.date to access date (string format)
     //left with img
 
@@ -165,17 +169,6 @@ data(){
             v => v.length == 6 || 'Zip length must be 6 characters'
         ],
 
-
-    // submitted_pet: {
-    //     formType:'',
-    //     name:'',
-    //     petType:'',
-    //     color:'',
-    //     gender:'',
-    //     collarColor:'',
-    //     breed:'',
-    //     size:'',
-    // },
   }
 },
 // validations (){
@@ -193,15 +186,55 @@ data(){
     // }
 // },
 methods: {
-    submitted(){
-    },
     submitForm() {
-        this.v$.validate()
-        this.$store.dispatch('addpet', {
-            email:this.email, 
-            password:this.password, 
-            fullname:this.fullname, 
-            username:this.username})
+        if (this.formType=='Lost Pet'){
+            const doc= {
+                petName:this.petName,
+                petLocation: this.petLocation,
+                petDate: this.date,
+                petType: this.petType,
+                petBreed: this.petBreed[0],
+                petColor:this.petColor[0],
+                collarColor:this.collarColor,
+                petSize:this.petSize,
+                petGender:this.petGender,
+                //left image
+            }
+            console.log(doc)
+            const docRef= addDoc(collection(db, 'LostPets'), doc)
+            .then( ()=> {
+                alert('Document added with ID', docRef.id)
+            })
+            .catch( (err)=>{
+                console.log(err)
+                alert("Failed to add lost pet. Please check the fields and try again!")
+            })
+        }
+
+        else{
+            const doc= {
+                petName:this.petName,
+                petLocation: this.petLocation,
+                petDate: this.date,
+                petType: this.petType,
+                petBreed: this.petBreed[0],
+                petColor:this.petColor[0],
+                collarColor:this.collarColor,
+                petSize:this.petSize,
+                petGender:this.petGender,
+                //left image
+            }
+            console.log(doc)
+            const docRef= addDoc(collection(db, 'FoundPets'), doc)
+            .then( ()=> {
+                alert('Document added with ID', docRef.id)
+            })
+            .catch( (err)=>{
+                console.log(err)
+                alert("Failed to add found pet. Please check the fields and try again!")
+            })
+        }
+        
 
     },
     // functions for scrolling to top
@@ -227,9 +260,11 @@ computed: {
         this.petColor!='' && 
         this.petGender!=''&& 
         this.collarColor!=''&& 
-        this.breed!=''&& 
+        this.petBreed!=''&& 
         this.petSize!=''&&
-        this.petLocation!=''
+        this.petLocation!=''&&
+        this.date!=null
+        //left with validation for image and date
       },
     },
 }

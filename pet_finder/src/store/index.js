@@ -1,17 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import firebase from 'firebase/app'
-// import { collection, getDocs } from 'firbase/firestore'
+import db from '../firebase/index'
+// import { collection, getDocs } from 'firebase/firestore'
 import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 
-Vue.use(Vuex)
+console.log(db)
 
-// const userRef=collection(db, 'Users')
+
+//collection ref
+// const lostRef=collection(db, 'LostPets')
+
+// //get collection data
 // getDocs(userRef)
 // .then((snapshot)=>{
 //     console.log(snapshot.docs)
-//     console.log("database connected")
 // })
+Vue.use(Vuex)
+
+
+
+
 
 export const store =new Vuex.Store({
     state:{

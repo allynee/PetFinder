@@ -7,27 +7,20 @@ import 'aos/dist/aos.css'
 //backend stuff
 import { store } from './store/index'
 import "./firebase/index"
-import { 
-    getFirestore, collection, getDocs
-} from 'firebase/firestore'
+// import { 
+//     getFirestore, collection, getDocs
+// } from 'firebase/firestore'
+
+
 
 //connecting to firebase 
-const db=getFirestore()
 
-//get collection data
-const userRef=collection(db, 'Users')
-getDocs(userRef)
-.then((snapshot)=>{
-    console.log(snapshot.docs)
-    console.log("database connected")
-})
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   vuetify,
-  db,
   store:store,
   render: h => h(App),
   mounted() {
