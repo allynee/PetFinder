@@ -23,6 +23,10 @@
             <span>Report Pet</span>
         </v-btn>
 
+        <v-btn plain color="primary" class="mx-3 font-weight-bold" to="/Learn">
+            <span>Learn</span>
+        </v-btn>
+
         <!-- drop down search -->
         <v-menu bottom :offset-y=true>
             <template v-slot:activator="{ on, attrs }">
