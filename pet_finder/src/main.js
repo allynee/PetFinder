@@ -14,6 +14,8 @@ Vue.use(VueGeolocation);
 
 // Gmaps
 import * as VueGoogleMaps from 'vue2-google-maps';
+import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM',
@@ -24,7 +26,7 @@ Vue.use(VueGoogleMaps, {
     // (as you require)
  
     //// If you want to set the version, you can do so:
-    // v: '3.26',<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM&libraries=places"></script>
+    // v: '3.26',
 
   },
  
@@ -40,6 +42,14 @@ Vue.use(VueGoogleMaps, {
   //// then disable the following:
   // installComponents: true,
 })
+
+Vue.use(VuetifyGoogleAutocomplete, {
+  /*
+    not used as loaded with component
+    apiKey: key,
+  */
+  vueGoogleMapsCompatibility: true,
+});
 
 Vue.config.productionTip = false;
 

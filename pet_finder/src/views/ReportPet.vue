@@ -37,6 +37,7 @@
                 </v-col>
             <!-- Last seen Location-->
                 <v-col cols="12" md="6">
+                    <gmap-autocomplete class="introInput" >
                     <v-text-field id="search"
                             label="Pet's Last Seen Location"
                             placeholder="Enter the pet's last seen location..."
@@ -45,7 +46,8 @@
                             outlined
                             append-icon="mdi-map-marker"
                             @click:append="getUserLoc"
-                    ></v-text-field>
+                            ref="input"
+                    ></v-text-field></gmap-autocomplete>
                 </v-col>
             <!-- Date -->
             <v-col cols="12" md="6">
@@ -122,14 +124,17 @@ import AOS from 'aos'
 // const { required} = require('vuelidate/lib/validators')
 
 
-
 export default {
+
 mounted() {
     AOS.init({
     duration: 1000,
-})},
+    });
+    this.$refs.address.focus();
+},
 data(){
   return {
+    address: "",
     fab: false,
     radioGroup: 1,
     petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"], 
@@ -193,13 +198,13 @@ methods: {
       this.$vuetify.goTo(0)
     }
 },
-    computed: {
+computed: {
       fromDateDisp() {
         return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
         // format date, apply validations, etc. Example below.
         // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
       },
-    },
+},
 }
 
 </script>
