@@ -55,7 +55,7 @@
                 <v-row>
                     <v-col cols="12" md="4" v-for="breed in filteredPets" :key="breed.name">
                         <v-card
-                        class="mx-auto my-12 pa-3"
+                        class="mx-auto my-6 pa-3"
                         max-width="360">
                         <v-responsive>
                             <v-img height="400" :src= "breed.image"
@@ -69,19 +69,38 @@
             </template>
         </v-tab-item>
         <v-tab-item class="brown lighten-5">
+            <p class="mt-11">Test your knowledge on animal breeds by answering 5 questions below!
+                </p>
             <v-row
-                class="mt-5"
+                class="mt-5 d-flex justify-space-between"
             >
-                <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
-                All
-                </v-btn>
-                <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
-                Dogs
-                </v-btn>
-                <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
-                Cats
-                </v-btn>
+                <div>
+                    <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
+                    All
+                    </v-btn>
+                    <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
+                    Dogs
+                    </v-btn>
+                    <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
+                    Cats
+                    </v-btn>
+                </div>
+                <div class="my-0">
+                    <Popup v-if='this.getResults == true'/>
+                </div>
             </v-row>
+                <template>
+                    <div>
+                        <v-progress-linear
+                            v-model="perc_prog"
+                            height="25"
+                            class="mt-12"
+                            color="brown lighten-3"
+                            >
+                            <strong>{{ (this.prog) }}/5</strong>
+                        </v-progress-linear>
+                    </div>
+                </template>
             <v-card
             elevation="24"
             max-width="500"
@@ -94,7 +113,7 @@
                 color="brown lighten-4"
                     v-bind="attrs"
                     v-on="on"
-                    onclick="getsPetsList"
+                    @click="increaseProg();getPetsList()"
                     fab
                 ><v-icon>mdi-chevron-left</v-icon></v-btn>
                 </template>
@@ -103,19 +122,19 @@
                 color="brown lighten-4"
                     v-bind="attrs"
                     v-on="on"
-                    onclick="getPetsList"
+                    @click="increaseProg();getPetsList()"
                     fab
                 ><v-icon>mdi-chevron-right</v-icon></v-btn>
                 </template>
                 <v-carousel-item
                     v-for="breed in filteredPets"
-                    :key="breed"
+                    :key="breed.name"
                     :src="breed.image"
                     >
                 </v-carousel-item>
                 </v-carousel>
                 <v-list>
-                    <v-list-item v-for="pet in getPetsList"
+                    <v-list-item v-for="pet in getPetsList()"
                         :key="pet">
                                 <v-btn
                                 block
@@ -134,7 +153,9 @@
 </template>
 
 <script>
+import Popup from '../components/Popup.vue'
 export default {
+    components: {Popup},
   data () {
     return {
       tab: null,
@@ -223,6 +244,9 @@ export default {
         ],
         called: '',
         petBreed: '',
+        prog: 1,
+        perc_prog: 20,
+        getResults: false,
     }
   },
   methods: {
@@ -231,7 +255,35 @@ export default {
     callCats() 
     {this.called = "cat";},
     currImg()
-    {this.petBreed == this.breed.name}
+    {this.petBreed == this.breed.name},
+    increaseProg()
+    {   console.log('y')
+        if (this.prog == 5){
+            this.prog = 1
+            this.perc_prog = 20
+            this.getResults = false
+        }
+        else if (this.prog == 4){
+            this.getResults = true
+            this.prog += 1
+            this.perc_prog += 20
+        }
+        else{
+            this.prog += 1
+            this.perc_prog += 20
+        }
+    },
+    getPetsList() {
+        var petsList = [];
+        for(var i=0; i<3;i++){
+            var id = Math.ceil(Math.random()*this.breeds.length)
+            var petName = this.breeds[id].name
+            petsList.push(petName)
+        }
+        petsList.push(this.petBreed)
+        return petsList.sort((a, b) => a < b ? -1 : 1)
+    },
+        
     
 },
   computed: {
@@ -246,16 +298,10 @@ export default {
             return this.breeds;
         }
     },
-    getPetsList() {
-        var petsList = [];
-        for(var i=0; i<3;i++){
-            var id = Math.ceil(Math.random()*this.breeds.length)
-            var petName = this.breeds[id].name
-            petsList.push(petName)
-        }
-        petsList.push(this.petBreed)
-        return petsList.sort((a, b) => a < b ? -1 : 1)
-    }
+
+    // trigPopUp() {
+
+    // }
   }
 }
 </script>

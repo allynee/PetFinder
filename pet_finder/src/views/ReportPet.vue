@@ -41,7 +41,7 @@
                             label="Pet's Last Seen Location"
                             placeholder="Enter the pet's last seen location..."
                             :rules="inputRules"
-                            v-model=loc
+                            id="search"
                             outlined
                     ></v-text-field>
                 </v-col>
@@ -184,3 +184,19 @@ methods: {
 }
 
 </script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM&libraries=places"></script> -->
+
+<!-- <script>
+    
+    google.maps.event.addDomListener(window,'load',initialize)
+    function initialize(){
+        var autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'));
+            google.maps.event.addListener(autocomplete, 'place_changed', function(){
+                var place = autocomplete.getPlace();
+                var location = place.formatted_address;
+                var lat = place.geometry.location.lat();
+                var long = place.geometry.location.lng();
+                console.log(lat,long)
+            })
+    }
+</script> -->

@@ -23,7 +23,7 @@
             <span>Report Pet</span>
         </v-btn>
 
-        <v-btn plain color="primary" class="mx-3 font-weight-bold" to="/Learn">
+        <v-btn plain color="primary" class="mx-3 font-weight-bold hidden-sm-only" to="/Learn">
             <span>Learn</span>
         </v-btn>
 
@@ -112,6 +112,7 @@ export default {
             links: [
                 {text: 'Home', route: '/', icon: 'mdi-home'},
                 {text: 'Report a pet', route:'/ReportPet', icon: 'mdi-dog-side'},
+                {text: 'Learn about pets', route:'/Learn', icon: 'mdi-book'},
                 {text: 'View all pets', route:'/Dashboard', icon: 'mdi-magnify'},
                 {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
                 {text: 'My Account', route:'/', icon: 'mdi-account'}
