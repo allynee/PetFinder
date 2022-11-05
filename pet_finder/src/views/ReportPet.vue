@@ -37,17 +37,16 @@
                 </v-col>
             <!-- Last seen Location-->
                 <v-col cols="12" md="6">
-                    <gmap-autocomplete class="introInput" >
-                    <v-text-field id="search"
-                            label="Pet's Last Seen Location"
-                            placeholder="Enter the pet's last seen location..."
-                            :rules="inputRules"
-                            v-model=loc
-                            outlined
-                            append-icon="mdi-map-marker"
-                            @click:append="getUserLoc"
-                            ref="input"
-                    ></v-text-field></gmap-autocomplete>
+                    <vuetify-google-autocomplete id="searc" label="Pet's Last Seen Location" append-icon="mdi-map-marker" outlined
+                        placeholder="Enter the pet's last seen location..."
+                        
+                        country="sg"
+                        :rules="inputRules"
+                        v-model=loc
+                        @click:append="getUserLoc"
+                    >
+                        </vuetify-google-autocomplete>
+                        <!-- @placechanged="getAddressData" -->
                 </v-col>
             <!-- Date -->
             <v-col cols="12" md="6">
