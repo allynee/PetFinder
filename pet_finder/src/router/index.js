@@ -32,9 +32,9 @@ const routes = [
     component: SignUp
   },
   {
-    path: '/mymap',
-    name: 'mymap',
-    component: MyMap
+    path: '/MyMap',
+    name: 'MyMap',
+    component: MyMap,
   },
   {
     path: '/learn',

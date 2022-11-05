@@ -37,12 +37,14 @@
                 </v-col>
             <!-- Last seen Location-->
                 <v-col cols="12" md="6">
-                    <v-text-field
+                    <v-text-field id="search"
                             label="Pet's Last Seen Location"
                             placeholder="Enter the pet's last seen location..."
                             :rules="inputRules"
                             v-model=loc
                             outlined
+                            append-icon="mdi-map-marker"
+                            @click:append="getUserLoc"
                     ></v-text-field>
                 </v-col>
             <!-- Date -->
@@ -113,10 +115,13 @@
 </div>
 </template>
 
+
 <script>
 import AOS from 'aos'
 // const { validationMixin, default: Vuelidate } = require('vuelidate')
 // const { required} = require('vuelidate/lib/validators')
+
+
 
 export default {
 mounted() {
@@ -163,6 +168,20 @@ methods: {
     submitForm() {
         this.v$.validate()
 
+    },
+    // get user current location
+    getUserLoc(){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(position=>{
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+            },
+            error=>{
+                console.log(error.message);
+            })
+        }else{
+            console.log("Your browser does not support geolocation API ");
+        }
     },
     // functions for scrolling to top
     onScroll (e) {
