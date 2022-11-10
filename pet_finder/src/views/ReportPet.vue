@@ -154,10 +154,10 @@ data(){
     collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
     petGenders: ['Male','Female',"Unknown"],
     petSizes: ['Small', 'Medium', 'Large'],
-      colour: [1,4],
-      fromDateMenu: false,
-      fromDateVal: null,
-      minDate: "2019-07-04",
+    colour: [1,4],
+    fromDateMenu: false,
+    fromDateVal: null,
+    minDate: "2019-07-04",
 
         
     //bind form data to submitted_pet 
@@ -281,7 +281,7 @@ computed: {
     //     // format date, apply validations, etc. Example below.
     //     // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
     //   },
-      formIsValid() {
+    formIsValid() {
         return this.formType!='' && 
         this.petName!='' && 
         this.petType!='' && 
@@ -293,14 +293,8 @@ computed: {
         this.petLocation!=''&&
         this.date!=null
         //left with validation for image and date
-
-      fromDateDisp() {
-        return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
-        // format date, apply validations, etc. Example below.
-        // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
-      },
-},
+    },
 }
-
+}
 
 </script>
