@@ -37,9 +37,9 @@
                 </v-col>
             <!-- Last seen Location-->
                 <v-col cols="12" md="6">
-                    <vuetify-google-autocomplete id="searc" label="Pet's Last Seen Location" append-icon="mdi-map-marker" outlined
-                        placeholder="Enter the pet's last seen location..."
-                        
+                    <!-- placeholder="Enter the pet's last seen location..." -->
+                    <!-- removed bc there's some weird overlap-->
+                    <vuetify-google-autocomplete id="search" label="Pet's Last Seen Location" append-icon="mdi-map-marker" outlined
                         country="sg"
                         :rules="inputRules"
                         v-model=loc
