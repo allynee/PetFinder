@@ -1,9 +1,13 @@
 <template>
-    <div></div>
-    </template>
+    <Map></Map>
+</template>
         
-    <script>
+<script>
+import Map from "../components/Map";
+
     export default {
+      name: "MyMap",
+      components: {Map},
       data(){
         return {
           //no data for now
@@ -13,4 +17,4 @@
           //no methods for now
       }
     }
-    </script>
+</script>

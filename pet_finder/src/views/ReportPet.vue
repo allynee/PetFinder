@@ -39,13 +39,18 @@
                 </v-col>
             <!-- Last seen Location-->
                 <v-col cols="12" md="6">
-                    <v-text-field
-                            label="Pet's Last Seen Location"
-                            placeholder="Enter the pet's last seen location..."
-                            :rules="zipRule"
-                            v-model="petLocation"
-                            outlined
-                    ></v-text-field>
+
+                    <!-- placeholder="Enter the pet's last seen location..." -->
+                    <!-- removed bc there's some weird overlap-->
+                    <vuetify-google-autocomplete id="search" label="Pet's Last Seen Location" append-icon="mdi-map-marker" outlined
+                        country="sg"
+                        :rules="inputRules"
+                        v-model="petLocation"
+                        @click:append="getUserLoc"
+                    >
+                        </vuetify-google-autocomplete>
+                        <!-- @placechanged="getAddressData" -->
+
                 </v-col>
             <!-- Date -->
             <v-col cols="12" md="6">
@@ -115,6 +120,7 @@
 </div>
 </template>
 
+
 <script>
 import AOS from 'aos'
 // const { validationMixin, default: Vuelidate } = require('vuelidate')
@@ -125,19 +131,27 @@ import { collection, addDoc } from 'firebase/firestore'
 
 
 
+
 export default {
+
 name:'reportpet',
+
+
+
 mounted() {
     AOS.init({
     duration: 1000,
-})},
+    });
+    this.$refs.address.focus();
+},
 data(){
   return {
+    address: "",
     fab: false,
     radioGroup: 1,
     petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"], 
     petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
-    collarColours: ["Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
+    collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
     petGenders: ['Male','Female',"Unknown"],
     petSizes: ['Small', 'Medium', 'Large'],
       colour: [1,4],
@@ -237,6 +251,20 @@ methods: {
         
 
     },
+    // get user current location
+    getUserLoc(){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(position=>{
+                console.log(position.coords.latitude);
+                console.log(position.coords.longitude);
+            },
+            error=>{
+                console.log(error.message);
+            })
+        }else{
+            console.log("Your browser does not support geolocation API ");
+        }
+    },
     // functions for scrolling to top
     onScroll (e) {
       if (typeof window === 'undefined') return
@@ -265,8 +293,13 @@ computed: {
         this.petLocation!=''&&
         this.date!=null
         //left with validation for image and date
+
+      fromDateDisp() {
+        return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
+        // format date, apply validations, etc. Example below.
+        // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
       },
-    },
+},
 }
 
 
