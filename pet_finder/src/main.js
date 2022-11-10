@@ -7,6 +7,17 @@ import vuetify from './plugins/vuetify'
 // Animation Library
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+//backend stuff
+import { store } from './store/index'
+import "./firebase/index"
+// import { 
+//     getFirestore, collection, getDocs
+// } from 'firebase/firestore'
+
+
+
+//connecting to firebase 
+
 
 // Geolocation
 import VueGeolocation from 'vue-browser-geolocation';
@@ -56,6 +67,7 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   vuetify,
+  store:store,
   render: h => h(App),
   mounted() {
     AOS.init()
