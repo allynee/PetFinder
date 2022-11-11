@@ -33,29 +33,32 @@
             <v-row justify="center mb-3">
             <!-- Pet's Name -->
                 <v-col cols="12" md="6">
-                    <v-text-field label="Pet's Name" placeholder="Enter unknown if pet's name is not known..."
+                    <v-text-field label="Pet's Name" placeholder="Enter unknown if pet's name is not known"
                     :rules="inputRules" name:pname outlined v-model="petName">
                     </v-text-field>
                 </v-col>
             <!-- Last seen Location-->
-                <v-col cols="12" md="6" @getUserLoc="getUserLoc">
+                <v-col cols="12" md="6">
 
                     <!-- placeholder="Enter the pet's last seen location..." -->
                     <!-- removed bc there's some weird overlap-->
                     <!-- <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }"> -->
                     <vuetify-google-autocomplete id="search" label="Pet's Last Seen Location" 
-                        append-icon="mdi-map-marker" outlined
+                        outlined
                         country="sg"
                         v-model="petLocation"
-                        click:append = "getUserLoc"
+                        hint="Press the icon to retrieve current location."
                     >
-                    <v-btn>test</v-btn>
+                        <template v-slot:append>
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on }">
+                                    <v-icon v-on="on" @click="getUserLoc">mdi-map-marker</v-icon>
+                                </template>
+                            Retrieve current location
+                            </v-tooltip>
+                        </template>
                     </vuetify-google-autocomplete>
-                    <!-- </template> -->
-                    <!-- @placechanged="getAddressData" -->
-                        <!-- <span>Testing</span>
-                    </v-tooltip> -->
                 </v-col>
             <!-- Date -->
             <v-col cols="12" md="6">
@@ -102,10 +105,17 @@
             </v-col>
             <!-- Submit Photo -->
             <v-col cols="12" md="6">
-                <v-file-input outlined label="Pet's Image" accept="image/*"
-                    placeholder="Upload an Image of the Pet"
-                                prepend-icon="mdi-camera"
-                ><v-icon>mdi-camera</v-icon></v-file-input>
+                <v-file-input outlined label="Pet's Image" accept="image/*" placeholder="Upload an Image of the Pet"
+                prepend-icon="" append-icon="mdi-camera">
+                <!-- <template v-slot:append>
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                                <v-icon v-on="on">mdi-camera</v-icon>
+                        </template>
+                            Retrieve current location
+                    </v-tooltip>
+                </template> -->
+            </v-file-input>
             </v-col>
             </v-row>
             <!-- Submit -->
@@ -369,15 +379,29 @@ methods: {
     },
     // get user current location
     getUserLoc(){
+        // if(localStorage.center){
+        //         this.myCoordinates = JSON.parse(localStorage.center);
+        // }else{
+                // this.$getLocation({})
+                // .then(coordinates => {
+                //     this.petLocation = "Retrieving your current location...";
+                //     this.userCoordinates = coordinates;
+                //     this.geocodeLatLng();
+                // })
+                // .catch(this.petLocation = "There was an error. Please key in your address manually instead!");
+        // }
+        this.petLocation = "Retrieving your current location...";
         if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(position=>{
+
+                navigator.geolocation.getCurrentPosition(position=>{
                 this.userCoordinates.lat = position.coords.latitude
                 this.userCoordinates.lng = position.coords.longitude
                 this.geocodeLatLng();
             },
             error=>{
-                this.petLocation = error.message;
+                this.petLocation = "There was an error. Please key in your address manually instead!"
             })
+            
         }else{
             this.petLocation = "Your browser does not support geolocation API. Please key in your address manually instead!";
         }
@@ -395,10 +419,10 @@ methods: {
         if (response.results[0]) {
             this.petLocation = response.results[0].formatted_address;
         } else {
-            this.petLocation = "No results found";
+            this.petLocation = "No results found.";
         }
         })
-        .catch((e) => this.petLocation = "Geocoder failed due to: " + e);
+        .catch((e) => this.petLocation = "There was an error. Please key in your address manually instead!");
     },
 
     // functions for scrolling to top
