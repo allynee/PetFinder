@@ -1,7 +1,7 @@
 <!-- Welcome page -->
 
 <template>
-  <div class="white">
+  <div class="white darken-3">
     <v-container class="py-10">
       <v-row justify="center" class="my-6">
         <v-col cols="9" align="center">
@@ -26,6 +26,10 @@
           FindPetNow is an online platform that aims to support you in bringing your lost pet back home. 
           Here, we have a community of pet-lovers that blablbalbalbalbalbalbalblablabblablabla.
         </p>
+        <p class="text-h6 font-weight-light brown--text text--darken-1">
+          Ready to get started?
+        </p>
+        <v-btn elevation="2" :href=href @click.prevent="scroll" class="pa-8 brown lighten-4" style="font-size: 16px;">Let's Go</v-btn>
         </v-col>
       </v-row>
       <v-row justify="center">
@@ -54,157 +58,375 @@
         </v-col> 
       </v-row>
  
-      <v-row justify="space-between" class="my-8">
+      <!-- <v-row justify="space-between" class="my-8">
         <v-col cols="7" align="left" class="pa-0" data-aos="fade-up">
             <div class="brown lighten-3 mr-8 pa-15">
               <div class="mb-5 text-h4 white--text font-weight-bold">
-                2nd block of content
+                How to Report a Lost/Found Pet
               </div>
               <p class="text-h6 font-weight-light white--text text--darken-1">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate molestias quos harum tenetur adipisci provident praesentium beatae dolor quidem nihil dicta, soluta eum, et dolorum laborum, hic eos! Explicabo, deserunt.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus temporibus repellendus esse dicta non dolorum qui iusto harum molestias quos. Expedita laudantium corrupti laborum molestias veniam totam alias quisquam nesciunt!
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti rerum error mollitia sit, nihil corporis quibusdam impedit, provident unde, commodi accusantium tenetur quidem dolor. Unde quia assumenda dolor eligendi incidunt?
+                If you lost your pet or 
               </p>
             </div>
         </v-col>  
         <v-col cols="5" class="brown lighten-3" data-aos="fade-up">
-          <div class="brown lighten-3 mr-5 pa-15">
+          <div class="brown lighten-3 mr-5 pb-15 pt-15 pl-15 pr-15">
               <div class="mb-5 text-h4 white--text text--darken-4 font-weight-bold">
-                3rd block of content
+                Learn More About our Furry Friends
               </div>
               <p class="text-h6 font-weight-light white--text text--darken-1">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate molestias quos harum tenetur adipisci provident praesentium beatae dolor quidem nihil dicta, soluta eum, et dolorum laborum, hic eos! Explicabo, deserunt.
+                Curious to find out more about the 190 different breeds of dogs and 42 different breeds of cats in the world? 
+              </p>
+              <p class="text-h6 font-weight-light white--text text--darken-1">
+                Head over to 'Learn' where there are informational cards and a game to Test Your Knowledge!
               </p>
             </div>
+            <v-row style="display:flex;justify-content:center">
+              <v-btn to="/learn?tab=one" large class="mr-3 mb-5 pt-7 pb-7 px-4">Informational Cards</v-btn>
+              <v-btn to="/learn?tab=two" large class="pt-7 pb-7">Test Your Knowledge</v-btn>
+            </v-row>
+        </v-col> 
+      </v-row> -->
+    </v-container>
+
+    <v-container class="container-fluid pa-15" id="sect1">
+      <v-row justify="space-between">
+        <v-col cols="12" lg="4" class="" data-aos="fade-up">
+              <v-img :src="require('../assets/ReadingDog.png')" class="my-3"
+              contain height="200"/>
+              <div class="mb-5 text-h4 brown--text text--darken-4 font-weight-bold text-center">
+                Report
+              </div>
+              <p class="text-h6 text-center font-weight-light brown--text text--darken-1">
+                Fill out a form to report your missing pet or somebody else's pet you found. Return back to this site to check for updates every three days. 
+              </p>
+              <v-btn to="/ReportPet" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Report Now</v-btn>
+        </v-col> 
+        <v-col cols="12" lg="4" class="" data-aos="fade-up">
+              <v-img :src="require('../assets/LearnDog.png')" class="my-3"
+              contain height="200"/>
+              <div class="mb-5 text-h4 brown--text text--darken-4 font-weight-bold text-center">
+                Learn
+              </div>
+              <p class="text-h6 text-center font-weight-light brown--text text--darken-1">
+                Curious to learn more about our furry friends? Head over to "Learn" where there are informational cards and a game to Test Your Knowledge.
+              </p>
+              <v-btn to="/Learn?tab=one" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Learn Now</v-btn>
+        </v-col>
+        <v-col cols="12" lg="4" class="" data-aos="fade-up">
+              <v-img :src="require('../assets/DetectiveDog.png')" class="my-3"
+              contain height="200"/>
+              <div class="mb-5 text-h4 brown--text text--darken-4 font-weight-bold text-center">
+                Search
+              </div>
+              <p class="text-h6 text-center font-weight-light brown--text text--darken-1">
+                Browse all the pets and check to see if yours is there. If you see your pet, reclaim it by contacting the individual who posted the information.
+              </p>
+              <v-btn to="/MyMap" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Search Now</v-btn>
         </v-col> 
       </v-row>
     </v-container>
 
-    <v-container>
-      <v-row justify="center" class="my-15">
-        <v-col cols="12" align="center" ><h1>old dumpies below</h1></v-col>
+    <!-- user reviews -->
+    <v-container data-aos="fade-up" class="brown lighten-4 mb-6 pa-15">
+      <p class="mb-5 text-h4 white--text font-weight-bold">
+        Our Users Say...
+      </p>
+      <v-row>
+        <v-col cols="12" md="4">
+          <v-card
+            class="mx-auto brown lighten-5"
+            max-width="400"
+          >
+            <v-card-title>
+              <span class="text-h6 font-weight-light">You guys are awesome</span>
+            </v-card-title>
+
+            <v-card-text class="text-h6 font-weight-bold">
+              Brilliant site. Thanks for the efficient service. Will recommend to my family. 
+            </v-card-text>
+
+            <v-card-actions>
+              <v-list-item class="grow">
+                <v-list-item-avatar color="blue darken-3">
+                  <v-img
+                    class="elevation-6"
+                    alt=""
+                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>Sean Sev</v-list-item-title>
+                </v-list-item-content>
+
+                <v-row
+                  align="center"
+                  justify="end"
+                >
+                  <v-icon class="mr-1">
+                    mdi-heart
+                  </v-icon>
+                  <span class="subheading mr-2">25</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">
+                    mdi-share-variant
+                  </v-icon>
+                  <span class="subheading">5</span>
+                </v-row>
+              </v-list-item>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-card
+            class="mx-auto brown lighten-5"
+            max-width="400"
+          >
+            <v-card-title>
+              <span class="text-h6 font-weight-light">Would highly recommend</span>
+            </v-card-title>
+
+            <v-card-text class="text-h6 font-weight-bold">
+              Was informed that my dog had been found within just a matter of days !!
+            </v-card-text>
+
+            <v-card-actions>
+              <v-list-item class="grow">
+                <v-list-item-avatar color="purple darken-3">
+                  <v-img
+                    class="elevation-6"
+                    alt=""
+                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>Evan You</v-list-item-title>
+                </v-list-item-content>
+
+                <v-row
+                  align="center"
+                  justify="end"
+                >
+                  <v-icon class="mr-1">
+                    mdi-heart
+                  </v-icon>
+                  <span class="subheading mr-2">31</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">
+                    mdi-share-variant
+                  </v-icon>
+                  <span class="subheading">90</span>
+                </v-row>
+              </v-list-item>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-card
+            class="mx-auto brown lighten-5"
+            max-width="400"
+          >
+            <v-card-title>
+              <span class="text-h6 font-weight-light">Thumbs up to Find Pet NOW</span>
+            </v-card-title>
+
+            <v-card-text class="text-h6 font-weight-bold">
+              Love being able to see all the pets near my location and accessing them so easily!  
+            </v-card-text>
+
+            <v-card-actions>
+              <v-list-item class="grow">
+                <v-list-item-avatar color="pink darken-3">
+                  <v-img
+                    class="elevation-6"
+                    alt=""
+                    src="https://avataaars.io/"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>Polly Pit</v-list-item-title>
+                </v-list-item-content>
+
+                <v-row
+                  align="center"
+                  justify="end"
+                >
+                  <v-icon class="mr-1">
+                    mdi-heart
+                  </v-icon>
+                  <span class="subheading mr-2">78</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">
+                    mdi-share-variant
+                  </v-icon>
+                  <span class="subheading">12</span>
+                </v-row>
+              </v-list-item>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-card
+            class="mx-auto brown lighten-5"
+            max-width="400"
+          >
+            <v-card-title>
+              <span class="text-h6 font-weight-light">Very easy to register</span>
+            </v-card-title>
+
+            <v-card-text class="text-h6 font-weight-bold">
+              Very easy to register. The whole process was done in a couple of minutes. 
+            </v-card-text>
+
+            <v-card-actions>
+              <v-list-item class="grow">
+                <v-list-item-avatar color="green darken-3">
+                  <v-img
+                    class="elevation-6"
+                    alt=""
+                    src="https://avataaars.io/"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>Nette Net</v-list-item-title>
+                </v-list-item-content>
+
+                <v-row
+                  align="center"
+                  justify="end"
+                >
+                  <v-icon class="mr-1">
+                    mdi-heart
+                  </v-icon>
+                  <span class="subheading mr-2">109</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">
+                    mdi-share-variant
+                  </v-icon>
+                  <span class="subheading">82</span>
+                </v-row>
+              </v-list-item>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-card
+            class="mx-auto brown lighten-5"
+            max-width="400"
+          >
+            <v-card-title>
+              <span class="text-h6 font-weight-light">Instant results!</span>
+            </v-card-title>
+
+            <v-card-text class="text-h6 font-weight-bold">
+              When they say Find Pet NOW, they really mean NOW!!! Only took 2 days to get Mochi back!
+            </v-card-text>
+
+            <v-card-actions>
+              <v-list-item class="grow">
+                <v-list-item-avatar color="grey darken-3">
+                  <v-img
+                    class="elevation-6"
+                    alt=""
+                    src="https://avataaars.io/"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>Yu Yuan</v-list-item-title>
+                </v-list-item-content>
+
+                <v-row
+                  align="center"
+                  justify="end"
+                >
+                  <v-icon class="mr-1">
+                    mdi-heart
+                  </v-icon>
+                  <span class="subheading mr-2">16</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">
+                    mdi-share-variant
+                  </v-icon>
+                  <span class="subheading">50</span>
+                </v-row>
+              </v-list-item>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-card
+            class="mx-auto brown lighten-5"
+            max-width="400"
+          >
+            <v-card-title>
+              <span class="text-h6 font-weight-light">Easy to use</span>
+            </v-card-title>
+
+            <v-card-text class="text-h6 font-weight-bold">
+              Really quick and easy to follow the instructions. Was able to get my Coco home within a few days!
+            </v-card-text>
+
+            <v-card-actions>
+              <v-list-item class="grow">
+                <v-list-item-avatar color="orange darken-3">
+                  <v-img
+                    class="elevation-6"
+                    alt=""
+                    src="https://avataaars.io/"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>Evie Ele</v-list-item-title>
+                </v-list-item-content>
+
+                <v-row
+                  align="center"
+                  justify="end"
+                >
+                  <v-icon class="mr-1">
+                    mdi-heart
+                  </v-icon>
+                  <span class="subheading mr-2">99</span>
+                  <span class="mr-1">·</span>
+                  <v-icon class="mr-1">
+                    mdi-share-variant
+                  </v-icon>
+                  <span class="subheading">12</span>
+                </v-row>
+              </v-list-item>
+            </v-card-actions>
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
 
-    <v-container>
-        <v-row align="center" justify="center" class="">
-          <v-col cols="8" class="">
-            <h1 class="text-h3 mb-3 primary--text font-weight-medium" data-aos="fade-down">
-              Welcome to FindPetNow!
-            </h1>
-            <br>
-            <p class="text-h6 font-weight-light brown--text text--darken-1">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam in possimus, maiores odit mollitia voluptas perferendis saepe voluptates accusantium quod omnis eos nisi ad dolorum neque quasi, facere magni soluta.
-            </p>
-          </v-col>
-          <v-col cols="4" class="text-center">
-            <v-img :src="require('../assets/Dog1.png')" class="my-3" contain height="600"/>
-          </v-col>
-        </v-row>
-        <br><br><br><br><br>
-    </v-container> 
+    <!-- want to be a part of this -->
+    <v-container data-aos="fade-up" class="brown lighten-5 my-6 pa-15">
+      <p class="text-h2 text-center font-weight-light black--text text--darken-1">
+        Want to be a part of this?</p>
+      <p class="text-h5 text-center font-weight-light black--text text--darken-1">
+        Sign up for an account. It's free anyway.
+      </p>
+      <p style="margin-top:50px;margin-bottom:50px" class="text-h6 text-center font-weight-light black--text text--darken-1">
+        Sign up now to get instant access to hundreds of lost pets waiting to be reclaimed by their owner. 
+      </p>
+      <v-btn to="/ReportPet" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center;">Sign Up</v-btn>
+    </v-container>
 
-  <v-container class="my-10">
-    <v-row align="center" class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/Dog1.png')"
-          class="my-3"
-          contain
-          height="350"
-        />
-      </v-col>
-
-      <v-col class="mb-4 brown--text text--darken-3">
-        <h1 class="display-2 font-weight-bold mb-3" data-aos="fade-down">
-          Welcome to FindPetNow!
-        </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          What's next?
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Important Links
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Ecosystem
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
-  <v-container fluid class="white py-10 py-2">
     <v-row justify ="center" align="center">
       <v-col cols="12" lg="9">
-        <h1 class="display-2 font-weight-bold mb-3 brown--text item" data-aos="fade-right">Just testing Lol</h1>
       </v-col>
       <v-col cols="12" lg="3">
         <video-background :src="require(`@/assets/test.mp4`)" style="height: 200px; width: 200px">
         </video-background>
       </v-col>
     </v-row>
-</v-container>
 
 <!-- scroll to top button -->
 <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
@@ -223,6 +445,7 @@
       })
     },
     data: () => ({
+      href: '#sect1',
       fab: false,
       ecosystem: [
         {
@@ -283,6 +506,12 @@
     },
     toTop () {
       this.$vuetify.goTo(0)
+    },
+    scroll() {
+                // For older browsers, consider pulling in a polyfill.
+                // https://www.npmjs.com/package/smoothscroll-polyfill
+        document.querySelector(this.href)
+                .scrollIntoView({ behavior: 'smooth' });
     }
   }
   }

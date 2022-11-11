@@ -11,52 +11,53 @@
             </v-col>
         </v-row>
         <v-divider></v-divider>
-        <v-form class="px-3 my-5" ref="form" @submit.prevent="submit" data-aos="fade-down">
+
             <v-row justify="center" class="my-5">
             <!-- Choose btwn lost and found -->
-            <v-col cols="12">
+            <v-col cols="12"> 
                 <h1 class="text-h6 brown--text text-center font-weight-light ">I am reporting a...</h1>
             </v-col>
             <v-radio-group v-model="radioGroup">
             <v-col cols="12" align="center">
                 <v-btn rounded depressed large color="brown lighten-4 mx-4">
-                    <v-radio label="Lost Pet" value="Lost Pet" required></v-radio>
+                    <v-radio label="Lost Pet" value="Lost Pet"></v-radio>
                 </v-btn>
-                <v-btn rounded depressed large color="brown lighten-4 mx-4" >
-                    <v-radio label="Found Pet" value="Found Pet" required></v-radio>
+                <v-btn rounded depressed large color="brown lighten-4 mx-4">
+                    <v-radio label="Found Pet" value="Found Pet"></v-radio>
                 </v-btn>
             </v-col>
             </v-radio-group>
             </v-row>
+        <v-form ref="form" v-model="valid" class="px-3 my-5" data-aos="fade-down">
             <v-row justify="center mb-3">
             <!-- Pet's Name -->
                 <v-col cols="12" md="6">
                     <v-text-field label="Pet's Name" placeholder="Enter the pet's name..."
-                    :rules="inputRules" name:pname outlined>
+                    outlined>
                     </v-text-field>
                 </v-col>
             <!-- Last seen Location-->
-                <v-col cols="12" md="6">
-                    <vuetify-google-autocomplete id="searc" label="Pet's Last Seen Location" append-icon="mdi-map-marker" outlined
+                <!-- <v-col cols="12" md="6">
+                    <vuetify-google-autocomplete id="searc" label="Pet's Last Seen Location*" append-icon="mdi-map-marker" outlined
                         placeholder="Enter the pet's last seen location..."
                         
                         country="sg"
-                        :rules="inputRules"
+                        :rules="mapRule"
                         v-model=loc
                         @click:append="getUserLoc"
                     >
                         </vuetify-google-autocomplete>
-                        <!-- @placechanged="getAddressData" -->
-                </v-col>
+                        @placechanged="getAddressData" -->
+                <!-- </v-col> --> 
             <!-- Date -->
             <v-col cols="12" md="6">
                 <v-menu ref="menu" v-model="menu" :close-on-content-click="false" :return-value.sync="date"
                             transition="scale-transition" offset-y min-width="auto">
                     <template v-slot:activator="{ on, attrs }">
-                        <v-text-field v-model="date" label="Pet's Last Seen Date" outlined
+                        <v-text-field v-model="date" label="Pet's Last Seen Date*" outlined :rules="calRule"
                                 v-bind="attrs" v-on="on"></v-text-field>
                     </template>
-                    <v-date-picker v-model="date" no-title scrollable>
+                    <v-date-picker v-model="date" :min="new Date().toISOString()" no-title scrollable>
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="menu = false">
                         Cancel
@@ -69,44 +70,43 @@
                 </v-col>
             <!-- Pet type-->
                 <v-col cols="12" md="6">
-                    <v-combobox outlined :items="petTypes" label="Pet's Type" placeholder="Select the Pet's Type..." class="text-brown"></v-combobox>
+                    <v-combobox outlined :items="petTypes" :rules="typeRule" label="Pet's Type*" placeholder="Select the Pet's Type..." class="text-brown"></v-combobox>
                 </v-col>
             <!-- Breed -->
                 <v-col cols="12" md="6">
-                    <v-combobox outlined :items="petTypes" label="Pet's Breed" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
+                    <v-text-field outlined type="text" label="Pet's Breed" placeholder="Type the Pet's Breed..." multiple class="text-brown"></v-text-field>
                 </v-col>
             <!-- Colour -->
             <v-col cols="12" md="6">
-                <v-combobox outlined :items="petColours" label="Pet's Colour" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
+                <v-combobox outlined :items="petColours" :rules="colorRule" label="Pet's Colour*" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
             </v-col>
             <!-- Collar colour -->
             <v-col cols="12" md="6">
-                <v-combobox outlined :items="collarColours" label="Pet's Collar Colour" placeholder="Select the Pet's Collar Colour..." class="text-brown"></v-combobox>
+                <v-combobox outlined :items="collarColours" :rules="collarColorRule" label="Pet's Collar Colour*" placeholder="Select the Pet's Collar Colour..." class="text-brown"></v-combobox>
             </v-col>
             <!-- Size -->
             <v-col cols="12" md="6">
-                <v-combobox outlined :items="petSizes" label="Pet's Size" placeholder="Select the Pet's Size.." class="text-brown"></v-combobox>
+                <v-combobox outlined :items="petSizes" :rules="sizeRule" label="Pet's Size*" placeholder="Select the Pet's Size.." class="text-brown"></v-combobox>
             </v-col>
             <!-- Gender -->
             <v-col cols="12" md="6">
-                <v-combobox outlined :items="petGenders" label="Pet's Gender" placeholder="Select the Pet's Gender..." class="text-brown"></v-combobox>
+                <v-combobox outlined :items="petGenders" :rules="genderRule" label="Pet's Gender*" placeholder="Select the Pet's Gender..." class="text-brown"></v-combobox>
             </v-col>
             <!-- Submit Photo -->
             <v-col cols="12" md="6">
                 <v-file-input outlined label="Pet's Image" 
                     placeholder="Upload an Image of the Pet"
-                                prepend-icon="mdi-camera"
+                    prepend-icon="mdi-camera" 
+                    :rules="fileRule"
                 ><v-icon>mdi-camera</v-icon></v-file-input>
+                <!-- @change="checkFileType" -->
             </v-col>
             </v-row>
             <!-- Submit -->
-            <v-row align="center" justify="center" class="mt-5">
-                <v-col cols="12" align="center">
-                    <v-btn x-large depressed color="brown lighten-4">
-                        Submit
-                    </v-btn>
-                </v-col>
-            </v-row>
+            <v-btn block :disabled="!valid" @click="validate"
+                class="mb-4 " color="brown" outlined>
+                Submit
+            </v-btn>
         </v-form>
     </v-container>
     <!-- scroll to top button -->
@@ -119,8 +119,6 @@
 
 <script>
 import AOS from 'aos'
-// const { validationMixin, default: Vuelidate } = require('vuelidate')
-// const { required} = require('vuelidate/lib/validators')
 
 
 export default {
@@ -133,45 +131,61 @@ mounted() {
 },
 data(){
   return {
+    valid: true,
+    menu: '',
+    radioGroup:"Lost Pet",
+    date:"",
     address: "",
     fab: false,
-    radioGroup: 1,
     petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"], 
     petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
     collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
     petGenders: ['Male','Female',"Unknown"],
     petSizes: ['Small', 'Medium', 'Large'],
-      colour: [1,4],
-      fromDateMenu: false,
-      fromDateVal: null,
-      minDate: "2019-07-04",
-      inputRules: [
-            v => v.length >= 3 || 'Minimum length is 3 characters'
-        ],
-        zipRule: [
-            v => Number.isInteger(Number(v)) || 'Zip must be numeric',
-            v => v.length == 6 || 'Zip length must be 6 characters'
-        ]
+    colour: [1,4],
+    fromDateMenu: false,
+    fromDateVal: null,
+    minDate: "2019-07-04",
+    colorRule: [
+        v => v.length >= 1 || "Pet's colour cannot be empty"
+    ],
+    collarColorRule: [
+        v => !!v || "Pet's collar colour cannot be empty"
+    ],
+    genderRule: [
+        v => !!v || "Pet's gender cannot be empty"
+    ],
+    sizeRule:[
+        v => !!v || "Pet's size cannot be empty"
+    ],
+    fileRule: [
+        v => this.checkFileType(v) == true || 'Image must be .jpeg or .png'
+    ],
+    calRule: [
+        v => v.length == 10 || 'Date cannot be empty'
+    ],
+    typeRule: [
+        v => !!v || "Pet's type cannot be empty"
+    ],
+    mapRule: [
+        v => v.length >= 1 || "Last seen location cannot be empty"
+    ]
+
   }
 },
-validations (){
-    // return {
-    //     pname: {required},
-    //     loc: {required},
-    //     missingSince: {required},
-    //     zip: {required},
-    //     petType: {required},
-    //     petCol: {required},
-    //     petColCol: {required},
-    //     breed: {required},
-    //     gen: {required},
-    //     petSize: {required}
-    // }
-},
-methods: {
-    submitForm() {
-        this.v$.validate()
 
+methods: {
+    validate () {
+        this.$refs.form.validate()
+      },
+    checkFileType(e){
+        console.log(e)
+        if(e['type']==='image/jpeg' || e['type']==='image/png'){
+            return true
+        }
+        else {
+            return false
+        }
     },
     // get user current location
     getUserLoc(){
@@ -212,11 +226,11 @@ methods: {
     // }
 },
 computed: {
-      fromDateDisp() {
-        return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
-        // format date, apply validations, etc. Example below.
-        // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
-      },
+    //   fromDateDisp() {
+    //     return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
+    //     // format date, apply validations, etc. Example below.
+    //     // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
+    //   },
 },
 }
 

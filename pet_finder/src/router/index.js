@@ -7,6 +7,7 @@ import MyMap from '../views/MyMap.vue'
 import Inbox from '../views/Inbox.vue'
 import SignUp from '../views/SignUp.vue'
 import Learn from '../views/Learn.vue'
+import Account from '../views/Account.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/inbox',
     name: 'inbox',
     component: Inbox
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: Account
   }
 ]
 

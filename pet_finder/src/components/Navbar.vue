@@ -115,7 +115,7 @@ export default {
                 {text: 'Learn about pets', route:'/Learn', icon: 'mdi-book'},
                 {text: 'View all pets', route:'/Dashboard', icon: 'mdi-magnify'},
                 {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
-                {text: 'My Account', route:'/', icon: 'mdi-account'}
+                {text: 'My Account', route:'/Account', icon: 'mdi-account'}
             ]
         }
     }

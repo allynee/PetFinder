@@ -12,6 +12,7 @@
             dark
             v-bind="attrs"
             v-on="on"
+            href="#one"
             >
             Information
             </v-tab>
@@ -26,6 +27,7 @@
             dark
             v-bind="attrs"
             v-on="on"
+            href="#two"
             >
             Test your knowledge
             </v-tab>
@@ -35,7 +37,7 @@
       </v-tabs>
   
       <v-tabs-items v-model="tab">
-        <v-tab-item class="brown lighten-5">
+        <v-tab-item value="one" class="brown lighten-5">
             <template>
                 <p class="mt-11">This page contains images of more than 70 different breeds of dogs and cats to help users identify the breeds of different pets. 
                 </p>
@@ -68,7 +70,7 @@
                 </v-row>
             </template>
         </v-tab-item>
-        <v-tab-item class="brown lighten-5">
+        <v-tab-item value="two" class="brown lighten-5">
             <p class="mt-11">Test your knowledge on animal breeds by answering 5 questions below!
                 </p>
             <v-row
@@ -158,7 +160,6 @@ export default {
     components: {Popup},
   data () {
     return {
-      tab: null,
       breeds: [
             {name:'Affenpinscher Dog', image:'dog1.png', pet:'dog'},
             {name:'Afghan Hound Dog', image:'dog2.png', pet:'dog'},
@@ -298,6 +299,15 @@ export default {
             return this.breeds;
         }
     },
+    tab: {
+    set (tab) {
+      this.$router.replace({ query: { ...this.$route.query, tab } })
+    },
+    get () {
+      return this.$route.query.tab
+    }
+  }
+    
 
     // trigPopUp() {
 

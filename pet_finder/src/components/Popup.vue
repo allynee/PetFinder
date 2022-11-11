@@ -21,8 +21,8 @@
         <template v-slot:activator="{ on, attrs }">
             <div class="container mx-0 my-0 pt-0 pr-4" style="text-align:center;margin:0">
                 <v-btn
-                color="grey  white--text"
-                elevation="2"
+                color="brown lighten-1 white--text"
+                elevation="4"
                 class="pa-10"
                 dark
                 v-bind="attrs"
@@ -30,7 +30,8 @@
                 rounded
                 bigger
                 >
-                Get score!
+                Get Your score!
+                <v-icon>mdi-party-popper</v-icon>
                 </v-btn>
             </div>
       </template>
@@ -38,7 +39,7 @@
 
       <v-card>
         <v-card-title class="text-h5 brown lighten-4">
-          Add a New Project
+          Congratulations! Your score is: *insert*/5
         </v-card-title>
         <v-card-text>
             <v-form class="px-3" ref="form">
