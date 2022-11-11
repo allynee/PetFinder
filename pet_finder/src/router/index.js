@@ -6,6 +6,7 @@ import Dashboard from '../views/Dashboard.vue'
 import MyMap from '../views/MyMap.vue'
 import Inbox from '../views/Inbox.vue'
 import Register from '../views/Register.vue'
+import Login from'../views/Login.vue'
 
 import SignUp from '../views/SignUp.vue'
 import Learn from '../views/Learn.vue'
@@ -52,7 +53,12 @@ const routes = [
     path:'/register',
     name:'register',
     component:Register
-  }
+  },
+  {
+    path:'/login',
+    name:'login',
+    component:Login
+  },
 ]
 
 const router = new VueRouter({

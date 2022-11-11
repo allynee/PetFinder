@@ -322,8 +322,8 @@
     // },
     methods: {
         submitForm() {
-            if (this.formType=='Lost Pet'){
-                const form_doc= {
+            const form_doc= {
+                    formType: this.formType,
                     petName:this.petName,
                     petLocation: this.petLocation,
                     petDate: this.date,
@@ -337,22 +337,22 @@
                     // image:this.image,
                     //left image
                 }
-                // console.log(doc)
+
                 let key
                
                 
-                const docRef= addDoc(collection(db, 'LostPets'), form_doc)
+                const docRef= addDoc(collection(db, 'Pets'), form_doc)
                 .then( (data)=> {
-                    alert('Lost pet listed with ID'+ data.id)
+                    alert('Pet listed with ID'+ data.id)
                     key=data.id
                     console.log(key)
-                    const documentRef= doc(db, "LostPets", key)
+                    const documentRef= doc(db, "Pets", key)
                     console.log(documentRef)
                     console.log(key)
                     const filename=this.image.name
                     const extension=filename.slice(filename.lastIndexOf('.'))
     
-                    const imageRef=ref(getStorage(), `LostPets/${key}${extension}`)
+                    const imageRef=ref(getStorage(), `Pets/${key}${extension}`)
                     uploadBytes(imageRef, this.file)
                     .then( (snapshot)=>{
                         console.log("Uploaded to storage")
@@ -396,47 +396,122 @@
                     console.log(err)
                     console.log("error adding pet into database")
                 })
+            
+            // if (this.formType=='Lost Pet'){
+            //     const form_doc= {
+            //         petName:this.petName,
+            //         petLocation: this.petLocation,
+            //         petDate: this.date,
+            //         petType: this.petType,
+            //         petBreed: this.petBreed[0],
+            //         petColor:this.petColor[0],
+            //         collarColor:this.collarColor,
+            //         petSize:this.petSize,
+            //         petGender:this.petGender,
+            //         image:''
+            //         // image:this.image,
+            //         //left image
+            //     }
+            //     // console.log(doc)
+            //     let key
+               
+                
+            //     const docRef= addDoc(collection(db, 'LostPets'), form_doc)
+            //     .then( (data)=> {
+            //         alert('Lost pet listed with ID'+ data.id)
+            //         key=data.id
+            //         console.log(key)
+            //         const documentRef= doc(db, "LostPets", key)
+            //         console.log(documentRef)
+            //         console.log(key)
+            //         const filename=this.image.name
+            //         const extension=filename.slice(filename.lastIndexOf('.'))
+    
+            //         const imageRef=ref(getStorage(), `LostPets/${key}${extension}`)
+            //         uploadBytes(imageRef, this.file)
+            //         .then( (snapshot)=>{
+            //             console.log("Uploaded to storage")
+            //             console.log("snapshot:"+snapshot)
+            //             getDownloadURL(snapshot.ref)
+                    
+            //             .then( (url)=>{
+            //                 console.log("Got Download URL")
+            //                 updateDoc(documentRef, {image:url}, {merge:true})
+            //                 .then(()=>{
+            //                     console.log("pic addedd to database")
+            //                 })
+            //                 .catch( ()=>{
+            //                     console.log("Pic not added to database")
+            //                 })
+            //                 // const documentRef=doc(db, "LostPets", key)
+            //                 // setDoc(documentRef, {image:url}, {merge:true})
+            //                 // .then(()=>{
+            //                 //     console.log("Image added to database")
+            //                 // })
+            //                 // .catch(err=>{
+            //                 //     console.log(err)
+            //                 //     console.log("Image not added to database")
+            //                 // })
+    
+            //             })
+            //             .catch((err)=>{
+            //                 console.log(err)
+            //                 console.log("Error getting download URL")
+            //             })
+                        
+            //         })
+            //         .catch( (err)=>{
+            //             console.log(err)
+            //             console.log("Error uploading to storage")
+            //         })
+                
+            
+            //     })
+            //     .catch((err)=>{
+            //         console.log(err)
+            //         console.log("error adding pet into database")
+            //     })
     
     
-                // .then( key=>{
-                //     const filename= this.image.name
-                //     const extension=filename.slice(filename.lastIndexOf('.'))
+            //     // .then( key=>{
+            //     //     const filename= this.image.name
+            //     //     const extension=filename.slice(filename.lastIndexOf('.'))
     
-                //     const imageRef=ref(getStorage(),`LostPets/${key}${extension}`)
-                //     return uploadBytes(imageRef, this.file)})
-                // .then((snapshot)=>{
-                //         console.log('Uploaded!')
-                //         console.log("snapshot:"+ snapshot)
-                //         return getDownloadURL(snapshot.ref)})
-                // .then( (url)=>{
-                //     console.log("url:" + url)
-                //     console.log(docRef)
-                //             return updateDoc(docRef, {image:url})})
-                // .then(console.log('image uploaded in database and storage!'))
+            //     //     const imageRef=ref(getStorage(),`LostPets/${key}${extension}`)
+            //     //     return uploadBytes(imageRef, this.file)})
+            //     // .then((snapshot)=>{
+            //     //         console.log('Uploaded!')
+            //     //         console.log("snapshot:"+ snapshot)
+            //     //         return getDownloadURL(snapshot.ref)})
+            //     // .then( (url)=>{
+            //     //     console.log("url:" + url)
+            //     //     console.log(docRef)
+            //     //             return updateDoc(docRef, {image:url})})
+            //     // .then(console.log('image uploaded in database and storage!'))
     
-                // const docRef= addDoc(collection(db, 'LostPets'), doc)
-                // .then( (data)=> {
-                //     alert('Lost pet listed with ID'+ data.id)
-                //     key=data.id
-                //     console.log(key)
-                //     const docRef= collection(db,'LostPets')
-                //     return key
-                // })
-                // .then( key=>{
-                //     const filename= this.image.name
-                //     const extension=filename.slice(filename.lastIndexOf('.'))
+            //     // const docRef= addDoc(collection(db, 'LostPets'), doc)
+            //     // .then( (data)=> {
+            //     //     alert('Lost pet listed with ID'+ data.id)
+            //     //     key=data.id
+            //     //     console.log(key)
+            //     //     const docRef= collection(db,'LostPets')
+            //     //     return key
+            //     // })
+            //     // .then( key=>{
+            //     //     const filename= this.image.name
+            //     //     const extension=filename.slice(filename.lastIndexOf('.'))
     
-                //     const imageRef=ref(getStorage(),`LostPets/${key}${extension}`)
-                //     return uploadBytes(imageRef, this.file)})
-                // .then((snapshot)=>{
-                //         console.log('Uploaded!')
-                //         console.log("snapshot:"+ snapshot)
-                //         return getDownloadURL(snapshot.ref)})
-                // .then( (url)=>{
-                //     console.log("url:" + url)
-                //     console.log(docRef)
-                //             return updateDoc(docRef, {image:url})})
-                // .then(console.log('image uploaded in database and storage!'))
+            //     //     const imageRef=ref(getStorage(),`LostPets/${key}${extension}`)
+            //     //     return uploadBytes(imageRef, this.file)})
+            //     // .then((snapshot)=>{
+            //     //         console.log('Uploaded!')
+            //     //         console.log("snapshot:"+ snapshot)
+            //     //         return getDownloadURL(snapshot.ref)})
+            //     // .then( (url)=>{
+            //     //     console.log("url:" + url)
+            //     //     console.log(docRef)
+            //     //             return updateDoc(docRef, {image:url})})
+            //     // .then(console.log('image uploaded in database and storage!'))
     
     
     
@@ -444,98 +519,98 @@
     
                     
     
-                    // const imgInfo= firebase.storage().ref(`FoundPets/`${docRef}${extension}).put(this.image)
-                    // console.log(imgInfo)
-                    // this.imageURL=await firebase.storage().ref("FoundPets/"+docRef+extension).getDownloadURL()
-                    // // console.log(imageURL)
+            //         // const imgInfo= firebase.storage().ref(`FoundPets/`${docRef}${extension}).put(this.image)
+            //         // console.log(imgInfo)
+            //         // this.imageURL=await firebase.storage().ref("FoundPets/"+docRef+extension).getDownloadURL()
+            //         // // console.log(imageURL)
     
-                    // const data={
-                    //     image= this.imageURL
-                    // }
-                    // setDoc(docRef,data, {merge:true} )
+            //         // const data={
+            //         //     image= this.imageURL
+            //         // }
+            //         // setDoc(docRef,data, {merge:true} )
     
                 
-                // .catch( (err)=>{
-                //     console.log(err)
-                //     alert("Failed to add lost pet. Please check the fields and try again!")
-                // })
+            //     // .catch( (err)=>{
+            //     //     console.log(err)
+            //     //     alert("Failed to add lost pet. Please check the fields and try again!")
+            //     // })
     
-            }
+            // }
     
-            else{
-                const form_doc= {
-                    petName:this.petName,
-                    petLocation: this.petLocation,
-                    petDate: this.date,
-                    petType: this.petType,
-                    petBreed: this.petBreed[0],
-                    petColor:this.petColor[0],
-                    collarColor:this.collarColor,
-                    petSize:this.petSize,
-                    petGender:this.petGender,
-                    image:''
-                    //left image
-                }
-                // console.log(doc)
-                let key
+            // else{
+            //     const form_doc= {
+            //         petName:this.petName,
+            //         petLocation: this.petLocation,
+            //         petDate: this.date,
+            //         petType: this.petType,
+            //         petBreed: this.petBreed[0],
+            //         petColor:this.petColor[0],
+            //         collarColor:this.collarColor,
+            //         petSize:this.petSize,
+            //         petGender:this.petGender,
+            //         image:''
+            //         //left image
+            //     }
+            //     // console.log(doc)
+            //     let key
                
                 
-               const docRef= addDoc(collection(db, 'FoundPets'), form_doc)
-               .then( (data)=> {
-                   alert('Found pet listed with ID'+ data.id)
-                   key=data.id
-                   console.log(key)
-                   const documentRef= doc(db, "FoundPets", key)
-                   console.log(documentRef)
-                   console.log(key)
-                   const filename=this.image.name
-                   const extension=filename.slice(filename.lastIndexOf('.'))
+            //    const docRef= addDoc(collection(db, 'FoundPets'), form_doc)
+            //    .then( (data)=> {
+            //        alert('Found pet listed with ID'+ data.id)
+            //        key=data.id
+            //        console.log(key)
+            //        const documentRef= doc(db, "FoundPets", key)
+            //        console.log(documentRef)
+            //        console.log(key)
+            //        const filename=this.image.name
+            //        const extension=filename.slice(filename.lastIndexOf('.'))
     
-                   const imageRef=ref(getStorage(), `FoundPets/${key}${extension}`)
-                   uploadBytes(imageRef, this.file)
-                   .then( (snapshot)=>{
-                       console.log("Uploaded to storage")
-                       console.log("snapshot:"+snapshot)
-                       getDownloadURL(snapshot.ref)
+            //        const imageRef=ref(getStorage(), `FoundPets/${key}${extension}`)
+            //        uploadBytes(imageRef, this.file)
+            //        .then( (snapshot)=>{
+            //            console.log("Uploaded to storage")
+            //            console.log("snapshot:"+snapshot)
+            //            getDownloadURL(snapshot.ref)
                    
-                       .then( (url)=>{
-                           console.log("Got Download URL")
-                           updateDoc(documentRef, {image:url}, {merge:true})
-                           .then(()=>{
-                               console.log("pic addedd to database")
-                           })
-                           .catch( ()=>{
-                               console.log("Pic not added to database")
-                           })
-                           // const documentRef=doc(db, "LostPets", key)
-                           // setDoc(documentRef, {image:url}, {merge:true})
-                           // .then(()=>{
-                           //     console.log("Image added to database")
-                           // })
-                           // .catch(err=>{
-                           //     console.log(err)
-                           //     console.log("Image not added to database")
-                           // })
+            //            .then( (url)=>{
+            //                console.log("Got Download URL")
+            //                updateDoc(documentRef, {image:url}, {merge:true})
+            //                .then(()=>{
+            //                    console.log("pic addedd to database")
+            //                })
+            //                .catch( ()=>{
+            //                    console.log("Pic not added to database")
+            //                })
+            //                // const documentRef=doc(db, "LostPets", key)
+            //                // setDoc(documentRef, {image:url}, {merge:true})
+            //                // .then(()=>{
+            //                //     console.log("Image added to database")
+            //                // })
+            //                // .catch(err=>{
+            //                //     console.log(err)
+            //                //     console.log("Image not added to database")
+            //                // })
     
-                       })
-                       .catch((err)=>{
-                           console.log(err)
-                           console.log("Error getting download URL")
-                       })
+            //            })
+            //            .catch((err)=>{
+            //                console.log(err)
+            //                console.log("Error getting download URL")
+            //            })
                        
-                   })
-                   .catch( (err)=>{
-                       console.log(err)
-                       console.log("Error uploading to storage")
-                   })
+            //        })
+            //        .catch( (err)=>{
+            //            console.log(err)
+            //            console.log("Error uploading to storage")
+            //        })
                
            
-               })
-               .catch((err)=>{
-                   console.log(err)
-                   console.log("error adding pet into database")
-               })
-            }
+            //    })
+            //    .catch((err)=>{
+            //        console.log(err)
+            //        console.log("error adding pet into database")
+            //    })
+            // }
             
     
         },

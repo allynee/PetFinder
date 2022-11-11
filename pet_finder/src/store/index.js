@@ -62,7 +62,8 @@ export const store =new Vuex.Store({
         getuserid: state=>{
             var userid=state.user.id
             return userid
-        }
+        },
+        
     },
 
 })
