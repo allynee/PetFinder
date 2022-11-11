@@ -38,19 +38,24 @@
                     </v-text-field>
                 </v-col>
             <!-- Last seen Location-->
-                <v-col cols="12" md="6">
+                <v-col cols="12" md="6" @getUserLoc="getUserLoc">
 
                     <!-- placeholder="Enter the pet's last seen location..." -->
                     <!-- removed bc there's some weird overlap-->
-                    <vuetify-google-autocomplete id="search" label="Pet's Last Seen Location" append-icon="mdi-map-marker" outlined
+                    <!-- <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }"> -->
+                    <vuetify-google-autocomplete id="search" label="Pet's Last Seen Location" 
+                        append-icon="mdi-map-marker" outlined
                         country="sg"
-                        :rules="inputRules"
                         v-model="petLocation"
-                        @click:append="getUserLoc"
+                        click:append = "getUserLoc"
                     >
-                        </vuetify-google-autocomplete>
-                        <!-- @placechanged="getAddressData" -->
-
+                    <v-btn>test</v-btn>
+                    </vuetify-google-autocomplete>
+                    <!-- </template> -->
+                    <!-- @placechanged="getAddressData" -->
+                        <!-- <span>Testing</span>
+                    </v-tooltip> -->
                 </v-col>
             <!-- Date -->
             <v-col cols="12" md="6">
@@ -77,7 +82,7 @@
                 </v-col>
             <!-- Breed -->
                 <v-col cols="12" md="6">
-                    <v-combobox v-model="petBreed" outlined :items="petTypes" label="Pet's Breed" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
+                    <v-combobox hide-no-data v-model="petBreed" outlined :items="filteredPetBreeds" label="Pet's Breed" placeholder="Select the Pet's Breed..." class="text-brown"></v-combobox>
                 </v-col>
             <!-- Colour -->
             <v-col cols="12" md="6">
@@ -121,6 +126,8 @@
 </template>
 
 
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM&libraries=places"></script>
+
 <script>
 import AOS from 'aos'
 // const { validationMixin, default: Vuelidate } = require('vuelidate')
@@ -129,7 +136,8 @@ import db from '../firebase/index'
 import { collection, addDoc } from 'firebase/firestore'
 //collection ref
 
-
+// //import gmaps
+// import * as VueGoogleMaps from 'vue2-google-maps';
 
 
 export default {
@@ -137,19 +145,128 @@ export default {
 name:'reportpet',
 
 
-
 mounted() {
     AOS.init({
     duration: 1000,
     });
-    this.$refs.address.focus();
 },
 data(){
   return {
-    address: "",
+    userCoordinates:{
+                    lat: 0,
+                    lng: 0
+                },
+    myGeocoder: null,
     fab: false,
     radioGroup: 1,
-    petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"], 
+    petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Terrapin","Guinea Pig","Other Pet Types"], 
+    defaultBreed: {header: "Please select Pet Type first"},
+    weirdTypes: {header: "No need to select breed for Other Pet Types"},
+    petBreeds: ['Affenpinscher Dog', 'Afghan Hound Dog', 'Alaskan Malamute Dog', 'Australian Kelpie Dog', 
+    'Australian Terrier Dog', 
+    'Basenji Dog',
+    'Basset Bretagne Dog',
+            'Basset Hound Dog',
+            'Beagle Dog',
+            'Bearded Collie Dog',
+            'Belgian Shepherd Dog',
+            'Bernese Mountain Dog',
+            'Bichon Frise Dog',
+            'Bloodhound Dog',
+            'Border Collie Dog',
+            'Border Terrier Dog',
+            'Borzoi Dog',
+            'Boston Terrier Dog',
+            'Bouvier Flandres Dog',
+            'Boxer Dog',
+            'Briard Dog',
+            'British Bulldog',
+            'Brittany Dog',
+            'Chihuahua Dog',
+            'Cocker Spaniel Dog',
+            'Dalmatian Dog',
+            'Doberman Dog',
+            'French Bulldog',
+            'German Shepherd Dog',
+            'Golden Retriever Dog',
+            'Great Dane Dog',
+            'Greyhound Dog',
+            'Labrador Dog',
+            'Maltese Dog',
+            'Pomeranian Dog',
+            'Poodle Dog',
+            'Pug Dog',
+            'Shih Tzu Dog',
+            'Siberian Husky Dog',
+            'Welsh Corgi Dog',
+            'Yorkshire Terrier Dog',
+            'Abyssinian Cat', 
+            'American Bobtail Cat', 
+            'American Curl Cat',
+            'Birman Cat',
+            'Bombay Cat',
+            'Burmese Cat',
+            'Chartreux Cat',
+            'Cornish Rex Cat', 
+            'Devon Rex Cat',
+            'Egyptian Mau Cat',
+            'Exotic Shorthair Cat',
+            'Havana Brown Cat',
+            'Himalayan Cat',
+            'Japanese Bobtail Cat',
+            'LaPerm Cat',
+            'Maine Coon Cat',
+            'Manx Cat',
+            'Munchkin Cat',
+            'Norwegian Forest Cat','Ocicat Cat',
+            'Oriental Shorthair Cat',
+            'Persian Cat',
+            'Pixiebob Cat',
+            'Ragamuffin Cat',
+            'Ragdoll Cat',
+            'Russian Blue Cat',
+            'Savannah Cat',
+            'Scottish Fold Cat',
+            'Selkirk Rex Cat',
+            'Siamese Cat',
+            'Siberian Cat',
+            'Singapura Cat',
+            'Somali Cat',
+            'Tonkinese Cat',
+            'Turkish Angora Cat',
+            'Turkish Van Cat',
+            'Holland Lop Rabbit',
+            "Lionhead Rabbit",
+            "Rex Rabbit",
+            "Mini Lop Rabbit",
+            "Dutch Rabbit",
+            "Netherland Dwarf Rabbit",
+            "Polish Rabbit",
+            "Dwarf Hotot Rabbit",
+            "Dove Bird",
+            "Zebra Finch Bird",
+            "Canary Bird",
+            "Ring-Necked Parakeet Bird",
+            "Cockatiel Bird",
+            "Peach-Faced Lovebird Bird",
+            "Budgerigar Bird",
+            "Red Eared Sliders Terrapin",
+            "Abyssinian Guinea Pig",
+            "American Guinea Pig",
+            "Baldwin Guinea Pig",
+            "Coronet Guinea Pig",
+            "Peruvian Guinea Pig",
+            "Rex Guinea Pig",
+            "Sheltie Guinea Pig",
+            "Skinny Guinea Pig",
+            "Teddy Guinea Pig",
+            "Texel Guinea Pig",
+            "White-crested Guinea Pig",
+            "Syrian Hamster", "Winter White Hamster", "Hybrid Dwarf Hamster", 
+            "Campbell Hamster", "Roborovski Hamster" 
+        
+        ],
+
     petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
     collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
     petGenders: ['Male','Female',"Unknown"],
@@ -159,7 +276,6 @@ data(){
     fromDateVal: null,
     minDate: "2019-07-04",
 
-        
     //bind form data to submitted_pet 
     formType:'',
     petLocation:'',
@@ -214,7 +330,7 @@ methods: {
                 petGender:this.petGender,
                 //left image
             }
-            console.log(doc)
+            // console.log(doc)
             const docRef= addDoc(collection(db, 'LostPets'), doc)
             .then( ()=> {
                 alert('Lost pet listed with ID', docRef.id)
@@ -238,7 +354,7 @@ methods: {
                 petGender:this.petGender,
                 //left image
             }
-            console.log(doc)
+            // console.log(doc)
             const docRef= addDoc(collection(db, 'FoundPets'), doc)
             .then( ()=> {
                 alert('Found pet listed with ID', docRef.id)
@@ -255,16 +371,36 @@ methods: {
     getUserLoc(){
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(position=>{
-                console.log(position.coords.latitude);
-                console.log(position.coords.longitude);
+                this.userCoordinates.lat = position.coords.latitude
+                this.userCoordinates.lng = position.coords.longitude
+                this.geocodeLatLng();
             },
             error=>{
-                console.log(error.message);
+                this.petLocation = error.message;
             })
         }else{
-            console.log("Your browser does not support geolocation API ");
+            this.petLocation = "Your browser does not support geolocation API. Please key in your address manually instead!";
         }
     },
+    //geocode my lat lng to an address
+    geocodeLatLng(){
+        this.myGeocoder = new google.maps.Geocoder();
+        const latlng = {
+        lat: this.userCoordinates.lat,
+        lng: this.userCoordinates.lng
+        };
+        this.myGeocoder
+        .geocode({ location: latlng })
+        .then((response) => {
+        if (response.results[0]) {
+            this.petLocation = response.results[0].formatted_address;
+        } else {
+            this.petLocation = "No results found";
+        }
+        })
+        .catch((e) => this.petLocation = "Geocoder failed due to: " + e);
+    },
+
     // functions for scrolling to top
     onScroll (e) {
       if (typeof window === 'undefined') return
@@ -281,6 +417,21 @@ computed: {
     //     // format date, apply validations, etc. Example below.
     //     // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
     //   },
+    filteredPetBreeds () {
+        if(this.petType==""){
+            return this.defaultBreed;
+        }
+        if(this.petType=="Other Pet Types"){
+            return this.weirdTypes
+        }
+        // if (!this.petType.includes("Dog") || !this.petType.includes("Cat") ) {
+        //     return this.weirdTypes;
+        // }
+        if(this.petType){
+            return this.petBreeds.filter(e => e.includes(this.petType))
+        }
+            return this.petBreeds
+    },
     formIsValid() {
         return this.formType!='' && 
         this.petName!='' && 
@@ -288,13 +439,12 @@ computed: {
         this.petColor!='' && 
         this.petGender!=''&& 
         this.collarColor!=''&& 
-        this.petBreed!=''&& 
+        // this.petBreed!=''&& 
         this.petSize!=''&&
         this.petLocation!=''&&
         this.date!=null
         //left with validation for image and date
     },
+},
 }
-}
-
 </script>
