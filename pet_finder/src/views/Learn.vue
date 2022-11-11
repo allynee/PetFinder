@@ -30,7 +30,8 @@
         </v-row>
         <v-divider></v-divider>
         <v-row class="mt-15">
-        <v-tabs v-model="tab" background-color="transparent" grow>
+        <v-tabs v-model="tab" 
+        background-color="transparent" grow>
         <v-tooltip top color="brown lighten-4">
             <template v-slot:activator="{ on, attrs }">
                 <v-tab color="primary" dark v-bind="attrs" v-on="on">

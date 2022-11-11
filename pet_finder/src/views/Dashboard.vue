@@ -17,15 +17,54 @@
           <span  class="text-h5 primary--text font-weight-light">Edit Filters</span>
         </v-expansion-panel-header>
   
-        <!-- Filter Bar content -->
+        <!-- Filter Bar content i.e. the diff filters-->
         <v-expansion-panel-content>
         <v-card flat class="pa-5 rounded-xl"> 
+
+          <!-- All, Lost, or Found -->
+          <v-row justify="center" class="my-2">
+                
+                <v-radio-group v-model="petStatus">
+                <v-col cols="12" align="center">
+                  <v-btn rounded depressed color="brown lighten-5 mx-4">
+                        <v-radio label="All Pets" value="All" required ></v-radio>
+                    </v-btn> 
+                        <v-btn rounded depressed color="brown lighten-5 mx-4">
+                            <v-radio label="Lost Pets" value="Lost" required ></v-radio>
+                        </v-btn> 
+                        <v-btn rounded depressed color="brown lighten-5 mx-4" >
+                            <v-radio label="Found Pets" value="Found" required ></v-radio>
+                        </v-btn>
+                </v-col>
+                </v-radio-group>
+          </v-row>
+
+         
           <v-row>
-            <v-col cols="12" md="6" lg="3">
-              <v-combobox v-model="petTypesSelected" :items="petTypes" label="Select Pet Type" multiple></v-combobox>
+             <!-- Pet Type -->
+            <v-col cols="12" md="6" lg="4">
+              <v-combobox outlined v-model="petTypesSelected" :items="petTypes" label="Select Pet Types" multiple></v-combobox>
             </v-col>
-            <v-col cols="12" md="6" lg="3">
-              <v-combobox v-model="petColoursSelected" :items="petColours" label="Select Pet Colour" multiple></v-combobox>
+            <!-- Pet Breed -->
+            <v-col cols="12" md="6" lg="4">
+              <v-combobox hide-no-data v-model="petBreedsSelected" outlined :items="petBreeds" label="Select Pet Breeds" class="text-brown" multiple></v-combobox>
+            </v-col>
+            <!-- Pet Colour -->
+            <v-col cols="12" md="6" lg="4">
+              <v-combobox outlined v-model="petColoursSelected" :items="petColours" label="Select Pet Colours" multiple></v-combobox>
+            </v-col>
+
+            <!-- Collar Colour -->
+            <v-col cols="12" md="6" lg="4">
+              <v-combobox outlined v-model="collarColoursSelected" :items="collarColours" label="Select Collar Colours" multiple></v-combobox>
+            </v-col>
+            <!-- Pet Size -->
+            <v-col cols="12" md="6" lg="4">
+              <v-combobox outlined v-model="petSizesSelected" :items="petSizes" label="Select Pet Sizes" multiple></v-combobox>
+            </v-col>
+            <!-- Pet Gender -->
+            <v-col cols="12" md="6" lg="4">
+              <v-combobox outlined v-model="petGendersSelected" :items="petGenders" label="Select Pet Colours" multiple></v-combobox>
             </v-col>
           </v-row>
         </v-card>
@@ -59,99 +98,145 @@
         </v-row>
         
         <v-divider></v-divider>
-
-      <!-- Toolbar to toggle between different views -->
-        <v-toolbar class="brown lighten-5" flat>
-        <template v-slot:extension>
-        <v-tabs v-model="tabs" grow class="brown lighten-5">
-          <v-tabs-slider></v-tabs-slider>
-          <v-tab href="#mobile-tabs-1" class="primary--text" v-bind="attrs" v-on="on">
-          <v-icon left>mdi-grid</v-icon><br><br>
-          <span>Grid Layout</span>
-          </v-tab>
-          <v-tab href="#mobile-tabs-2" class="primary--text">
-            <v-icon left>mdi-format-list-bulleted-square</v-icon>
+      
+      <!-- Grid and List View -->
+      <v-row class="my-5 pa-5">
+      <v-btn depressed class="brown lighten-4 mr-5" @click="grid=true">
+        <v-icon left>mdi-grid</v-icon>
+            <span>Grid Layout</span>
+      </v-btn>
+      <v-btn depressed class="brown lighten-4" @click="grid=false">
+        <v-icon left>mdi-format-list-bulleted-square</v-icon>
             <span>List Layout</span>
-          </v-tab>
-        </v-tabs>
-        </template>
-        </v-toolbar>
+      </v-btn>
+      </v-row>
       
       <!-- gridview -->
-      <v-tabs-items v-model="tabs">
-      <v-tab-item value="mobile-tabs-1" class="brown lighten-5 py-15">
-
-    <v-row justify="center"><v-col cols="12">  
+      <div v-show="grid">
+      <v-row class="my-5">
         <!-- Dashboard -->
-  
-        <v-row class="my-5">
-              <v-col cols="12" md="6" lg="4">
-              <v-hover v-slot="{ hover }">
-              <v-card flat :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" maxwidth="400" class="" outlined v-for="aPet in myPets" :key="aPet.id">
-                <!-- img -->
-                <v-card-text>
-                  <v-img :src="getImgUrl(aPet.petImage)" class="my-2" contain max-height="1500" max-width="1500"/>
-                </v-card-text>
-                <!-- text -->
-                <div class="mx-2">
-                <v-list-item two-line>
-                  <v-list-item-content>
-                    <v-list-item-title class="text-h5 primary--text"> {{aPet.petName}} </v-list-item-title>
-                    <v-list-item-subtitle class="secondary--text"> {{ aPet.id }} </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon >
-                    <v-icon class="primary--text">mdi-map-marker</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-subtitle class="primary--text">Location Lol</v-list-item-subtitle>
-                </v-list-item>
-      
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon class="primary--text">mdi-calendar</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-subtitle class="primary--text"> {{ aPet.missingSince}}</v-list-item-subtitle>
-                </v-list-item>
-      
-                <v-divider></v-divider>
-      
-                  <v-card-actions>
-                    <v-btn depressed class="brown lighten-4 text-capitalize mt-2">
-                      <span class="primary--text">view more details</span>
-                      <v-icon right class="primary--text">mdi-arrow-top-right</v-icon>
-                    </v-btn>
-                </v-card-actions>
-                </div>
-              </v-card>
-            </v-hover>
-            </v-col>
-            </v-row>
-    </v-col></v-row>
-    </v-tab-item>
+        <v-col cols="12" md="6" lg="4">
+            <PetCard v-for="aPet in myPets" :key="aPet.id" :aPet="aPet"></PetCard>
+        </v-col>
+      </v-row>
+      </div>
     <!-- Data table-->
-    <v-tab-item value="mobile-tabs-2" class="brown lighten-5 py-15">
-    <template>
-      <v-data-table :headers="headers" :items="myPets" :items-per-page="10" 
-      class="elevation-0 brown lighten-5 text-primary">
-        <template v-slot:[`item.petImage`]="{ item }">
-          <div class="p-2">
-            <v-img :src='getImgUrl(item.petImage)' contain max-height="250" max-width="250" class="my-5"></v-img>
-          </div>
-        </template>
-      </v-data-table>
-    </template>
-    </v-tab-item>
-    </v-tabs-items>
+      <DataTable :pets="myPets" v-show="!grid"></DataTable>
     </v-container>
   </template>
   
   <script>
+  import DataTable from "../components/DataTable.vue"
+  import PetCard from "../components/PetCard.vue"
+
   export default {
+  components: { DataTable, PetCard},
   data(){
     return {
-      // random stuff for website to work
-        tabs: null,
+      grid: true,
+      petBreeds: ['Affenpinscher Dog', 'Afghan Hound Dog', 'Alaskan Malamute Dog', 'Australian Kelpie Dog', 
+        'Australian Terrier Dog', 
+        'Basenji Dog',
+        'Basset Bretagne Dog',
+                'Basset Hound Dog',
+                'Beagle Dog',
+                'Bearded Collie Dog',
+                'Belgian Shepherd Dog',
+                'Bernese Mountain Dog',
+                'Bichon Frise Dog',
+                'Bloodhound Dog',
+                'Border Collie Dog',
+                'Border Terrier Dog',
+                'Borzoi Dog',
+                'Boston Terrier Dog',
+                'Bouvier Flandres Dog',
+                'Boxer Dog',
+                'Briard Dog',
+                'British Bulldog',
+                'Brittany Dog',
+                'Chihuahua Dog',
+                'Cocker Spaniel Dog',
+                'Dalmatian Dog',
+                'Doberman Dog',
+                'French Bulldog',
+                'German Shepherd Dog',
+                'Golden Retriever Dog',
+                'Great Dane Dog',
+                'Greyhound Dog',
+                'Labrador Dog',
+                'Maltese Dog',
+                'Pomeranian Dog',
+                'Poodle Dog',
+                'Pug Dog',
+                'Shih Tzu Dog',
+                'Siberian Husky Dog',
+                'Welsh Corgi Dog',
+                'Yorkshire Terrier Dog',
+                'Abyssinian Cat', 
+                'American Bobtail Cat', 
+                'American Curl Cat',
+                'Birman Cat',
+                'Bombay Cat',
+                'Burmese Cat',
+                'Chartreux Cat',
+                'Cornish Rex Cat', 
+                'Devon Rex Cat',
+                'Egyptian Mau Cat',
+                'Exotic Shorthair Cat',
+                'Havana Brown Cat',
+                'Himalayan Cat',
+                'Japanese Bobtail Cat',
+                'LaPerm Cat',
+                'Maine Coon Cat',
+                'Manx Cat',
+                'Munchkin Cat',
+                'Norwegian Forest Cat','Ocicat Cat',
+                'Oriental Shorthair Cat',
+                'Persian Cat',
+                'Pixiebob Cat',
+                'Ragamuffin Cat',
+                'Ragdoll Cat',
+                'Russian Blue Cat',
+                'Savannah Cat',
+                'Scottish Fold Cat',
+                'Selkirk Rex Cat',
+                'Siamese Cat',
+                'Siberian Cat',
+                'Singapura Cat',
+                'Somali Cat',
+                'Tonkinese Cat',
+                'Turkish Angora Cat',
+                'Turkish Van Cat',
+                'Holland Lop Rabbit',
+                "Lionhead Rabbit",
+                "Rex Rabbit",
+                "Mini Lop Rabbit",
+                "Dutch Rabbit",
+                "Netherland Dwarf Rabbit",
+                "Polish Rabbit",
+                "Dwarf Hotot Rabbit",
+                "Dove Bird",
+                "Zebra Finch Bird",
+                "Canary Bird",
+                "Ring-Necked Parakeet Bird",
+                "Cockatiel Bird",
+                "Peach-Faced Lovebird Bird",
+                "Budgerigar Bird",
+                "Red Eared Sliders Terrapin",
+                "Abyssinian Guinea Pig",
+                "American Guinea Pig",
+                "Baldwin Guinea Pig",
+                "Coronet Guinea Pig",
+                "Peruvian Guinea Pig",
+                "Rex Guinea Pig",
+                "Sheltie Guinea Pig",
+                "Skinny Guinea Pig",
+                "Teddy Guinea Pig",
+                "Texel Guinea Pig",
+                "White-crested Guinea Pig",
+                "Syrian Hamster", "Winter White Hamster", "Hybrid Dwarf Hamster", 
+                "Campbell Hamster", "Roborovski Hamster" 
+            ],
         //data table
         headers: [
           { text: "Pet Image", value: "petImage", sortable: false },
@@ -164,8 +249,10 @@
           { text: 'Pet Size', value: 'petSize' },
         ],
         // data
+        petStatus: "",
         petTypes: ["Dog","Rabbit","Cat","Bird","Hamster","Fish","Terrapin","Frog","Guinea Pig","Other Pet Types"],
         petTypesSelected: [],
+        petBreedsSelected: [],
         petColours: ["White","Black","Brown","Orange","Other Colours"],
         petColoursSelected: [],
         collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
@@ -178,7 +265,11 @@
         //array of objects
         // (_id, PetName, MissingSince, Type, Breed, Gender, NearestLoc, Zip, Color, Collar, Size)
         allPets: [
-          {id: "123456789", petImage: "testimg.png", petName: "Snoop Dog", petType: "Dog", petBreed: "Corgi", petColour: "Brown", missingSince: "20th Jan 2022", petGender: "Male", collarColour: "No Collar", petSize: "Medium"},
+          {id: "123456789", petImage: "testimg.png", 
+          petName: "Snoop Dog", petType: "Dog", petBreed: "Corgi", 
+          petColour: "Brown", missingSince: "20th Jan 2022", 
+          petGender: "Male", collarColour: "No Collar", 
+          petSize: "Medium", petStatus: "Lost"},
         ],
     }
   },
@@ -203,22 +294,11 @@
             return true;
           }
           })
-      }
+      },
   },
   methods: {
-    getImgUrl(pic){
-      return require('../assets/' + pic)
-    }
+
   }
   }
   
-  </script>
-  <style scoped>
-  .v-card {
-    transition: opacity .2s ease-in-out;
-  }
-  .v-card:not(.on-hover) {
-    opacity: 0.95;
-   }
-
-</style>
+</script>
