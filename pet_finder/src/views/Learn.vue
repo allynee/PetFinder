@@ -2,7 +2,7 @@
     <div>
     <v-container class="py-10">  
         <!-- top -->
-        <v-row justify="center" class="text-center mb-5" data-aos="fade-down">
+        <v-row justify="center" class="text-center my-10" data-aos="fade-down">
             <v-col cols="2" class="text-right">
                 <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
             </v-col>
