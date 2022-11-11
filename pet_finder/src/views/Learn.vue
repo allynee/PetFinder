@@ -3,8 +3,20 @@
     <v-container class="py-10">  
         <!-- top -->
         <v-row justify="center" class="text-center mb-5" data-aos="fade-down">
-            <v-col cols="12">
-                <v-img :src="require('../assets/BlackCat.png')" class="my-3" contain height="150"/>
+            <v-col cols="2" class="text-right">
+                <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
+            </v-col>
+            <v-col cols="2">
+                <v-img :src="require('../assets/BlackCat.png')" class="my-5" contain height="125"/>
+            </v-col>
+            <v-col cols="2">
+                <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
+            </v-col>
+            <v-col cols="2">
+                <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
+            </v-col>
+            <v-col cols="2">
+                <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
             </v-col>
             <v-col cols="12">
                 <h1 class="text-h4 brown--text text-center">Learn More about Different Pet Breeds</h1>
@@ -12,7 +24,7 @@
             <v-col cols="8" align="center" >
                 <p class="text-h6 font-weight-light brown--text text--darken-2">
                     This page contains images of more than 70 different breeds of dogs and cats to help you identify the breeds of different pets. 
-                    You can view all breeds under the "Information" tab, and then test your knowledge with a fun game afterwards!
+                    You can view all breeds under the "Information" tab, and then test your knowledge under the "Fun Quiz" tab!
                 </p>
             </v-col>
         </v-row>
@@ -28,18 +40,15 @@
             <span class="black--text">Learn more about different pet breeds!</span>
         </v-tooltip>
 
-        <v-tooltip bottom color="brown lighten-3">
-        <template v-slot:activator="{ on, attrs }">
-            <v-tab
-            color="primary"
-            dark
-            v-bind="attrs"
-            v-on="on"
-            >
-            Test your knowledge
-            </v-tab>
-        </template>
-        <span>Test your knowledge with a fun game!</span>
+
+        <v-tooltip top color="brown lighten-4">
+            <template v-slot:activator="{ on, attrs }">
+                <v-tab color="primary" dark v-bind="attrs" v-on="on">
+                    Fun Quiz 
+                </v-tab>
+            </template>
+            <span class="black--text">Test your knowledge with a fun quiz!</span>
+
         </v-tooltip>
       </v-tabs>
         </v-row>
@@ -82,18 +91,21 @@
             </template>
         </v-tab-item>
         <v-tab-item class="brown lighten-5">
-            <v-row
-                class="mt-5"
-            >
-                <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
-                All
-                </v-btn>
-                <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
-                Dogs
-                </v-btn>
-                <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
-                Cats
-                </v-btn>
+
+            <!-- filter buttons -->
+            <!-- <v-row class="mt-10" justify="center">
+                    <p class="text-h6 font-weight-light brown--text text--darken-2">Select Pet Type:</p>
+            </v-row>
+            <v-row class="mt-5" justify="center">
+                        <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
+                        All Pets
+                        </v-btn>
+                        <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
+                        Dogs
+                        </v-btn>
+                        <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
+                        Cats
+                        </v-btn>
             </v-row>
                 <template>
                     <div>
@@ -152,7 +164,41 @@
                                 </v-btn>
                     </v-list-item>
                 </v-list>
-            </v-card>
+            </v-card> -->
+
+            <!-- test -->
+    <div v-show="!quizStart">
+        <v-row justify="center" class="my-10">
+          <h1 class="text-md-h1 text-sm-h2 brown--text text--darken-1 font-weight-light" data-aos="fade-down">
+            Quiz Time!
+          </h1>
+        </v-row>
+        <v-row justify="center">
+        <v-img :src="require('../assets/OrangeCat.png')" contain max-height="300" max-width="300" class="my-5"></v-img>
+        </v-row>
+        <v-row justify="center">
+          <p class="text-md-h4 text-sm-h5 font-weight-light brown--text text--darken-2">
+            Do you know your different pet breeds?
+        </p>
+        </v-row>
+        <v-row justify="center">
+            <v-col cols="12" md="8" align="center">
+                <p class="text-h6 font-weight-light brown--text text--darken-2">
+            It's time to check out how much you know!
+            This will be a quiz with 5 questions to test your knowledge on pet breeds. 
+            Go ahead and press the "Start Quiz" button whenever you're ready!
+        </p>
+            </v-col>
+        </v-row>
+        <v-row justify="center" class="my-5">
+          <v-btn x-large flat @click="quizStart=!quizStart" color="brown lighten-4">Start Quiz</v-btn>
+        </v-row>
+    </div>
+   <quiz v-show="!showModal && quizStart" @quiz-completed="handleQuizCompleted" :key="quizKey" />
+   <custom-modal
+     v-show="showModal"
+     :score="score"
+     @reload="updateQuiz"/>
         </v-tab-item>
       </v-tabs-items>
     </v-container>
@@ -164,9 +210,31 @@
 </template>
 
 <script>
+
+import AOS from 'aos'
+import Quiz from "../components/Quiz.vue";
+import CustomModal from "../components/CustomModal.vue";
+
 export default {
+    components: { Quiz, CustomModal },
+    mounted() {
+      AOS.init({
+        duration: 1200,
+      })
+    },
   data () {
     return {
+        quizStart: false,
+        quizKey: 0,
+        showModal: false,
+        score: {
+            allQuestions: 0,
+            answeredQuestions: 0,
+            correctlyAnsweredQuestions: 0,
+        },
+        fab: false,
+        page:1,
+
       tab: null,
       breeds: [
             {name:'Affenpinscher Dog', image:'dog1.png', pet:'dog'},
@@ -264,8 +332,25 @@ export default {
     callCats() 
     {this.called = "cat";},
     currImg()
-    {this.petBreed == this.breed.name}
-    
+
+    {this.petBreed == this.breed.name},
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      this.fab = top > 20
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    },
+    handleQuizCompleted(score) {
+     this.score = score;
+     this.showModal = true;
+   },
+   updateQuiz() {
+     this.showModal = false;
+     this.quizKey++;
+   },
+
 },
   computed: {
     filteredPets() {
