@@ -40,7 +40,6 @@
             <span class="black--text">Learn more about different pet breeds!</span>
         </v-tooltip>
 
-
         <v-tooltip top color="brown lighten-4">
             <template v-slot:activator="{ on, attrs }">
                 <v-tab color="primary" dark v-bind="attrs" v-on="on">
@@ -48,7 +47,6 @@
                 </v-tab>
             </template>
             <span class="black--text">Test your knowledge with a fun quiz!</span>
-
         </v-tooltip>
       </v-tabs>
         </v-row>
@@ -56,7 +54,7 @@
         <!-- actual page content -->
       <v-container class="py-10">
       <v-tabs-items v-model="tab">
-        <v-tab-item value="one" class="brown lighten-5">
+        <v-tab-item class="brown lighten-5">
             <template>
                 <!-- filter buttons -->
                 <v-row class="mt-10" justify="center">
@@ -72,18 +70,18 @@
                         <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
                         Cats
                         </v-btn>
-                    </v-row>
-                <v-row>
-                    <v-col cols="12" md="4" v-for="breed in filteredPets" :key="breed.name">
-                        <v-card
-                        class="mx-auto my-12 pa-3"
-                        max-width="360">
-                        <v-responsive>
-                            <v-img height="400" :src= "breed.image"
-                            ></v-img>
-                        </v-responsive>
-
-                        <v-card-title>{{breed.name}}</v-card-title>                
+                </v-row>
+                <v-row class="my-15" justify="center">
+                    <v-pagination v-model="page" :length="myLength" color="brown lighten-3"></v-pagination>
+                </v-row>
+                <v-row justify="center">
+                    <v-col cols="6" md="4" v-for="breed in pagedPets" :key="breed.name" data-aos="fade-up">
+                        <v-hover v-slot="{ hover }">
+                        <v-card v-model="page" class="mb-10 pa-2" max-width="360" flat :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                            <v-responsive>
+                            <v-img height="400" :src= "breed.image" ></v-img>
+                            </v-responsive>
+                            <v-card-title >{{ breed.name }}</v-card-title> 
                         </v-card>
                         </v-hover>
                     </v-col>
@@ -91,7 +89,6 @@
             </template>
         </v-tab-item>
         <v-tab-item class="brown lighten-5">
-
             <!-- filter buttons -->
             <!-- <v-row class="mt-10" justify="center">
                     <p class="text-h6 font-weight-light brown--text text--darken-2">Select Pet Type:</p>
@@ -107,18 +104,6 @@
                         Cats
                         </v-btn>
             </v-row>
-                <template>
-                    <div>
-                        <v-progress-linear
-                            v-model="perc_prog"
-                            height="25"
-                            class="mt-12"
-                            color="brown lighten-3"
-                            >
-                            <strong>{{ (this.prog) }}/5</strong>
-                        </v-progress-linear>
-                    </div>
-                </template>
             <v-card
             elevation="24"
             max-width="500"
@@ -131,7 +116,7 @@
                 color="brown lighten-4"
                     v-bind="attrs"
                     v-on="on"
-                    @click="increaseProg();getPetsList()"
+                    onclick="getsPetsList"
                     fab
                 ><v-icon>mdi-chevron-left</v-icon></v-btn>
                 </template>
@@ -140,19 +125,19 @@
                 color="brown lighten-4"
                     v-bind="attrs"
                     v-on="on"
-                    @click="increaseProg();getPetsList()"
+                    onclick="getPetsList"
                     fab
                 ><v-icon>mdi-chevron-right</v-icon></v-btn>
                 </template>
                 <v-carousel-item
                     v-for="breed in filteredPets"
-                    :key="breed.name"
+                    :key="breed"
                     :src="breed.image"
                     >
                 </v-carousel-item>
                 </v-carousel>
                 <v-list>
-                    <v-list-item v-for="pet in getPetsList()"
+                    <v-list-item v-for="pet in getPetsList"
                         :key="pet">
                                 <v-btn
                                 block
@@ -210,7 +195,6 @@
 </template>
 
 <script>
-
 import AOS from 'aos'
 import Quiz from "../components/Quiz.vue";
 import CustomModal from "../components/CustomModal.vue";
@@ -234,7 +218,6 @@ export default {
         },
         fab: false,
         page:1,
-
       tab: null,
       breeds: [
             {name:'Affenpinscher Dog', image:'dog1.png', pet:'dog'},
@@ -321,9 +304,6 @@ export default {
         ],
         called: '',
         petBreed: '',
-        prog: 1,
-        perc_prog: 20,
-        getResults: false,
     }
   },
   methods: {
@@ -332,7 +312,6 @@ export default {
     callCats() 
     {this.called = "cat";},
     currImg()
-
     {this.petBreed == this.breed.name},
     onScroll (e) {
       if (typeof window === 'undefined') return
@@ -350,7 +329,6 @@ export default {
      this.showModal = false;
      this.quizKey++;
    },
-
 },
   computed: {
     filteredPets() {
