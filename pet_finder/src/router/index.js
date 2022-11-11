@@ -5,6 +5,8 @@ import ReportPet from '../views/ReportPet.vue'
 import Dashboard from '../views/Dashboard.vue'
 import MyMap from '../views/MyMap.vue'
 import Inbox from '../views/Inbox.vue'
+import Register from '../views/Register.vue'
+
 import SignUp from '../views/SignUp.vue'
 import Learn from '../views/Learn.vue'
 import Account from '../views/Account.vue'
@@ -51,6 +53,11 @@ const routes = [
     path: '/account',
     name: 'account',
     component: Account
+  },
+  {
+    path:'/register',
+    name:'register',
+    component:Register
   }
 ]
 

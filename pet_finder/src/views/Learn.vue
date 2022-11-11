@@ -1,23 +1,31 @@
 <template>
-    <v-container color="brown lighten-5">  
-      <v-tabs
-        v-model="tab"
-        background-color="transparent"
-        grow
-      >
-        <v-tooltip bottom color="brown lighten-3">
-        <template v-slot:activator="{ on, attrs }">
-            <v-tab
-            color="primary"
-            dark
-            v-bind="attrs"
-            v-on="on"
-            href="#one"
-            >
-            Information
-            </v-tab>
-        </template>
-        <span>Learn more about different pet breeds!</span>
+    <div>
+    <v-container class="py-10">  
+        <!-- top -->
+        <v-row justify="center" class="text-center mb-5" data-aos="fade-down">
+            <v-col cols="12">
+                <v-img :src="require('../assets/BlackCat.png')" class="my-3" contain height="150"/>
+            </v-col>
+            <v-col cols="12">
+                <h1 class="text-h4 brown--text text-center">Learn More about Different Pet Breeds</h1>
+            </v-col>
+            <v-col cols="8" align="center" >
+                <p class="text-h6 font-weight-light brown--text text--darken-2">
+                    This page contains images of more than 70 different breeds of dogs and cats to help you identify the breeds of different pets. 
+                    You can view all breeds under the "Information" tab, and then test your knowledge with a fun game afterwards!
+                </p>
+            </v-col>
+        </v-row>
+        <v-divider></v-divider>
+        <v-row class="mt-15">
+        <v-tabs v-model="tab" background-color="transparent" grow>
+        <v-tooltip top color="brown lighten-4">
+            <template v-slot:activator="{ on, attrs }">
+                <v-tab color="primary" dark v-bind="attrs" v-on="on">
+                Information
+                </v-tab>
+            </template>
+            <span class="black--text">Learn more about different pet breeds!</span>
         </v-tooltip>
 
         <v-tooltip bottom color="brown lighten-3">
@@ -27,7 +35,6 @@
             dark
             v-bind="attrs"
             v-on="on"
-            href="#two"
             >
             Test your knowledge
             </v-tab>
@@ -35,17 +42,20 @@
         <span>Test your knowledge with a fun game!</span>
         </v-tooltip>
       </v-tabs>
-  
+        </v-row>
+
+        <!-- actual page content -->
+      <v-container class="py-10">
       <v-tabs-items v-model="tab">
         <v-tab-item value="one" class="brown lighten-5">
             <template>
-                <p class="mt-11">This page contains images of more than 70 different breeds of dogs and cats to help users identify the breeds of different pets. 
-                </p>
-                <v-row
-                        class="mt-5"
-                    >
+                <!-- filter buttons -->
+                <v-row class="mt-10" justify="center">
+                    <p class="text-h6 font-weight-light brown--text text--darken-2">Select Pet Type:</p>
+                </v-row>
+                <v-row class="mt-5" justify="center">
                         <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
-                        All
+                        All Pets
                         </v-btn>
                         <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
                         Dogs
@@ -57,7 +67,7 @@
                 <v-row>
                     <v-col cols="12" md="4" v-for="breed in filteredPets" :key="breed.name">
                         <v-card
-                        class="mx-auto my-6 pa-3"
+                        class="mx-auto my-12 pa-3"
                         max-width="360">
                         <v-responsive>
                             <v-img height="400" :src= "breed.image"
@@ -66,30 +76,24 @@
 
                         <v-card-title>{{breed.name}}</v-card-title>                
                         </v-card>
+                        </v-hover>
                     </v-col>
                 </v-row>
             </template>
         </v-tab-item>
-        <v-tab-item value="two" class="brown lighten-5">
-            <p class="mt-11">Test your knowledge on animal breeds by answering 5 questions below!
-                </p>
+        <v-tab-item class="brown lighten-5">
             <v-row
-                class="mt-5 d-flex justify-space-between"
+                class="mt-5"
             >
-                <div>
-                    <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
-                    All
-                    </v-btn>
-                    <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
-                    Dogs
-                    </v-btn>
-                    <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
-                    Cats
-                    </v-btn>
-                </div>
-                <div class="my-0">
-                    <Popup v-if='this.getResults == true'/>
-                </div>
+                <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
+                All
+                </v-btn>
+                <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
+                Dogs
+                </v-btn>
+                <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
+                Cats
+                </v-btn>
             </v-row>
                 <template>
                     <div>
@@ -152,14 +156,18 @@
         </v-tab-item>
       </v-tabs-items>
     </v-container>
+    </v-container>
+    <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
+        <v-icon>mdi-chevron-up</v-icon>
+    </v-btn>
+</div>
 </template>
 
 <script>
-import Popup from '../components/Popup.vue'
 export default {
-    components: {Popup},
   data () {
     return {
+      tab: null,
       breeds: [
             {name:'Affenpinscher Dog', image:'dog1.png', pet:'dog'},
             {name:'Afghan Hound Dog', image:'dog2.png', pet:'dog'},
@@ -256,35 +264,7 @@ export default {
     callCats() 
     {this.called = "cat";},
     currImg()
-    {this.petBreed == this.breed.name},
-    increaseProg()
-    {   console.log('y')
-        if (this.prog == 5){
-            this.prog = 1
-            this.perc_prog = 20
-            this.getResults = false
-        }
-        else if (this.prog == 4){
-            this.getResults = true
-            this.prog += 1
-            this.perc_prog += 20
-        }
-        else{
-            this.prog += 1
-            this.perc_prog += 20
-        }
-    },
-    getPetsList() {
-        var petsList = [];
-        for(var i=0; i<3;i++){
-            var id = Math.ceil(Math.random()*this.breeds.length)
-            var petName = this.breeds[id].name
-            petsList.push(petName)
-        }
-        petsList.push(this.petBreed)
-        return petsList.sort((a, b) => a < b ? -1 : 1)
-    },
-        
+    {this.petBreed == this.breed.name}
     
 },
   computed: {
@@ -299,19 +279,40 @@ export default {
             return this.breeds;
         }
     },
-    tab: {
-    set (tab) {
-      this.$router.replace({ query: { ...this.$route.query, tab } })
+    pagedPets(){
+        let pets = []
+        let start = (this.page -1) * 15;
+        for (let col = start; col < start+15; col++) {
+            if(col>this.filteredPets.length-1){
+                return pets
+            }
+            pets.push(this.filteredPets[col])
+        }
+        return pets
     },
-    get () {
-      return this.$route.query.tab
+    getPetsList() {
+        var petsList = [];
+        for(var i=0; i<3;i++){
+            var id = Math.ceil(Math.random()*this.breeds.length)
+            var petName = this.breeds[id].name
+            petsList.push(petName)
+        }
+        petsList.push(this.petBreed)
+        return petsList.sort((a, b) => a < b ? -1 : 1)
+    },
+    myLength(){
+        return Math.ceil(this.filteredPets.length/15)
     }
-  }
-    
-
-    // trigPopUp() {
-
-    // }
   }
 }
 </script>
+<style scoped>
+.v-card {
+  transition: opacity .2s ease-in-out;
+}
+.v-card:not(.on-hover) {
+  opacity: 0.95;
+ }
+ 
+
+</style>
