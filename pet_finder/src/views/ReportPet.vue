@@ -287,6 +287,7 @@
         colour: [1,4],
         formType:'',
         petLocation:'',
+        petGeoLoc: '',
         petName:'',
         petType:'',
         petColor:'',
@@ -353,6 +354,7 @@
             }
         },
         submitForm() {
+            this.petGeoLoc = getGeoloc()
             if (this.formType=='Lost Pet'){
                 const doc= {
                     petName:this.petName,
@@ -432,7 +434,7 @@
                 this.petLocation = "Your browser does not support geolocation API. Please key in your address manually instead!";
             }
         },
-        //geocode my lat lng to an address
+        //lat lng to address
         geocodeLatLng(){
             this.myGeocoder = new google.maps.Geocoder();
             const latlng = {
@@ -474,6 +476,21 @@
         // toTop () {
         //   this.$vuetify.goTo(0)
         // }
+
+        //address to geoloc
+        getGeoloc(){
+            this.myGeocoder = new google.maps.Geocoder();
+            this.myGeocoder
+            .geocode({ address: this.petLocation })
+            .then((response) => {
+            if (response.results[0]) {
+                this.petGeoLoc = response.results[0].geometry.location;
+            } else {
+                this.petGeoLoc = {};
+            }
+            })
+            .catch((e) => this.petGeoLoc = {});
+        },
     },
     computed: {
         //   fromDateDisp() {
