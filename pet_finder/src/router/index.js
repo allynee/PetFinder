@@ -9,6 +9,7 @@ import Register from '../views/Register.vue'
 
 import SignUp from '../views/SignUp.vue'
 import Learn from '../views/Learn.vue'
+import Account from '../views/Account.vue'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ const routes = [
     path: '/inbox',
     name: 'inbox',
     component: Inbox
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: Account
   },
   {
     path:'/register',

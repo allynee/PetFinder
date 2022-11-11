@@ -1,122 +1,94 @@
 <template>
-    
-    <v-container class="brown lighten-5 pa-5" style="width:40%">
-        <span class="text-h6 text-capitalize grey--text text--lighten-1">Create your account.</span><br/>
-        <v-row class="mb-7 ml-1 mt-1">
-            <span class="text-h4 text-capitalize brown--text">Join thousands of pet lovers.</span>
-        </v-row>
-
-        <v-form v-model="isFormValid">
-            <v-row>
-                <v-col
-                    cols="12"
-                    xs="12"
-                    >
-                    <v-text-field
-                        label="First Name *"
-                        placeholder="Enter First Name"
-                        :rules = "fnameRules"
-                        outlined
-                    ></v-text-field>
-                </v-col>
-
-                <v-col
-                cols="12"
-                    xs="12"
-                    >
-                    <v-text-field
-                        label="Last Name"
-                        placeholder="Enter Last Name"
-                        outlined
-                    ></v-text-field>
-                </v-col>
-
-                <v-col
-                cols="12"
-                    xs="12"
-                    >
-                    <v-text-field
-                        label="Username *"
-                        placeholder="Enter Username"
-                        :rules = "userRules"
-                        outlined
-                    ></v-text-field>
-                </v-col>
-
-                <v-col
-                cols="12"
-                    xs="12"
-                    >
-                    <v-text-field
-                        label="Email *"
-                        placeholder="Enter Email"
-                        :rules = "emailRules"
-                        outlined
-                    ></v-text-field>
-                </v-col>
-
-                <v-col
-                cols="12"
-                    xs="12"
-                    >
-                    <v-text-field
-                        label="Password *"
-                        placeholder="Enter Password"
-                        v-model = "password"
-                        :rules = "pwdRules"
-                        :value="myPass"
-                        :append-icon="value ? 'mdi-eye-off' : 'mdi-eye'"
-                        @click:append="() => (value = !value)"
-                        :type="value ? 'password' : 'text'"
-                        outlined
-                    ></v-text-field>
-                </v-col>
-
-                <v-col
-                cols="12"
-                    xs="12"
-                    >
-                    <v-text-field
-                        label="Confirm Password *"
-                        v-model="confirmPassword"
-                        placeholder="Type Confirm Password"
-                        :rules="cfmpwdRules"
-                        :value="mycfmPass"
-                        :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                        @click:append="() => (showPassword = !showPassword)"
-                        :type="showPassword ? 'password' : 'text'"
-                        outlined
-                    ></v-text-field>
-                </v-col>
-                <span class="ml-4 mb-16">
-                    <v-checkbox>
-                        <template v-slot:label>
-                            I wish to receive emails regarding activities involving my account
-                        </template>
-                    </v-checkbox>
-                </span>
+    <div class="white pa-15 pt-5 bground">
+        <v-container class="pl-10 pr-10 pb-10" style="width:45%;height:45%">
+            <span class="text-h6 text-capitalize grey--text">Create your account.</span><br/>
+            <v-row class="mb-7 ml-1 mt-1">
+                <span class="text-h4 text-capitalize brown--text">Join thousands of pet lovers.</span>
             </v-row>
-        </v-form>
-            
-        <div>
-            <v-btn block :disabled="!isFormValid"
-                class="mb-4 " color="brown" outlined>
-                Submit
-            </v-btn>
-        </div>
-    </v-container>
+
+            <v-form ref="form" v-model="valid">
+                <v-row class="no-gutters">
+                    <v-col
+                    cols="12"
+                        xs="12"
+                        >
+                        <v-text-field
+                            label="Username*"
+                            placeholder="Enter Username"
+                            :rules = "userRules"
+                            outlined
+                        ></v-text-field>
+                    </v-col>
+
+                    <v-col
+                    cols="12"
+                        xs="12"
+                        >
+                        <v-text-field
+                            label="Email*"
+                            placeholder="Enter Email"
+                            :rules = "emailRules"
+                            outlined
+                        ></v-text-field>
+                    </v-col>
+
+                    <v-col
+                    cols="12"
+                        xs="12"
+                        >
+                        <v-text-field
+                            label="Password*"
+                            placeholder="Enter Password"
+                            v-model = "password"
+                            :rules = "pwdRules"
+                            :value="myPass"
+                            :append-icon="value ? 'mdi-eye-off' : 'mdi-eye'"
+                            @click:append="() => (value = !value)"
+                            :type="value ? 'password' : 'text'"
+                            outlined
+                        ></v-text-field>
+                    </v-col>
+
+                    <v-col
+                    cols="12"
+                        xs="12"
+                        >
+                        <v-text-field
+                            label="Confirm Password*"
+                            v-model="confirmPassword"
+                            placeholder="Type Confirm Password"
+                            :rules="cfmpwdRules"
+                            :value="mycfmPass"
+                            :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                            @click:append="() => (showPassword = !showPassword)"
+                            :type="showPassword ? 'password' : 'text'"
+                            outlined
+                        ></v-text-field>
+                    </v-col>
+                    <span class="ml-4 ">
+                        <v-checkbox>
+                            <template v-slot:label>
+                                I wish to receive emails regarding activities involving my account
+                            </template>
+                        </v-checkbox>
+                    </span>
+                </v-row>
+                <v-btn block :disabled="!valid" @click="validate"
+                        color="brown" outlined>
+                        Submit
+                </v-btn>
+            </v-form>
+                
+        </v-container>
+    </div>
 </template>
 
 <script>
-// import useValidate from '@vuelidate/core'
-// import { required } from '@vuelidate/validators'
 
 export default {
-// mixins: [validationMixin],
-//  validations: {
-// confirmPassword: { sameAsPassword: sameAs("password") }},
 data(){
     return {
+        valid: true,
         password: '',
         confirmPassword: '',
         value: String,
@@ -143,30 +115,30 @@ data(){
             v => !!v || 'Please type confirm password.',
             v => v === this.password || 'The passwords do not match.'
         ],
-        validations() {
-    return {
-    //   email: { required },
-    //   password: {
-    //     password: { required },
-    //     confirm: { required },
-    //   },
-    }
-  },
     }
 },
 methods: {
-    checkPassword(invalid) { 
-        // correct: false
-        if (true == invalid) {
-        this.validPassword = false;
-        } else {
-        this.validPassword = true;
-        }
-    },
-    
+    validate () {
+        this.$refs.form.validate()
+      },
 },
 computed: {
-    
-  }
+    FormValid(){
+        if (this.pwdRules == true){
+            return this.isFormValid == true
+        }
+        return console.log('na')
+    }
+}
 }
 </script>
+
+<style scoped>
+.bground {
+  background: url('../assets/bg.png');
+  background-size: cover;
+  height: 120vh;
+  background-position: 20px;
+  width: 100%
+}
+</style>

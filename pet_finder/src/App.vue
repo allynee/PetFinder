@@ -52,8 +52,8 @@ import Footer from "../src/components/Footer.vue"
 export default {
   name: 'App',
   components: {Navbar, Footer},
-  data: () => ({
-    //
-  }),
+  data () {
+
+  },
 };
 </script>
