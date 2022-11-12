@@ -1,4 +1,5 @@
 <template>
+  <div>
     <v-container class="py-10">
       <!-- title -->
       <v-row justify="center"><v-col cols="12">
@@ -157,10 +158,17 @@
       </div>
     <!-- Data table-->
       <DataTable :pets="myPets" v-show="!grid"></DataTable>
+
     </v-container>
-  </template>
+    <!-- Scroll to top -->
+    <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
+        <v-icon>mdi-chevron-up</v-icon>
+    </v-btn>
   
-  <script>
+  </div>
+</template>
+  
+<script>
 import DataTable from "../components/DataTable.vue"
   import PetCard from "../components/PetCard.vue"
 
@@ -168,6 +176,7 @@ import DataTable from "../components/DataTable.vue"
   components: { DataTable, PetCard},
   data(){
     return {
+      fab: false,
       grid: true,
       petBreeds: ['Affenpinscher Dog', 'Afghan Hound Dog', 'Alaskan Malamute Dog', 'Australian Kelpie Dog', 
         'Australian Terrier Dog', 
@@ -388,7 +397,14 @@ import DataTable from "../components/DataTable.vue"
       // }
   },
   methods: {
-
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      this.fab = top > 20
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    },
   }
   }
   
