@@ -185,7 +185,7 @@ import AOS from 'aos'
   components: { DataTable, PetCard, Map},
   mounted() {
       AOS.init({
-        duration: 1500,
+        duration: 1400,
       })
   },
   data(){
