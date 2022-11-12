@@ -43,7 +43,7 @@
 
 
     <v-container class="">
-      <v-row justify="space-between" class="brown lighten-5 my-5 pa-15">
+      <!-- <v-row justify="space-between" class="brown lighten-5 my-5 pa-15">
         <v-col cols="6" align="left" class="" data-aos="fade-up">
               <div class="mb-5 text-h4 brown--text text--darken-4 font-weight-bold">
                 Browse All Lost and Found Pets
@@ -56,7 +56,7 @@
           <p>** Placeholder image, will replace with video</p>
           <v-img :src="require('../assets/Placeholder1.png')" class="my-3" contain/>
         </v-col> 
-      </v-row>
+      </v-row> -->
  
       <!-- <v-row justify="space-between" class="my-8">
         <v-col cols="7" align="left" class="pa-0" data-aos="fade-up">

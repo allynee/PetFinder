@@ -476,7 +476,6 @@
         // toTop () {
         //   this.$vuetify.goTo(0)
         // }
-
         //address to geoloc
         getGeoloc(){
             this.myGeocoder = new google.maps.Geocoder();

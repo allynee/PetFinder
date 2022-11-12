@@ -9,7 +9,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 //backend stuff
 import { store } from './store/index'
-// import "./firebase/index"
+import "./firebase/index"
 // import { 
 //     getFirestore, collection, getDocs
 // } from 'firebase/firestore'
@@ -20,26 +20,26 @@ import { store } from './store/index'
 
 
 // Geolocation
-// import VueGeolocation from 'vue-browser-geolocation';
-// Vue.use(VueGeolocation);
+import VueGeolocation from 'vue-browser-geolocation';
+Vue.use(VueGeolocation);
 
-// // Gmaps
-// import * as VueGoogleMaps from 'vue2-google-maps';
-// import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
+// Gmaps
+import * as VueGoogleMaps from 'vue2-google-maps';
+import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
 
-// Vue.use(VueGoogleMaps, {
-//   load: {
-//     key: 'AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM',
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM',
     
-//     libraries: 'places', // This is required if you use the Autocomplete plugin
-//     // OR: libraries: 'places,drawing'
-//     // OR: libraries: 'places,drawing,visualization'
-//     // (as you require)
+    libraries: 'places', // This is required if you use the Autocomplete plugin
+    // OR: libraries: 'places,drawing'
+    // OR: libraries: 'places,drawing,visualization'
+    // (as you require)
  
-//     //// If you want to set the version, you can do so:
-//     // v: '3.26',
+    //// If you want to set the version, you can do so:
+    // v: '3.26',
 
-//   },
+  },
  
   //// If you intend to programmatically custom event listener code
   //// (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
@@ -52,15 +52,15 @@ import { store } from './store/index'
   //// Vue.component('GmapMarker', GmapMarker)
   //// then disable the following:
   // installComponents: true,
-// })
+})
 
-// Vue.use(VuetifyGoogleAutocomplete, {
-//   /*
-//     not used as loaded with component
-//     apiKey: key,
-//   */
-//   vueGoogleMapsCompatibility: true,
-// });
+Vue.use(VuetifyGoogleAutocomplete, {
+  /*
+    not used as loaded with component
+    apiKey: key,
+  */
+  vueGoogleMapsCompatibility: true,
+});
 
 Vue.config.productionTip = false;
 
