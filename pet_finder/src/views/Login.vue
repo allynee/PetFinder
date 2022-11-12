@@ -1,6 +1,6 @@
 <template>
     <div class="white bground" >
-        <v-container class="mx-auto" data-aos="fade-down">
+        <v-container class="mx-auto" style="width:45%;height:45%" data-aos="fade-down">
             <v-row class="mt-16">
                 <span class="mt-16"> </span>
             </v-row>
@@ -10,9 +10,9 @@
             <v-row class="mb-7 mt-16 pt-0 d-flex align-center">
             <span class="text-h4 mt-16 text-capitalize brown--text mx-auto">Login</span>
             </v-row>
-            <v-row>
-                <v-card style="width:45%;height:75%;" elevation="2" class="mx-auto brown pt-9 pb-10 lighten-4">
-                    <v-card-text> 
+            <!-- <v-row> -->
+                <!-- <v-card style="width:45%;height:75%;" elevation="2" class="mx-auto brown pt-9 pb-10 lighten-4">
+                    <v-card-text>  -->
                         <v-container>
                             <form @submit.prevent="sampleLogin">
                                 <v-layout row>
@@ -23,6 +23,7 @@
                                         id="email"
                                         v-model="email"
                                         type="email"
+                                        outlined
                                         required>
                                         </v-text-field>
                                     </v-flex>
@@ -38,6 +39,7 @@
                                         id="password"
                                         v-model="password"
                                         type="password"
+                                        outlined
                                         required
                                         >
                                         </v-text-field>
@@ -55,9 +57,9 @@
                                 <!-- </v-layout> -->
                             </form>
                         </v-container>
-                    </v-card-text>
-                </v-card> 
-            </v-row>
+                    <!-- </v-card-text>
+                </v-card>  -->
+            <!-- </v-row> -->
         </v-container>
     </div>
 
