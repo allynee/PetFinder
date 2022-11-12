@@ -109,15 +109,40 @@ export default {
         return{
             showDropdown: false,
             hamburger: false,
-            links: [
+            // links: [
+            //     {text: 'Home', route: '/', icon: 'mdi-home'},
+            //     {text: 'Report a pet', route:'/ReportPet', icon: 'mdi-dog-side'},
+            //     {text: 'Learn about pets', route:'/Learn', icon: 'mdi-book'},
+            //     {text: 'View all pets', route:'/Dashboard', icon: 'mdi-magnify'},
+            //     {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
+            //     {text: 'My Account', route:'/Account', icon: 'mdi-account'}
+            // ]
+        }
+    },
+    computed:{
+        links(){
+            let linkitems=[ {text: 'Home', route: '/', icon: 'mdi-home'},
+                {text:'Register', route:'/register'},
+                {text:'Login', route:'/login'},
+                
+            ]
+            if(this.userLoggedIn){
+                linkitems=[
                 {text: 'Home', route: '/', icon: 'mdi-home'},
                 {text: 'Report a pet', route:'/ReportPet', icon: 'mdi-dog-side'},
                 {text: 'Learn about pets', route:'/Learn', icon: 'mdi-book'},
                 {text: 'View all pets', route:'/Dashboard', icon: 'mdi-magnify'},
                 {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
-                {text: 'My Account', route:'/Account', icon: 'mdi-account'}
-            ]
+                {text: 'My Account', route:'/Account', icon: 'mdi-account'},
+                ]
+            }
+            return linkitems
+
         }
+    ,
+    userLoggedIn(){
+        return this.$store.getters.getuser!=null && this.$store.getters.getuser!=undefined
+    }
     }
 }
 </script>

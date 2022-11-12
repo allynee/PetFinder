@@ -410,6 +410,7 @@ import DataTable from "../components/DataTable.vue"
         this.allPetsArray.push( {...doc.data()})
       })
     })
+    console.log(this.allPetsArray)
   },
   methods: {
     onScroll (e) {

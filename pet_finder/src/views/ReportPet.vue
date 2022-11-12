@@ -17,7 +17,7 @@
                 <v-col cols="12"> 
                     <h1 class="text-h6 brown--text text-center font-weight-light ">I am reporting a...</h1>
                 </v-col>
-                <v-radio-group v-model="formType">
+                <v-radio-group v-model="petStatus">
                 <v-col cols="12" align="center">
                     
                         <v-btn rounded depressed large color="brown lighten-4 mx-4">
@@ -289,7 +289,7 @@
         petGenders: ['Male','Female',"Unknown"],
         petSizes: ['Small', 'Medium', 'Large'],
         colour: [1,4],
-        formType:'',
+        petStatus:'',
         petLocation:'',
         petGeoLoc: '',
         petName:'',
@@ -364,18 +364,19 @@
             // this.getGeoloc()
             console.log(this.petGeoLoc)
             const form_doc={
-                formType: this.formType,
+                petStatus: this.petStatus,
                 petName:this.petName,
                 petLocation: this.petLocation,
                 petDate: this.date,
                 petType: this.petType,
-                petBreed: this.petBreed[0],
-                petColor:this.petColor[0],
+                petBreed: this.petBreed,
+                petColor:this.petColor,
                 collarColor:this.collarColor,
                 petSize:this.petSize,
                 petGender:this.petGender,
                 image:'',
-                petGeoLoc: this.petGeoLoc
+                petGeoLoc: this.petGeoLoc,
+                petid:''
             }
             console.log(form_doc)
             let key
@@ -385,11 +386,12 @@
                 alert('Pet listed with ID' + data.id)
                 key=data.id
                 const documentRef=doc(db, "Pets", key)
+                console.log(this.image)
                 const filename=this.image.name
                 const extension=filename.slice(filename.lastIndexOf('.'))
 
                 const imageRef=ref( getStorage(), `Pets/${key}${extension}`)
-                uploadBytes(imageRef, this.file)
+                uploadBytes(imageRef, this.image)
                 .then( (snapshot)=>{
                     console.log("Uploaded to storage")
                     console.log("snapshot:"+ snapshot)
@@ -542,7 +544,7 @@
                 return this.petBreeds
         },
         formIsValid() {
-            return this.formType!='' && 
+            return this.petStatus!='' && 
             this.petName!='' && 
             this.petType!='' && 
             this.petColor!='' && 
