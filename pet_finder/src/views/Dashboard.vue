@@ -50,14 +50,14 @@
             <v-col cols="12" md="6" lg="4">
               <v-combobox hide-no-data v-model="petBreedsSelected" outlined :items="petBreeds" label="Select Pet Breeds" class="text-brown" multiple></v-combobox>
             </v-col>
-            <!-- Pet Colour -->
+            <!-- Pet Color -->
             <v-col cols="12" md="6" lg="4">
               <v-combobox outlined v-model="petColorsSelected" :items="petColors" label="Select Pet Colors" multiple></v-combobox>
             </v-col>
 
-            <!-- Collar Colour -->
+            <!-- Collar Color -->
             <v-col cols="12" md="6" lg="4">
-              <v-combobox outlined v-model="collarColoursSelected" :items="collarColours" label="Select Collar Colours" multiple></v-combobox>
+              <v-combobox outlined v-model="collarColorsSelected" :items="collarColors" label="Select Collar Colors" multiple></v-combobox>
             </v-col>
             <!-- Pet Size -->
             <v-col cols="12" md="6" lg="4">
@@ -103,9 +103,9 @@
             </v-chip-group>
 
               <!--  collar colous-->
-              <v-chip-group column v-model="collarColoursSelected" multiple>
-              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="collarColour in collarColoursSelected" :key="collarColour" :value="collarColour">
-                  <span> {{ collarColour}} </span>
+              <v-chip-group column v-model="collarColorsSelected" multiple>
+              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="collarColor in collarColorsSelected" :key="collarColor" :value="collarColor">
+                  <span> {{ collarColor}} </span>
                   <v-icon small right>mdi-window-close</v-icon>
               </v-chip>
             </v-chip-group>
@@ -151,7 +151,7 @@
       <div v-show="grid">
       <v-row class="my-5">
         <!-- Dashboard -->
-        <v-col cols="12" md="6" lg="4" v-for="aPet in myPets" :key="aPet.petName">
+        <v-col cols="12" md="6" lg="4" v-for="aPet in myPets" :key="aPet.petName" align="center">
             <PetCard :aPet="aPet"></PetCard>
         </v-col>
       </v-row>
@@ -291,24 +291,13 @@ import DataTable from "../components/DataTable.vue"
         petBreedsSelected: [],
         petColors: ["White","Black","Brown","Orange","Other Colours"],
         petColorsSelected: [],
-        collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
-        collarColoursSelected: [],
+        collarColors: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
+        collarColorsSelected: [],
         petGenders: ['Male','Female',"Unknown"],
         petGendersSelected: [],
         petSizes: ['Small', 'Medium', 'Large'],
         petSizesSelected: [],
-  
-        //array of objects
-        // (_id, PetName, MissingSince, Type, Breed, Gender, NearestLoc, Zip, Color, Collar, Size)
-        // allPets: [
-        //   {id: "123456789", petImage: "testimg.png", 
-        //   petName: "Snoop Dog", petType: "Dog", petBreed: "Welsh Corgi Dog", 
-        //   petColor: "Brown", missingSince: "20th Jan 2022", 
-        //   petGender: "Male", collarColour: "No Collar", 
-        //   petSize: "Medium", petStatus: "Lost",
-        // petLoc:"Singapore Management University"},
-        // ],
-        
+          
         //pets array retrieved from firebase:
         allPetsArray:[],
     }
@@ -325,47 +314,49 @@ import DataTable from "../components/DataTable.vue"
   computed: {
       myPets(){
         console.log(this.allPetsArray)
-        return this.allPetsArray
 
-        // return this.allPetsArray.filter(pet => {
-        //   console.log(this.allPetsArray)
-        //   let finalFilter = "";
-        //   // pet type
-        //   if(this.petBreedsSelected.length!=0){
-        //     finalFilter += `${this.petBreedsSelected.includes(pet.petBreed)}`;
-        //   }
-        //   // pet breed
-        //   if(this.petTypesSelected.length!=0){
-        //     finalFilter += `${this.petTypesSelected.includes(pet.petType)}`;
-        //   }
-        //   // pet color
-        //   if(this.petColorsSelected.length!=0){
-        //     finalFilter += `${this.petColorsSelected.includes(pet.petColor)}`;
-        //   }
-        //   // pet gender
-        //   if(this.petGendersSelected.length!=0){
-        //     finalFilter += `${this.petGendersSelected.includes(pet.petGender)}`;
-        //   }
-        //   // pet size
-        //   if(this.petSizesSelected.length!=0){
-        //     finalFilter += `${this.petSizesSelected.includes(pet.petSize)}`;
-        //   }
-        //   // pet collar colour
-        //   if(this.collarColorsSelected.length!=0){
-        //     finalFilter += `${this.collarColorsSelected.includes(pet.collarColor)}`;
-        //   }
-        //   // status
-        //   if(this.petStatus!="" && this.petStatus!="All"){
-        //     finalFilter += `${this.petStatus == pet.formType}`;
-        //   }
-        //   console.log(this.allPetsArray)
-        //   // check if there are any filters
-        //   if (finalFilter.includes("false")){
-        //     return false;
-        //   }else{
-        //     return true;
-        //   }
-        //   })
+        return this.allPetsArray.filter(pet => {
+          console.log(this.allPetsArray)
+          let finalFilter = "";
+          // pet breed
+          if(this.petBreedsSelected.length!=0){
+            finalFilter += `${this.petBreedsSelected.includes(pet.petBreed)}`;
+          }
+          // pet type
+          if(this.petTypesSelected.length!=0){
+            finalFilter += `${this.petTypesSelected.includes(pet.petType)}`;
+          }
+          // // pet color
+          if(this.petColorsSelected.length!=0){
+            console.log(this.petColorsSelected)
+            console.log(pet.petColor)
+            finalFilter += `${this.petColorsSelected.includes(pet.petColor)}`;
+          }
+
+          // pet gender
+          if(this.petGendersSelected.length!=0){
+            finalFilter += `${this.petGendersSelected.includes(pet.petGender)}`;
+          }
+          // pet size
+          if(this.petSizesSelected.length!=0){
+            finalFilter += `${this.petSizesSelected.includes(pet.petSize)}`;
+          }
+          // // pet collar color
+          // if(this.collarColorsSelected.length!=0){
+          //   finalFilter += `${this.collarColorsSelected.includes(pet.collarColor)}`;
+          // }
+
+          // status
+          if(this.petStatus!="" && this.petStatus!="All"){
+            finalFilter += `${this.petStatus == pet.petStatus}`;
+          }
+          // check if there are any filters
+          if (finalFilter.includes("false")){
+            return false;
+          }else{
+            return true;
+          }
+        })
       },
   },
   methods: {

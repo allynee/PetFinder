@@ -19,18 +19,18 @@
 
         <!-- right side of app bar -->
         <div class="mx-10">
-        <v-btn plain color="primary" class="mx-3 font-weight-bold hidden-sm-only" to="/ReportPet">
+        <v-btn plain color="primary" class="mx-1 font-weight-bold hidden-sm-only" to="/ReportPet">
             <span>Report Pet</span>
         </v-btn>
 
-        <v-btn plain color="primary" class="mx-3 font-weight-bold hidden-sm-only" to="/Learn">
+        <v-btn plain color="primary" class="mx-1 font-weight-bold hidden-sm-only" to="/Learn">
             <span>Learn</span>
         </v-btn>
 
         <!-- drop down search -->
         <v-menu bottom :offset-y=true>
             <template v-slot:activator="{ on, attrs }">
-                <v-btn plain color="primary" dark v-bind="attrs" v-on="on" class="mx-3 font-weight-bold hidden-sm-only">
+                <v-btn plain color="primary" dark v-bind="attrs" v-on="on" class="mx-1 font-weight-bold hidden-sm-only">
                     <span>Search</span>
                     <v-icon>mdi-menu-down</v-icon>
                 </v-btn>
@@ -48,7 +48,7 @@
         </v-menu>
 
         <!-- Inbox -->
-            <v-btn plain color="primary" class="mx-3 font-weight-bold hidden-sm-only" to="/Inbox">
+            <v-btn plain color="primary" class="mx-1 font-weight-bold hidden-sm-only" to="/Inbox">
                 <span>Matched Pets</span>
             </v-btn>
         
@@ -71,7 +71,7 @@
                 </v-list-item>
             </v-list>
         </v-menu> --> 
-        <v-btn fab small elevation="1" color="brown lighten-4 hidden-sm-only" to="/Account" class="ml-5">
+        <v-btn fab small elevation="1" color="brown lighten-4 hidden-sm-only" to="/Account" class="ml-2">
             <v-icon>mdi-account</v-icon>
         </v-btn>
 
