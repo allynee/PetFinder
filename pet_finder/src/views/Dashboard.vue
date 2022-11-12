@@ -269,7 +269,8 @@
           petName: "Snoop Dog", petType: "Dog", petBreed: "Corgi", 
           petColour: "Brown", missingSince: "20th Jan 2022", 
           petGender: "Male", collarColour: "No Collar", 
-          petSize: "Medium", petStatus: "Lost"},
+          petSize: "Medium", petStatus: "Lost",
+        petLoc:"Singapore Management University"},
         ],
     }
   },
