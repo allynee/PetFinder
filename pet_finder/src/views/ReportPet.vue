@@ -89,7 +89,7 @@
                     </v-col>
                 <!-- Colour -->
                 <v-col cols="12" md="6">
-                    <v-combobox v-model="petColor" outlined :items="petColours" :rules="colorRule" label="Pet's Colour" placeholder="Select the Pet's Colour(s)..." multiple class="text-brown"></v-combobox>
+                    <v-combobox v-model="petColor" outlined :items="petColours" :rules="colorRule" label="Pet's Colour" placeholder="Select the Pet's Colour(s)..." class="text-brown"></v-combobox>
                 </v-col>
                 <!-- Collar colour -->
                 <v-col cols="12" md="6">
