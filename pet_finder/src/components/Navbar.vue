@@ -87,11 +87,11 @@ export default {
             if(this.userLoggedIn){
                 linkitems=[
                 {text: 'Home', route: '/', icon: 'mdi-home'},
-                {text: 'Report a pet', route:'/ReportPet', icon: 'mdi-dog-side'},
-                {text: 'Learn about pets', route:'/Learn', icon: 'mdi-book'},
-                {text: 'View all pets', route:'/Dashboard', icon: 'mdi-magnify'},
-                {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
-                {text: 'My Account', route:'/Account', icon: 'mdi-account'},
+                {text: 'Report Pet', route:'/ReportPet', icon: 'mdi-dog-side'},
+                {text: 'Search Pet', route:'/SearchAllPets', icon: 'mdi-magnify'},
+                {text: 'Learn More', route:'/Learn', icon: 'mdi-book-outline'},
+                // {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
+                {text: 'Account', route:'/Account', icon: 'mdi-account'},
                 ]
             }
             return linkitems
