@@ -4,3 +4,6 @@
     <Map></Map>
   </div>
 </template>
+
+<script>
+</script>
