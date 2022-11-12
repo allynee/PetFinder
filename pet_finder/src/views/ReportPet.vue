@@ -125,7 +125,7 @@
                 <!-- Submit -->
                 <v-row align="center" justify="center" class="mt-5">
                     <v-col cols="12" align="center">
-                        <v-btn x-large depressed color="brown lighten-4" type="submit" :disabled="!formIsValid" >
+                        <v-btn x-large depressed color="brown lighten-4" type="submit" :disabled="!formIsValid" :loading="loading">
                             Submit
                              <!-- button loader -->
                              <template v-slot:loader>
@@ -399,6 +399,7 @@
             const docRef= addDoc(collection(db, 'Pets'), form_doc)
             .then( (data)=>{
                 key=data.id
+                form_doc.petid=key
                 const documentRef=doc(db, "Pets", key)
                 //updating petid into database
                 updateDoc(documentRef, {petid:key}, {merge:true})
@@ -419,15 +420,16 @@
                             console.log("Got Download URL")
                             updateDoc(documentRef, {image:url}, {merge:true})
                             .then( ()=>{
+                                form_doc.image=url
                                 this.$store.commit('setLoading',false)
                                 console.log("pic added to database")
 
                                 //gotta assign the listed petID to user database
-                                const payload={
-                                    userid:user_obj.userid,
-                                    petid:key
-                                }
-                                this.$store.dispatch('updatePetArray', payload)
+                                // const payload={
+                                //     userid:user_obj.userid,
+                                //     petid:key
+                                // }
+                                this.$store.dispatch('updatePetArray', form_doc)
                             })
                             .catch( ()=>{
                                 this.$store.commit('setLoading',false)
@@ -591,7 +593,6 @@
             } else {
                 this.petGeoLoc = {};
             }
-            console.log(petGeoLoc)
             this.submitForm()
             })
             .catch((e) => {this.petGeoLoc = {}

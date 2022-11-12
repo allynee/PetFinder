@@ -39,8 +39,8 @@ export const store = new Vuex.Store({
             state.loading=payload
         },
         //update array (add/delete)
-        addPetArray(state, petid){
-            state.user.listedPets.push(petid)
+        addPetArray(state, form_input){
+            state.user.listedPets.push(form_input)
         }
     },
     actions:{
@@ -74,10 +74,10 @@ export const store = new Vuex.Store({
         },
         updatePetArray({commit},payload){
             const arrayRef=doc(db, 'Users',payload.userid)
-            updateDoc(arrayRef,{listedPets: arrayUnion(payload.petid)})
+            updateDoc(arrayRef,{listedPets: arrayUnion(payload)})
             .then( ()=>{
                 console.log('PetID updated in user database')
-                commit('addPetArray', payload.petid)
+                commit('addPetArray', payload)
             })
             .catch((err)=>{
                 console.log(err)
