@@ -13,7 +13,7 @@
         <v-img :src="aPet.image" class="" contain max-height="250" max-width="350"/>
     </v-card-text>
         
-    <!-- Pet Name -->
+    <!-- Pet Name --> 
     <div class="mx-1">
     <v-list-item>
         <span class="text-h5 primary--text"> {{aPet.petName}}</span>
@@ -53,9 +53,15 @@
 </template>
 
 <script>
+import AOS from 'aos'
 export default {
     props: {
       aPet: Object,
+    },
+    mounted() {
+      AOS.init({
+        duration: 1600,
+      })
     },
     data(){
         return{
