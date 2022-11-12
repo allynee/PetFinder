@@ -171,6 +171,10 @@
 <script>
 import DataTable from "../components/DataTable.vue"
   import PetCard from "../components/PetCard.vue"
+  import db from '../firebase/index'
+  import {collection, getDocs} from 'firebase/firestore'
+  import {onMounted} from 'vue'
+
 
   export default {
   components: { DataTable, PetCard},
@@ -316,6 +320,9 @@ import DataTable from "../components/DataTable.vue"
           petSize: "Medium", petStatus: "Lost",
         petLoc:"Singapore Management University"},
         ],
+        
+        //pets array retrieved from firebase:
+        allPetsArray:[],
     }
   },
   computed: {
@@ -395,6 +402,15 @@ import DataTable from "../components/DataTable.vue"
       //     });
       //   }
       // }
+  },
+  created(){
+    const petRef=collection(db, 'Pets')
+    getDocs(petRef)
+    .then( (snapshot)=>{
+      snapshot.docs.forEach( (doc)=>{
+        this.allPetsArray.push( {...doc.data()})
+      })
+    })
   },
   methods: {
     onScroll (e) {
