@@ -23,8 +23,10 @@
         <h1 class="text-h4 brown--text text--darken-2 font-weight-bold">We're here to help.</h1>
         <br>
         <p class="text-h6 font-weight-light brown--text text--darken-1">
-          FindPetNow is an online platform that aims to support you in bringing your lost pet back home. 
-          Here, we have a community of pet-lovers that blablbalbalbalbalbalbalblablabblablabla.
+          FindPetNOW is an online platform that aims to support you in bringing your lost pet back home. 
+          Here, we have a community of dedicated pet owners who share the same love for their pets that you do yours.
+          You need to act quickly to find your missing pet. Report your lost dog, cat, terrapin and other pets today to boost the chances
+          of finding your lost pet. 
         </p>
         <p class="text-h6 font-weight-light brown--text text--darken-1">
           Ready to get started?

@@ -1,33 +1,35 @@
 <template>
     <div class="white pa-15">
-        <v-container class="brown lighten-5 pa-10">
+        <v-container class="brown lighten-5 pa-10" data-aos="fade-down">
             <div class="display-1 mb-5">My Petfinder</div>
-                <v-tabs
-                v-model="tab"
-                background-color="brown lighten-5"
-                icons-and-text
-                >
-                <v-tabs-slider></v-tabs-slider>
+            <v-tabs
+            v-model="tab"
+            background-color="brown lighten-5"
+            icons-and-text
+            next-icon="mdi-arrow-right-bold-box-outline"
+            prev-icon="mdi-arrow-left-bold-box-outline"
+            show arrows
+            >
+            <v-tabs-slider></v-tabs-slider>
 
-                <v-tab>
-                    About Me
-                    <v-icon style="color:rgb(196,164,132)">mdi-account</v-icon>
-                </v-tab>
+            <v-tab>
+                About Me
+                <v-icon style="color:rgb(196,164,132)">mdi-account</v-icon>
+            </v-tab>
 
-                <v-tab>
-                    Account Settings
-                    <v-icon style="color:rgb(196,164,132)">mdi-cog</v-icon>
-                </v-tab>
+            <v-tab>
+                Account Settings
+                <v-icon style="color:rgb(196,164,132)">mdi-cog</v-icon>
+            </v-tab>
 
-                <v-tab>
-                    Liked Pets
-                    <v-icon style="color:rgb(196,164,132)">mdi-heart</v-icon>
-                </v-tab>
-                <v-tab>
-                    My Pets
-                    <v-icon style="color:rgb(196,164,132)">mdi-paw</v-icon>
-                </v-tab>
-                </v-tabs>
+            <v-tab>
+                Liked Pets
+                <v-icon style="color:rgb(196,164,132)">mdi-heart</v-icon>
+            </v-tab>
+            <v-tab>
+                My Pets
+                <v-icon style="color:rgb(196,164,132)">mdi-paw</v-icon>
+            </v-tab>
 
                 <v-tabs-items v-model="tab">
                 <v-tab-item>
@@ -119,7 +121,7 @@
                     </v-form>
                 </v-tab-item>
                 <v-tab-item>
-                    <!-- <v-container>
+                    <v-container>
                         <v-row dense>
                             <v-col cols="12">
                                 <v-card
@@ -148,9 +150,28 @@
                                 </v-card>
                             </v-col>
                         </v-row>
-                    </v-container> -->
+                    </v-container>
                 </v-tab-item>
             </v-tabs-items>
+            </v-tabs> 
+            <!-- <v-sheet elevation="6">
+                <v-tabs
+                background-color="cyan"
+                dark
+                next-icon="mdi-arrow-right-bold-box-outline"
+                prev-icon="mdi-arrow-left-bold-box-outline"
+                show-arrows
+                >
+                <v-tabs-slider color="yellow"></v-tabs-slider>
+                <v-tab
+                    v-for="i in 30"
+                    :key="i"
+                    :href="'#tab-' + i"
+                >
+                    Item {{ i }}
+                </v-tab>
+                </v-tabs>
+            </v-sheet> -->
         </v-container>
     </div>
 </template>
@@ -183,5 +204,6 @@
             this.$refs.form.validate()
         },
     },
+    
   }
 </script>
