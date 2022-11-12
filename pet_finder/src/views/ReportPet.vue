@@ -373,6 +373,8 @@
             // this.getGeoloc()
             this.$store.commit('setLoading',true)
             console.log(this.petGeoLoc)
+            const user_obj=this.$store.getters.getuser
+            console.log(user_obj)
             const form_doc={
                 petStatus: this.petStatus,
                 petName:this.petName,
@@ -386,47 +388,59 @@
                 petGender:this.petGender,
                 image:'',
                 petGeoLoc: this.petGeoLoc,
-                petid:''
+                petid:'',
+                userid:user_obj.userid,
+                useremail:user_obj.email, 
+                username:user_obj.username,
             }
             console.log(form_doc)
             let key
 
             const docRef= addDoc(collection(db, 'Pets'), form_doc)
             .then( (data)=>{
+                key=data.id
                 const documentRef=doc(db, "Pets", key)
                 //updating petid into database
                 updateDoc(documentRef, {petid:key}, {merge:true})
                 .then((snapshot)=>{
                     console.log('PetID updated')
-                    return
-                })
-                .catch((err)=>{
-                    console.log(err)
-                    return
-                })
-                alert('Pet listed!')
-                key=data.id
-                console.log(this.image)
-                const filename=this.image.name
-                const extension=filename.slice(filename.lastIndexOf('.'))
+                    alert('Pet listed!')
+                    console.log(this.image)
+                    const filename=this.image.name
+                    const extension=filename.slice(filename.lastIndexOf('.'))
 
-                const imageRef=ref( getStorage(), `Pets/${key}${extension}`)
-                uploadBytes(imageRef, this.image)
-                .then( (snapshot)=>{
-                    console.log("Uploaded to storage")
-                    console.log("snapshot:"+ snapshot)
-                    getDownloadURL(snapshot.ref)
-                    .then( (url)=>{
-                        console.log("Got Download URL")
-                        updateDoc(documentRef, {image:url}, {merge:true})
-                        .then( ()=>{
-                            this.$store.commit('setLoading',false)
-                            console.log("pic added to database")
+                    const imageRef=ref( getStorage(), `Pets/${key}${extension}`)
+                    uploadBytes(imageRef, this.image)
+                    .then( (snapshot)=>{
+                        console.log("Uploaded to storage")
+                        console.log("snapshot:"+ snapshot)
+                        getDownloadURL(snapshot.ref)
+                        .then( (url)=>{
+                            console.log("Got Download URL")
+                            updateDoc(documentRef, {image:url}, {merge:true})
+                            .then( ()=>{
+                                this.$store.commit('setLoading',false)
+                                console.log("pic added to database")
+
+                                //gotta assign the listed petID to user database
+                                const payload={
+                                    userid:user_obj.userid,
+                                    petid:key
+                                }
+                                this.$store.dispatch('updatePetArray', payload)
+                            })
+                            .catch( ()=>{
+                                this.$store.commit('setLoading',false)
+
+                                console.log("Pic not added to database")
+                            })
+
                         })
-                        .catch( ()=>{
+                        .catch( (err)=>{
                             this.$store.commit('setLoading',false)
 
-                            console.log("Pic not added to database")
+                            console.log(err)
+                            console.log("Error getting download URL")
                         })
 
                     })
@@ -434,17 +448,56 @@
                         this.$store.commit('setLoading',false)
 
                         console.log(err)
-                        console.log("Error getting download URL")
+                        console.log("Error uploading to storage")
                     })
-
                 })
-                .catch( (err)=>{
-                    this.$store.commit('setLoading',false)
-
+                        
+                    })
+                .catch((err)=>{
+                    console.log('failed to add petid')
                     console.log(err)
-                    console.log("Error uploading to storage")
+                    return
                 })
-            })
+            //     alert('Pet listed!')
+            //     console.log(this.image)
+            //     const filename=this.image.name
+            //     const extension=filename.slice(filename.lastIndexOf('.'))
+
+            //     const imageRef=ref( getStorage(), `Pets/${key}${extension}`)
+            //     uploadBytes(imageRef, this.image)
+            //     .then( (snapshot)=>{
+            //         console.log("Uploaded to storage")
+            //         console.log("snapshot:"+ snapshot)
+            //         getDownloadURL(snapshot.ref)
+            //         .then( (url)=>{
+            //             console.log("Got Download URL")
+            //             updateDoc(documentRef, {image:url}, {merge:true})
+            //             .then( ()=>{
+            //                 this.$store.commit('setLoading',false)
+            //                 console.log("pic added to database")
+            //             })
+            //             .catch( ()=>{
+            //                 this.$store.commit('setLoading',false)
+
+            //                 console.log("Pic not added to database")
+            //             })
+
+            //         })
+            //         .catch( (err)=>{
+            //             this.$store.commit('setLoading',false)
+
+            //             console.log(err)
+            //             console.log("Error getting download URL")
+            //         })
+
+            //     })
+            //     .catch( (err)=>{
+            //         this.$store.commit('setLoading',false)
+
+            //         console.log(err)
+            //         console.log("Error uploading to storage")
+            //     })
+            // })
             .catch( (err)=>{
                 this.$store.commit('setLoading',false)
 

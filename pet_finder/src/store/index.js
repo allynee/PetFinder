@@ -1,5 +1,5 @@
 // import { getDoc } from 'firebase/firestore'
-import { doc,getDoc } from 'firebase/firestore'
+import { doc,getDoc,arrayUnion, updateDoc } from 'firebase/firestore'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import db from '../firebase/index'
@@ -28,7 +28,7 @@ export const store = new Vuex.Store({
     state:{
         //listed pets: [],
         user:null,
-        allPetsArray:null,
+        // allPetsArray:null,
         loading:false,
     },
     mutations:{
@@ -37,6 +37,10 @@ export const store = new Vuex.Store({
         },
         setLoading( state,payload){
             state.loading=payload
+        },
+        //update array (add/delete)
+        addPetArray(state, petid){
+            state.user.listedPets.push(petid)
         }
     },
     actions:{
@@ -67,7 +71,19 @@ export const store = new Vuex.Store({
                 console.log(err)
             })
             commit('setUser', null)
-        }
+        },
+        updatePetArray({commit},payload){
+            const arrayRef=doc(db, 'Users',payload.userid)
+            updateDoc(arrayRef,{listedPets: arrayUnion(payload.petid)})
+            .then( ()=>{
+                console.log('PetID updated in user database')
+                commit('addPetArray', payload.petid)
+            })
+            .catch((err)=>{
+                console.log(err)
+                console.log("PetID failed to update in user database")
+            })
+        },
             
     },
     getters:{
@@ -79,9 +95,7 @@ export const store = new Vuex.Store({
             return state.loading
         }
         
-        // getAllPets(state){
-
-        // }
+   
     }
 
 })
