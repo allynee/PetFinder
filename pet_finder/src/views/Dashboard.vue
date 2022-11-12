@@ -173,7 +173,6 @@ import DataTable from "../components/DataTable.vue"
   import PetCard from "../components/PetCard.vue"
   import db from '../firebase/index'
   import {collection, getDocs} from 'firebase/firestore'
-  import {onMounted} from 'vue'
 
 
   export default {
