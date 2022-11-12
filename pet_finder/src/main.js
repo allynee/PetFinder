@@ -27,6 +27,10 @@ Vue.use(VueGeolocation);
 import * as VueGoogleMaps from 'vue2-google-maps';
 import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
 
+//Gmap cluster
+import GmapCluster from 'vue2-google-maps/dist/components/cluster';
+Vue.component('GmapCluster', GmapCluster)
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM',

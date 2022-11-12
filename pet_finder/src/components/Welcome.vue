@@ -23,8 +23,10 @@
         <h1 class="text-h4 brown--text text--darken-2 font-weight-bold">We're here to help.</h1>
         <br>
         <p class="text-h6 font-weight-light brown--text text--darken-1">
-          FindPetNow is an online platform that aims to support you in bringing your lost pet back home. 
-          Here, we have a community of pet-lovers that blablbalbalbalbalbalbalblablabblablabla.
+          FindPetNOW is an online platform that aims to support you in bringing your lost pet back home. 
+          Here, we have a community of dedicated pet owners who share the same love for their pets that you do yours.
+          You need to act quickly to find your missing pet. Report your lost dog, cat, terrapin and other pets today to boost the chances
+          of finding your lost pet. 
         </p>
         <p class="text-h6 font-weight-light brown--text text--darken-1">
           Ready to get started?
@@ -122,7 +124,7 @@
               <p class="text-h6 text-center font-weight-light brown--text text--darken-1">
                 Browse all the pets and check to see if yours is there. If you see your pet, reclaim it by contacting the individual who posted the information.
               </p>
-              <v-btn to="/MyMap" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Search Now</v-btn>
+              <v-btn to="/DashBoard" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Search Now</v-btn>
         </v-col> 
       </v-row>
     </v-container>
@@ -416,7 +418,7 @@
       <p style="margin-top:50px;margin-bottom:50px" class="text-h6 text-center font-weight-light black--text text--darken-1">
         Sign up now to get instant access to hundreds of lost pets waiting to be reclaimed by their owner. 
       </p>
-      <v-btn to="/SignUp" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center;">Sign Up</v-btn>
+      <v-btn to="/Register" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center;">Sign Up</v-btn>
     </v-container>
 
     <v-row justify ="center" align="center">
@@ -444,60 +446,12 @@
         duration: 1600,
       })
     },
-    data: () => ({
+    data() {
+      return{
       href: '#sect1',
       fab: false,
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
-        },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com',
-        },
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
-        },
-      ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer',
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
-    }),
+      }
+    },
     methods: {
     onScroll (e) {
       if (typeof window === 'undefined') return

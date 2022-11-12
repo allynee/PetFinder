@@ -1,75 +1,95 @@
 <template>
-    <v-container>
-        <v-layout>
-            <v-flex xs12 sm6 offset-sm3>
-                <v-card>
-                    <v-card-text>
-                        <v-container>
-                            <form @submit.prevent="onRegister">
-                                <v-layout row>
-                                    <v-flex xs12>
-                                        <v-text-field
-                                        name="fullname"
-                                        label="Fullname"
-                                        id="fullname"
-                                        v-model="fullname"
-                                        type="text"
-                                        required>
-                                        </v-text-field>
-                                    </v-flex>
-                                </v-layout>
+    <div class="white pa-15 pt-5 bground">
+        <v-container class="pl-10 pr-10 pb-10" style="width:45%;height:45%" data-aos="fade-down">
+            <span class="text-h6 text-capitalize grey--text">Create your account.</span><br/>
+            <v-row class="mb-7 ml-1 mt-1">
+                <span class="text-h4 text-capitalize brown--text">Join thousands of pet lovers.</span>
+            </v-row>
+            <v-container>
+                <form @submit.prevent="onRegister">
+                    <v-layout row>
+                        <v-flex xs12>
+                            <v-text-field
+                            outlined
+                            name="fullname"
+                            label="Fullname*"
+                            id="fullname"
+                            v-model="fullname"
+                            type="text"
+                            :rules="nameRules"
+                            required>
+                            </v-text-field>
+                        </v-flex>
+                    </v-layout>
 
-                                <v-layout row>
-                                    <v-flex xs12>
-                                        <v-text-field
-                                        name="email"
-                                        label="Email"
-                                        id="email"
-                                        v-model="email"
-                                        type="email"
-                                        required>
-                                        </v-text-field>
-                                    </v-flex>
-                                </v-layout>
+                    <v-layout row>
+                        <v-flex xs12>
+                            <v-text-field
+                            outlined
+                            name="email"
+                            label="Email*"
+                            id="email"
+                            v-model="email"
+                            type="email"
+                            :rules="emailRules"
+                            required>
+                            </v-text-field>
+                        </v-flex>
+                    </v-layout>
 
-                                <v-layout row>
-                                    <v-flex xs12>
-                                        <v-text-field
-                                        name="username"
-                                        label="Username"
-                                        id="username"
-                                        v-model="username"
-                                        type="text"
-                                        required>
-                                        </v-text-field>
-                                    </v-flex>
-                                </v-layout>
+                    <v-layout row>
+                        <v-flex xs12>
+                            <v-text-field
+                            outlined
+                            name="username"
+                            label="Username*"
+                            id="username"
+                            v-model="username"
+                            type="text"
+                            :rules="userRules"
+                            required>
+                            </v-text-field>
+                        </v-flex>
+                    </v-layout>
 
-                                <v-layout row>
-                                    <v-flex xs12>
-                                        <v-text-field
-                                        name="password"
-                                        label="Password"
-                                        id="password"
-                                        v-model="password"
-                                        type="password"
-                                        :rules="[passwordLength]">
-                                        </v-text-field>
-                                    </v-flex>
-                                </v-layout>
+                    <v-layout row>
+                        <v-flex xs12>
+                            <v-text-field
+                            outlined
+                            name="password"
+                            label="Password*"
+                            id="password"
+                            v-model="password"
+                            :append-icon="value ? 'mdi-eye-off' : 'mdi-eye'"
+                            @click:append="() => (value = !value)"
+                            :type="value ? 'password' : 'text'"
+                            :rules="pwdRules">
+                            </v-text-field>
+                        </v-flex>
+                    </v-layout>
 
-                                <v-layout row>
-                                    <v-flex xs12>
-                                        <v-text-field
-                                        name="confirmpassword"
-                                        label="Confirm Password"
-                                        id="confirmpassword"
-                                        v-model="confirmpassword"
-                                        type="password"
-                                        :rules="[comparePasswords]">
-                                        </v-text-field>
-                                    </v-flex>
-                                </v-layout>
+                    <v-layout row>
+                        <v-flex xs12>
+                            <v-text-field
+                            outlined
+                            name="confirmpassword"
+                            label="Confirm Password*"
+                            id="confirmpassword"
+                            v-model="confirmpassword"
+                            :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                            @click:append="() => (showPassword = !showPassword)"
+                            :type="showPassword ? 'password' : 'text'"
+                            :rules="[comparePasswords]">
+                            </v-text-field>
+                        </v-flex>
+                    </v-layout>
+                    <span class>
+                        <v-checkbox>
+                            <template v-slot:label>
+                                I wish to receive emails regarding activities involving my account
+                            </template>
+                        </v-checkbox>
+                    </span>
 
                                 <v-layout row>
                                     <v-flex xs12>
@@ -86,11 +106,15 @@
                                 </v-layout>
                             </form>
                         </v-container>
-                    </v-card-text>
+                        </v-container>
+                        </div>
+                      
+                        
+                    <!-- </v-card-text>
                 </v-card>
             </v-flex>
-        </v-layout>
-    </v-container>
+        </v-layout> -->
+    
 
 
    
@@ -118,6 +142,25 @@
             password:'',
             confirmpassword:'',
             userid:'',
+            value: String,
+            showPassword: String,
+            nameRules: [
+                v => v.length >= 2 || 'Minimum length is 2 characters',
+            ],
+            emailRules: [
+                v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+            ],
+            userRules: [
+                v => v.length >= 8 || 'Minimum length is 8 characters',
+                v => /[0-9]/.test(v) || 'Must contain at least 1 digit',
+            ],
+            pwdRules: [
+                v => !!v || 'Please type password.',
+                v => (v && v.length >= 6) || 'Minimum length is 6 characters',
+                v => /[a-z]/.test(v) || 'Must contain at least 1 lowercase letter',
+                v => /[A-Z]/.test(v) || 'Must contain at least 1 uppercase letter',
+                v => /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>?~]/.test(v) || 'Must contain at least 1 symbol'
+            ],
         }
       },
       computed:{
@@ -127,9 +170,9 @@
         comparePasswords(){
             return this.password!=this.confirmpassword ? 'Passwords do not match!': ''
         },
-        passwordLength(){
-            return this.password.length<6 ? 'Password must have at least 6 characters long!' :''
-        },
+        // passwordLength(){
+        //     return this.password.length<6 ? 'Password must have at least 6 characters long!' :''
+        // },
         formIsValid(){
             return this.fullname!='' && 
             this.email!='' &&
@@ -197,4 +240,13 @@
       }
     }
   </script>
+  <style scoped>
+  .bground {
+    background: url('../assets/bg.png');
+    background-size: cover;
+    height: 120vh;
+    background-position: 20px;
+    width: 100%
+  }
+  </style>
   

@@ -2,7 +2,7 @@
   <div>
     <v-container class="py-10">
       <!-- title -->
-      <v-row justify="center"><v-col cols="12">
+      <v-row justify="center"><v-col cols="12" data-aos="fade-down">
         <div>
         <v-img :src="require('../assets/Dog1Invert.png')" class="d-inline-block mx-3" contain max-height="60" max-width="60"/>
         <span class="text-h4 text-capitalize brown--text">Search for a pet</span>
@@ -135,30 +135,35 @@
         
         <v-divider></v-divider>
       
-      <!-- Grid and List View -->
+      <!-- Grid, List, Map View -->
       <v-row class="my-5 pa-5">
-      <v-btn depressed class="brown lighten-4 mr-5" @click="grid=true">
+      <v-btn depressed class="brown lighten-4 mr-5" @click="view='grid'">
         <v-icon left>mdi-grid</v-icon>
-            <span>Grid Layout</span>
+            <span>Grid View</span>
       </v-btn>
-      <v-btn depressed class="brown lighten-4" @click="grid=false">
+      <v-btn depressed class="brown lighten-4 mr-5" @click="view='map'">
+        <v-icon left>mdi-map</v-icon>
+            <span>Map View</span>
+      </v-btn>
+      <v-btn depressed class="brown lighten-4 mr-5" @click="view='list'">
         <v-icon left>mdi-format-list-bulleted-square</v-icon>
-            <span>List Layout</span>
+            <span>List View</span>
       </v-btn>
       </v-row>
       
-      <!-- gridview -->
-      <div v-show="grid">
-      <v-row class="my-5">
-        <!-- Dashboard -->
-        <v-col cols="12" md="6" lg="4" v-for="aPet in myPets" :key="aPet.petName" align="center">
-            <PetCard :aPet="aPet"></PetCard>
-        </v-col>
-      </v-row>
-      </div>
+    <!-- Grid view -->
+    <div v-show="view=='grid'" data-aos="fade-up">
+    <v-row class="my-5">
+    <!-- Dashboard -->
+    <v-col cols="12" md="6" lg="4" v-for="aPet in myPets" :key="aPet.petName" align="center">
+      <PetCard :aPet="aPet"></PetCard>
+    </v-col>
+    </v-row>
+    </div>
     <!-- Data table-->
-      <DataTable :pets="myPets" v-show="!grid"></DataTable>
-
+    <DataTable :pets="myPets" v-show="view=='list'"></DataTable>
+    <!-- Map View -->
+    <Map v-show="view=='map'" :allPets="myPets"></Map>
     </v-container>
     <!-- Scroll to top -->
     <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
@@ -170,17 +175,23 @@
   
 <script>
 import DataTable from "../components/DataTable.vue"
-  import PetCard from "../components/PetCard.vue"
-  import db from '../firebase/index'
-  import {collection, getDocs} from 'firebase/firestore'
-
+import PetCard from "../components/PetCard.vue"
+import Map from "../components/Map";
+import db from '../firebase/index'
+import {collection, getDocs} from 'firebase/firestore'
+import AOS from 'aos'
 
   export default {
-  components: { DataTable, PetCard},
+  components: { DataTable, PetCard, Map},
+  mounted() {
+      AOS.init({
+        duration: 1400,
+      })
+  },
   data(){
     return {
       fab: false,
-      grid: true,
+      view: "grid",
       petBreeds: ['Affenpinscher Dog', 'Afghan Hound Dog', 'Alaskan Malamute Dog', 'Australian Kelpie Dog', 
         'Australian Terrier Dog', 
         'Basenji Dog',
@@ -313,6 +324,9 @@ import DataTable from "../components/DataTable.vue"
     console.log(this.allPetsArray)
   },
   computed: {
+      // toggleView(){
+
+      // },
       myPets(){
         console.log(this.allPetsArray)
 

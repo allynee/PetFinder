@@ -4,7 +4,6 @@ import HomeView from '../views/HomeView.vue'
 import ReportPet from '../views/ReportPet.vue'
 import Search from '../views/Dashboard.vue'
 import MyMap from '../views/MyMap.vue'
-import Inbox from '../views/Inbox.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import authguard from './auth-guard.js'
@@ -59,13 +58,13 @@ const routes = [
     beforeEnter:authguard,
 
   },
-  {
-    path: '/inbox',
-    name: 'inbox',
-    component: Inbox,
-    beforeEnter:authguard,
+  // {
+  //   path: '/inbox',
+  //   name: 'inbox',
+  //   component: Inbox,
+  //   beforeEnter:authguard,
 
-  },
+  // },
   {
     path: '/account',
     name: 'account',

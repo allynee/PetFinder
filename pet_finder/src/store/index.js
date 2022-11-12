@@ -24,7 +24,7 @@ Vue.use(Vuex)
 
 
 
-export const store =new Vuex.Store({
+export const store = new Vuex.Store({
     state:{
         //listed pets: [],
         user:null,
@@ -35,7 +35,6 @@ export const store =new Vuex.Store({
         setUser(state, payload){
             state.user=payload
         },
-
         setLoading( state,payload){
             state.loading=payload
         }
@@ -83,6 +82,6 @@ export const store =new Vuex.Store({
         // getAllPets(state){
 
         // }
-    },
+    }
 
 })
