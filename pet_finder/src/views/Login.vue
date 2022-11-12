@@ -1,11 +1,17 @@
 <template>
-    <div class="white bground d-flex align-center">
-        <v-container class="mx-auto ">
-            <v-row class="mb-7 mt-0 pt-0">
-            <span class="text-h4 text-capitalize brown--text mx-auto">Login</span>
+    <div class="white bground" >
+        <v-container class="mx-auto" data-aos="fade-down">
+            <v-row class="mt-16">
+                <span class="mt-16"> </span>
+            </v-row>
+            <v-row class="mt-16">
+                <span> </span>
+            </v-row>
+            <v-row class="mb-7 mt-16 pt-0 d-flex align-center">
+            <span class="text-h4 mt-16 text-capitalize brown--text mx-auto">Login</span>
             </v-row>
             <v-row>
-                <v-card style="width:45%;height:75%;" elevation="2" class="mx-auto brown pt-9 pb-15 lighten-4">
+                <v-card style="width:45%;height:75%;" elevation="2" class="mx-auto brown pt-9 pb-10 lighten-4">
                     <v-card-text> 
                         <v-container>
                             <form @submit.prevent="sampleLogin">
@@ -40,13 +46,13 @@
 
                 
 
-                                <v-layout row>
-                                    <v-flex xs12>
-                                        <v-btn block outlined color="brown" type="submit" :disabled="!formIsValid">
+                                <!-- <v-layout row> -->
+                                    <!-- <v-flex xs12> -->
+                                        <v-btn class="mt-5" block outlined color="brown" type="submit" :disabled="!formIsValid">
                                             Login
                                         </v-btn>
-                                    </v-flex>
-                                </v-layout>
+                                    <!-- </v-flex> -->
+                                <!-- </v-layout> -->
                             </form>
                         </v-container>
                     </v-card-text>
