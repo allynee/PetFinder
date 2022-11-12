@@ -64,7 +64,7 @@
             </v-col>
             <!-- Pet Gender -->
             <v-col cols="12" md="6" lg="4">
-              <v-combobox outlined v-model="petGendersSelected" :items="petGenders" label="Select Pet Colours" multiple></v-combobox>
+              <v-combobox outlined v-model="petGendersSelected" :items="petGenders" label="Select Pet Genders" multiple></v-combobox>
             </v-col>
           </v-row>
         </v-card>
@@ -72,25 +72,60 @@
         </v-expansion-panel>
         </v-expansion-panels>
   
-        <!-- show filters applied -->
+        <!-- Show all filters applied -->
         
         <v-card flat class="my-1 brown lighten-5">
           <v-card-subtitle>Current Filters Applied:</v-card-subtitle>
           <v-card-text>
             <v-row>
+            <!-- petTypes -->
             <v-chip-group column v-model="petTypesSelected" multiple>
               <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="petType in petTypesSelected" :key="petType" :value="petType">
                   <span> {{ petType }} </span>
                   <v-icon small right>mdi-window-close</v-icon>
               </v-chip>
             </v-chip-group>
+            <!-- pet colours -->
             <v-chip-group column v-model="petColoursSelected" multiple>
               <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="petColour in petColoursSelected" :key="petColour" :value="petColour">
                   <span> {{ petColour }} </span>
                   <v-icon small right>mdi-window-close</v-icon>
               </v-chip>
             </v-chip-group>
-            <!-- add for other categories -->
+
+            <!--  pet breeds-->
+            <v-chip-group column v-model="petBreedsSelected" multiple>
+              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="petBreed in petBreedsSelected" :key="petBreed" :value="petBreed">
+                  <span> {{ petBreed }} </span>
+                  <v-icon small right>mdi-window-close</v-icon>
+              </v-chip>
+            </v-chip-group>
+
+              <!--  collar colous-->
+              <v-chip-group column v-model="collarColoursSelected" multiple>
+              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="collarColour in collarColoursSelected" :key="collarColour" :value="collarColour">
+                  <span> {{ collarColour}} </span>
+                  <v-icon small right>mdi-window-close</v-icon>
+              </v-chip>
+            </v-chip-group>
+
+              <!-- pet size-->
+              <v-chip-group column v-model="petSizesSelected" multiple>
+              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="petSize in petSizesSelected" :key="petSize" :value="petSize">
+                  <span> {{ petSize}} </span>
+                  <v-icon small right>mdi-window-close</v-icon>
+              </v-chip>
+            </v-chip-group>
+
+              <!-- pet genders-->
+              <v-chip-group column v-model="petGendersSelected" multiple>
+              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="petGender in petGendersSelected" :key="petGender" :value="petGender">
+                  <span> {{ petGender}} </span>
+                  <v-icon small right>mdi-window-close</v-icon>
+              </v-chip>
+            </v-chip-group>
+
+
           </v-row>
           </v-card-text>
         </v-card>
@@ -126,7 +161,7 @@
   </template>
   
   <script>
-  import DataTable from "../components/DataTable.vue"
+import DataTable from "../components/DataTable.vue"
   import PetCard from "../components/PetCard.vue"
 
   export default {
@@ -266,7 +301,7 @@
         // (_id, PetName, MissingSince, Type, Breed, Gender, NearestLoc, Zip, Color, Collar, Size)
         allPets: [
           {id: "123456789", petImage: "testimg.png", 
-          petName: "Snoop Dog", petType: "Dog", petBreed: "Corgi", 
+          petName: "Snoop Dog", petType: "Dog", petBreed: "Welsh Corgi Dog", 
           petColour: "Brown", missingSince: "20th Jan 2022", 
           petGender: "Male", collarColour: "No Collar", 
           petSize: "Medium", petStatus: "Lost",
@@ -278,15 +313,34 @@
       myPets(){
         return this.allPets.filter(pet => {
           let finalFilter = "";
-          // test for each category
+          // pet type
+          if(this.petBreedsSelected.length!=0){
+            finalFilter += `${this.petBreedsSelected.includes(pet.petBreed)}`;
+          }
+          // pet breed
           if(this.petTypesSelected.length!=0){
-            finalFilter += `${this.petTypesSelected.includes(pet.type)}`;
+            finalFilter += `${this.petTypesSelected.includes(pet.petType)}`;
           }
+          // pet color
           if(this.petColoursSelected.length!=0){
-            finalFilter += `${this.petColoursSelected.includes(pet.colour)}`;
+            finalFilter += `${this.petColoursSelected.includes(pet.petColour)}`;
           }
-          // will need to do the same for other categories
-  
+          // pet gender
+          if(this.petGendersSelected.length!=0){
+            finalFilter += `${this.petGendersSelected.includes(pet.petGender)}`;
+          }
+          // pet size
+          if(this.petSizesSelected.length!=0){
+            finalFilter += `${this.petSizesSelected.includes(pet.petSize)}`;
+          }
+          // pet collar colour
+          if(this.collarColoursSelected.length!=0){
+            finalFilter += `${this.collarColoursSelected.includes(pet.collarColour)}`;
+          }
+          // status
+          if(this.petStatus!="" && this.petStatus!="All"){
+            finalFilter += `${this.petStatus == pet.petStatus}`;
+          }
   
           // check if there are any filters
           if (finalFilter.includes("false")){
@@ -296,6 +350,42 @@
           }
           })
       },
+      // allSelected(){
+      //   let all = [];
+      //   if(this.petStatus!=""){
+      //     all.push(this.petStatus)
+      //   }
+      //   if(this.petTypesSelected.length>0){
+      //     this.petTypesSelected.forEach(element => {
+      //       all.push(element)
+      //     });
+      //   }
+      //   if(this.petBreedsSelected.length>0){
+      //     this.petBreedsSelected.forEach(element => {
+      //       all.push(element)
+      //     });
+      //   }
+      //   if(this.petColoursSelected.length>0){
+      //     this.petColoursSelected.forEach(element => {
+      //       all.push(element)
+      //     });
+      //   }
+      //   if(this.collarColoursSelected.length>0){
+      //     this.collarColoursSelected.forEach(element => {
+      //       all.push(element)
+      //     });
+      //   }
+      //   if(this.petGendersSelected.length>0){
+      //     this.petGendersSelected.forEach(element => {
+      //       all.push(element)
+      //     });
+      //   }
+      //   if(this.petSizesSelected.length>0){
+      //     this.petSizesSelected.forEach(element => {
+      //       all.push(element)
+      //     });
+      //   }
+      // }
   },
   methods: {
 
