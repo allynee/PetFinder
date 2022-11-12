@@ -248,7 +248,7 @@ export default {
             {name:'Chihuahua Dog', image:'dog33.png', pet:'dog'},
             {name:'Cocker Spaniel Dog', image:'dog34.png', pet:'dog'},
             {name:'Dalmatian Dog', image:'dog35.png', pet:'dog'},
-            {name:'Doberman Dog',image:'dog36.png', pet:'dog'},
+            {name:'Dobermann Dog',image:'dog36.png', pet:'dog'},
             {name:'French Bulldog', image:'dog37.png', pet:'dog'},
             {name:'German Shepherd Dog', image:'dog38.png', pet:'dog'},
             {name:'Golden Retriever Dog', image:'dog39.png', pet:'dog'},
