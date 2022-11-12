@@ -2,7 +2,7 @@
   <div>
     <v-container class="py-10">
       <!-- title -->
-      <v-row justify="center"><v-col cols="12">
+      <v-row justify="center"><v-col cols="12" data-aos="fade-down">
         <div>
         <v-img :src="require('../assets/Dog1Invert.png')" class="d-inline-block mx-3" contain max-height="60" max-width="60"/>
         <span class="text-h4 text-capitalize brown--text">Search for a pet</span>
@@ -50,14 +50,14 @@
             <v-col cols="12" md="6" lg="4">
               <v-combobox hide-no-data v-model="petBreedsSelected" outlined :items="petBreeds" label="Select Pet Breeds" class="text-brown" multiple></v-combobox>
             </v-col>
-            <!-- Pet Colour -->
+            <!-- Pet Color -->
             <v-col cols="12" md="6" lg="4">
               <v-combobox outlined v-model="petColorsSelected" :items="petColors" label="Select Pet Colors" multiple></v-combobox>
             </v-col>
 
-            <!-- Collar Colour -->
+            <!-- Collar Color -->
             <v-col cols="12" md="6" lg="4">
-              <v-combobox outlined v-model="collarColoursSelected" :items="collarColours" label="Select Collar Colours" multiple></v-combobox>
+              <v-combobox outlined v-model="collarColorsSelected" :items="collarColors" label="Select Collar Colors" multiple></v-combobox>
             </v-col>
             <!-- Pet Size -->
             <v-col cols="12" md="6" lg="4">
@@ -103,9 +103,9 @@
             </v-chip-group>
 
               <!--  collar colous-->
-              <v-chip-group column v-model="collarColoursSelected" multiple>
-              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="collarColour in collarColoursSelected" :key="collarColour" :value="collarColour">
-                  <span> {{ collarColour}} </span>
+              <v-chip-group column v-model="collarColorsSelected" multiple>
+              <v-chip label filter filter-icon="" class="pa-3 mx-1 brown lighten-5" v-for="collarColor in collarColorsSelected" :key="collarColor" :value="collarColor">
+                  <span> {{ collarColor}} </span>
                   <v-icon small right>mdi-window-close</v-icon>
               </v-chip>
             </v-chip-group>
@@ -135,30 +135,35 @@
         
         <v-divider></v-divider>
       
-      <!-- Grid and List View -->
+      <!-- Grid, List, Map View -->
       <v-row class="my-5 pa-5">
-      <v-btn depressed class="brown lighten-4 mr-5" @click="grid=true">
+      <v-btn depressed class="brown lighten-4 mr-5" @click="view='grid'">
         <v-icon left>mdi-grid</v-icon>
             <span>Grid Layout</span>
       </v-btn>
-      <v-btn depressed class="brown lighten-4" @click="grid=false">
+      <v-btn depressed class="brown lighten-4 mr-5" @click="view='map'">
+        <v-icon left>mdi-map</v-icon>
+            <span>Map Layout</span>
+      </v-btn>
+      <v-btn depressed class="brown lighten-4 mr-5" @click="view='list'">
         <v-icon left>mdi-format-list-bulleted-square</v-icon>
             <span>List Layout</span>
       </v-btn>
       </v-row>
       
-      <!-- gridview -->
-      <div v-show="grid">
-      <v-row class="my-5">
-        <!-- Dashboard -->
-        <v-col cols="12" md="6" lg="4" v-for="aPet in myPets" :key="aPet.petName">
-            <PetCard :aPet="aPet"></PetCard>
-        </v-col>
-      </v-row>
-      </div>
+    <!-- Grid view -->
+    <div v-show="view=='grid'" data-aos="fade-up">
+    <v-row class="my-5">
+    <!-- Dashboard -->
+    <v-col cols="12" md="6" lg="4" v-for="aPet in myPets" :key="aPet.petName" align="center">
+      <PetCard :aPet="aPet"></PetCard>
+    </v-col>
+    </v-row>
+    </div>
     <!-- Data table-->
-      <DataTable :pets="myPets" v-show="!grid"></DataTable>
-
+    <DataTable :pets="myPets" v-show="view=='list'"></DataTable>
+    <!-- Map View -->
+    <Map v-show="view=='map'"></Map>
     </v-container>
     <!-- Scroll to top -->
     <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
@@ -170,17 +175,23 @@
   
 <script>
 import DataTable from "../components/DataTable.vue"
-  import PetCard from "../components/PetCard.vue"
-  import db from '../firebase/index'
-  import {collection, getDocs} from 'firebase/firestore'
-
+import PetCard from "../components/PetCard.vue"
+import Map from "../components/Map";
+import db from '../firebase/index'
+import {collection, getDocs} from 'firebase/firestore'
+import AOS from 'aos'
 
   export default {
-  components: { DataTable, PetCard},
+  components: { DataTable, PetCard, Map},
+  mounted() {
+      AOS.init({
+        duration: 1500,
+      })
+  },
   data(){
     return {
       fab: false,
-      grid: true,
+      view: "grid",
       petBreeds: ['Affenpinscher Dog', 'Afghan Hound Dog', 'Alaskan Malamute Dog', 'Australian Kelpie Dog', 
         'Australian Terrier Dog', 
         'Basenji Dog',
@@ -291,24 +302,13 @@ import DataTable from "../components/DataTable.vue"
         petBreedsSelected: [],
         petColors: ["White","Black","Brown","Orange","Other Colours"],
         petColorsSelected: [],
-        collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
-        collarColoursSelected: [],
+        collarColors: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
+        collarColorsSelected: [],
         petGenders: ['Male','Female',"Unknown"],
         petGendersSelected: [],
         petSizes: ['Small', 'Medium', 'Large'],
         petSizesSelected: [],
-  
-        //array of objects
-        // (_id, PetName, MissingSince, Type, Breed, Gender, NearestLoc, Zip, Color, Collar, Size)
-        // allPets: [
-        //   {id: "123456789", petImage: "testimg.png", 
-        //   petName: "Snoop Dog", petType: "Dog", petBreed: "Welsh Corgi Dog", 
-        //   petColor: "Brown", missingSince: "20th Jan 2022", 
-        //   petGender: "Male", collarColour: "No Collar", 
-        //   petSize: "Medium", petStatus: "Lost",
-        // petLoc:"Singapore Management University"},
-        // ],
-        
+          
         //pets array retrieved from firebase:
         allPetsArray:[],
     }
@@ -323,49 +323,54 @@ import DataTable from "../components/DataTable.vue"
     })
   },
   computed: {
+      // toggleView(){
+
+      // },
       myPets(){
         console.log(this.allPetsArray)
-        return this.allPetsArray
 
-        // return this.allPetsArray.filter(pet => {
-        //   console.log(this.allPetsArray)
-        //   let finalFilter = "";
-        //   // pet type
-        //   if(this.petBreedsSelected.length!=0){
-        //     finalFilter += `${this.petBreedsSelected.includes(pet.petBreed)}`;
-        //   }
-        //   // pet breed
-        //   if(this.petTypesSelected.length!=0){
-        //     finalFilter += `${this.petTypesSelected.includes(pet.petType)}`;
-        //   }
-        //   // pet color
-        //   if(this.petColorsSelected.length!=0){
-        //     finalFilter += `${this.petColorsSelected.includes(pet.petColor)}`;
-        //   }
-        //   // pet gender
-        //   if(this.petGendersSelected.length!=0){
-        //     finalFilter += `${this.petGendersSelected.includes(pet.petGender)}`;
-        //   }
-        //   // pet size
-        //   if(this.petSizesSelected.length!=0){
-        //     finalFilter += `${this.petSizesSelected.includes(pet.petSize)}`;
-        //   }
-        //   // pet collar colour
-        //   if(this.collarColorsSelected.length!=0){
-        //     finalFilter += `${this.collarColorsSelected.includes(pet.collarColor)}`;
-        //   }
-        //   // status
-        //   if(this.petStatus!="" && this.petStatus!="All"){
-        //     finalFilter += `${this.petStatus == pet.formType}`;
-        //   }
-        //   console.log(this.allPetsArray)
-        //   // check if there are any filters
-        //   if (finalFilter.includes("false")){
-        //     return false;
-        //   }else{
-        //     return true;
-        //   }
-        //   })
+        return this.allPetsArray.filter(pet => {
+          console.log(this.allPetsArray)
+          let finalFilter = "";
+          // pet breed
+          if(this.petBreedsSelected.length!=0){
+            finalFilter += `${this.petBreedsSelected.includes(pet.petBreed)}`;
+          }
+          // pet type
+          if(this.petTypesSelected.length!=0){
+            finalFilter += `${this.petTypesSelected.includes(pet.petType)}`;
+          }
+          // // pet color
+          if(this.petColorsSelected.length!=0){
+            console.log(this.petColorsSelected)
+            console.log(pet.petColor)
+            finalFilter += `${this.petColorsSelected.includes(pet.petColor)}`;
+          }
+
+          // pet gender
+          if(this.petGendersSelected.length!=0){
+            finalFilter += `${this.petGendersSelected.includes(pet.petGender)}`;
+          }
+          // pet size
+          if(this.petSizesSelected.length!=0){
+            finalFilter += `${this.petSizesSelected.includes(pet.petSize)}`;
+          }
+          // // pet collar color
+          // if(this.collarColorsSelected.length!=0){
+          //   finalFilter += `${this.collarColorsSelected.includes(pet.collarColor)}`;
+          // }
+
+          // status
+          if(this.petStatus!="" && this.petStatus!="All"){
+            finalFilter += `${this.petStatus == pet.petStatus}`;
+          }
+          // check if there are any filters
+          if (finalFilter.includes("false")){
+            return false;
+          }else{
+            return true;
+          }
+        })
       },
   },
   methods: {

@@ -1,7 +1,7 @@
 <template>
 <div>
 <v-hover v-slot="{ hover }">
-<v-card flat :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" maxwidth="400" outlined>
+<v-card flat :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" style="max-width:400px" outlined>
 
     <!-- Lost or Found -->
     <div :class="{'green': isGreen, 'red': !isGreen, 'lighten-3' : true ,'py-2':true}">
@@ -9,12 +9,11 @@
     </div>
 
     <!-- Image -->
-    <v-card-text style="height:300px">
-        <!-- <img :src="aPet.image"> -->
-        <v-img :src="aPet.image" class="my-2" contain max-height="250" max-width="500"/>
+    <v-card-text class="d-flex justify-center align-center" style="height:300px;">
+        <v-img :src="aPet.image" class="" contain max-height="250" max-width="350"/>
     </v-card-text>
         
-    <!-- Pet Name -->
+    <!-- Pet Name --> 
     <div class="mx-1">
     <v-list-item>
         <span class="text-h5 primary--text"> {{aPet.petName}}</span>
@@ -24,13 +23,13 @@
     </v-list-item>
 
     <!-- Location -->
-    <v-list-item>
+    <v-list-item class="text-left">
     <v-icon left class="primary--text">mdi-map-marker</v-icon>
     <v-list-item-subtitle class="primary--text mx-2">{{aPet.petLocation}}</v-list-item-subtitle>
     </v-list-item>
         
     <!-- Date -->
-    <v-list-item class="mb-2">
+    <v-list-item class="mb-2 text-left">
     <!-- <v-list-item-icon>
         <v-icon class="primary--text">mdi-calendar</v-icon>
     </v-list-item-icon> -->
@@ -54,9 +53,15 @@
 </template>
 
 <script>
+import AOS from 'aos'
 export default {
     props: {
       aPet: Object,
+    },
+    mounted() {
+      AOS.init({
+        duration: 1600,
+      })
     },
     data(){
         return{
@@ -71,7 +76,7 @@ export default {
     },
     computed: {
         isGreen(){
-            if(this.aPet.petStatus=="Found"){
+            if(this.aPet.petStatus=="Found Pet"){
                 return true
             }else{
                 return false

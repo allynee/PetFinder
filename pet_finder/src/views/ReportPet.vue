@@ -33,7 +33,7 @@
                 <v-row justify="center mb-3">
                 <!-- Pet's Name -->
                     <v-col cols="12" md="6">
-                        <v-text-field label="Pet's Name" placeholder="Enter unknown if pet's name is not known"
+                        <v-text-field label="Pet's Name*" placeholder="Enter unknown if pet's name is not known"
                         :rules="inputRules" name:pname outlined v-model="petName">
                         </v-text-field>
                     </v-col>
@@ -284,7 +284,7 @@
             
             ],
     
-        petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
+        petColours: ["Beige", "Black", "Brown", "Orange", "Grey", "White", "Others"],
         collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
         petGenders: ['Male','Female',"Unknown"],
         petSizes: ['Small', 'Medium', 'Large'],
@@ -382,6 +382,16 @@
 
             const docRef= addDoc(collection(db, 'Pets'), form_doc)
             .then( (data)=>{
+                // this.formType='',
+                // this.petLocation='',
+                // this.petGeoLoc= '',
+                // this.petName='',
+                // this.petType='',
+                // this.petColor='',
+                // this.petGender='',
+                // this.collarColor='',
+                // this.petBreed='',
+                // this.petSize='',
                 alert('Pet listed with ID' + data.id)
                 key=data.id
                 const documentRef=doc(db, "Pets", key)
