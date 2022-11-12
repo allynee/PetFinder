@@ -139,15 +139,15 @@
       <v-row class="my-5 pa-5">
       <v-btn depressed class="brown lighten-4 mr-5" @click="view='grid'">
         <v-icon left>mdi-grid</v-icon>
-            <span>Grid Layout</span>
+            <span>Grid View</span>
       </v-btn>
       <v-btn depressed class="brown lighten-4 mr-5" @click="view='map'">
         <v-icon left>mdi-map</v-icon>
-            <span>Map Layout</span>
+            <span>Map View</span>
       </v-btn>
       <v-btn depressed class="brown lighten-4 mr-5" @click="view='list'">
         <v-icon left>mdi-format-list-bulleted-square</v-icon>
-            <span>List Layout</span>
+            <span>List View</span>
       </v-btn>
       </v-row>
       
@@ -163,7 +163,7 @@
     <!-- Data table-->
     <DataTable :pets="myPets" v-show="view=='list'"></DataTable>
     <!-- Map View -->
-    <Map v-show="view=='map'"></Map>
+    <Map v-show="view=='map'" :allPets="myPets"></Map>
     </v-container>
     <!-- Scroll to top -->
     <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
