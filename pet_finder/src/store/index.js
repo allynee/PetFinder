@@ -4,7 +4,7 @@ import db from '../firebase/index'
 import { query,collection,  where, getDocs } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
-// console.log(db)
+console.log(db)
 
 
 //collection ref
@@ -15,8 +15,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 // .then((snapshot)=>{
 //     console.log(snapshot.docs)
 // })
-// Vue.use(Vuex)
-
+Vue.use(Vuex)
 
 
 
@@ -33,7 +32,7 @@ export const store =new Vuex.Store({
         }
     },
     actions:{
-        signUserIn( {commit}, payload){
+        signUserIn( payload){
             const auth=getAuth()
             signInWithEmailAndPassword(auth,payload.email, payload.password )
             .then( (credentials)=>{
@@ -60,4 +59,4 @@ export const store =new Vuex.Store({
         }
     },
 
-// })
+})

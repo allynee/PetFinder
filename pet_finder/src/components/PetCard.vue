@@ -5,12 +5,13 @@
 
     <!-- Lost or Found -->
     <div :class="{'green': isGreen, 'red': !isGreen, 'lighten-3' : true ,'py-2':true}">
-        <div class="text-h6 text-center">{{aPet.petStatus}} Pet</div>
+        <div class="text-h6 text-center">{{aPet.petStatus}}</div>
     </div>
 
     <!-- Image -->
-    <v-card-text>
-        <v-img :src="getImgUrl(aPet.petImage)" class="my-2" contain max-height="1500" max-width="1500"/>
+    <v-card-text style="height:300px">
+        <!-- <img :src="aPet.image"> -->
+        <v-img :src="aPet.image" class="my-2" contain max-height="250" max-width="500"/>
     </v-card-text>
         
     <!-- Pet Name -->
@@ -25,7 +26,7 @@
     <!-- Location -->
     <v-list-item>
     <v-icon left class="primary--text">mdi-map-marker</v-icon>
-    <v-list-item-subtitle class="primary--text mx-2">{{aPet.petLoc}}</v-list-item-subtitle>
+    <v-list-item-subtitle class="primary--text mx-2">{{aPet.petLocation}}</v-list-item-subtitle>
     </v-list-item>
         
     <!-- Date -->
@@ -34,7 +35,7 @@
         <v-icon class="primary--text">mdi-calendar</v-icon>
     </v-list-item-icon> -->
     <v-icon left class="primary--text">mdi-calendar</v-icon>
-    <v-list-item-subtitle class="primary--text mx-2"> {{ aPet.missingSince}}</v-list-item-subtitle>
+    <v-list-item-subtitle class="primary--text mx-2"> {{ aPet.petDate}}</v-list-item-subtitle>
     </v-list-item>
         
     <v-divider></v-divider>
@@ -63,10 +64,10 @@ export default {
         }
     },
     methods: {
-        getImgUrl(pic){
-            console.log(this.aPet.petStatus)
-        return require('../assets/' + pic)
-        },
+        // getImgUrl(pic){
+        //     console.log(this.aPet.petStatus)
+        // return require('../assets/' + pic)
+        // },
     },
     computed: {
         isGreen(){

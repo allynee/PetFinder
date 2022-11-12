@@ -68,7 +68,7 @@
                             <v-text-field v-model="date" label="Pet's Last Seen Date*" outlined :rules="calRule"
                                     v-bind="attrs" v-on="on"></v-text-field>
                         </template>
-                        <v-date-picker v-model="date" :min="new Date().toISOString()" no-title scrollable>
+                        <v-date-picker v-model="date" no-title scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="menu = false">
                             Cancel
