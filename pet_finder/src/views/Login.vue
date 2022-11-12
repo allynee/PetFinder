@@ -64,7 +64,7 @@
   <script>
     import db from '../firebase/index'
     // import router from '../router/index'
-    import { collection, query, where, getDocs } from 'firebase/firestore'
+    import {  doc, getDoc } from 'firebase/firestore'
     import { getAuth, signInWithEmailAndPassword} from 'firebase/auth'
   
     export default {
@@ -82,8 +82,19 @@
             return this.email!='' && 
             this.password!='' 
         },
+
+        user(){
+            return this.$store.getters.getuser
+        }
     
       
+      },
+      watch:{
+        user (value){
+            if (value!=null &&  value!=undefined){
+                this.$router.push('/')
+            }
+        }
       },
       methods:{
 
@@ -93,16 +104,36 @@
             .then( (credentials)=>{
                 console.log(credentials.user.uid)
                 const uid=credentials.user.uid
-                const q= query(collection(db, 'Users'), where('userID', '==', uid))
-                getDocs(q)
-                .then( (documents)=>{
-                    documents.docs.forEach((oneDoc)=>{
-                        var user_obj=oneDoc.data()
-                        console.log(user_obj)
-                    })
-                    // console.log(user_obj)
+                const docRef=doc(db, 'Users',uid)
+                getDoc(docRef)
+                .then( (snapshot)=>{
+                    const user_obj= snapshot.data()
+                    this.$store.dispatch('signUserIn',user_obj)
+                    console.log(user_obj)
+
                 })
-                // console.log(data)
+                .catch( (err)=>{
+                    alert('Username or Password not found! Please enter again!')
+                    console.log(err)
+                    console.log(2)
+                })
+       
+                
+                // const q= query(collection(db, 'Users'), where('userID', '==', uid))
+                // getDocs(q)
+                // .then( (documents)=>{
+                //     documents.docs.forEach((oneDoc)=>{
+                //         var user_obj=oneDoc.data()
+                //         console.log(user_obj)
+                //     })
+                //     // console.log(user_obj)
+                // })
+                // // console.log(data)
+            })
+            .catch((err)=>{
+                console.log(1)
+                alert('Username or Password not found! Please enter again!')
+                console.log(err)
             })
         },
 

@@ -321,6 +321,7 @@ import AOS from 'aos'
         this.allPetsArray.push( {...doc.data()})
       })
     })
+    console.log(this.allPetsArray)
   },
   computed: {
       // toggleView(){
