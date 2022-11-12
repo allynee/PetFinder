@@ -75,6 +75,12 @@
                                     <v-flex xs12>
                                         <v-btn type="submit" :disabled="!formIsValid">
                                             Register
+                                            <!-- button loader -->
+                                            <template v-slot:loader>
+                                                <span class="custom-loader">
+                                                <v-icon light>mdi-cached</v-icon>
+                                                </span>
+                                            </template>
                                         </v-btn>
                                     </v-flex>
                                 </v-layout>
@@ -91,6 +97,9 @@
 
 
   </template>
+  
+  <style src="../style/style.css">
+</style>
   
   <script>
     import db from '../firebase/index'
@@ -112,6 +121,9 @@
         }
       },
       computed:{
+        loading(){
+            return this.$store.getters.loading
+        },
         comparePasswords(){
             return this.password!=this.confirmpassword ? 'Passwords do not match!': ''
         },

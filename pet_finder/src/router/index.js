@@ -2,11 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ReportPet from '../views/ReportPet.vue'
-import Dashboard from '../views/Dashboard.vue'
+import Search from '../views/Dashboard.vue'
 import MyMap from '../views/MyMap.vue'
 import Inbox from '../views/Inbox.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
+import authguard from './auth-guard.js'
 
 import SignUp from '../views/SignUp.vue'
 import Learn from '../views/Learn.vue'
@@ -29,12 +30,15 @@ const routes = [
   {
     path: '/reportpet',
     name: 'reportpet',
-    component: ReportPet
+    component: ReportPet,
+    beforeEnter:authguard,
   },
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Dashboard
+    path: '/SearchAllPets',
+    name: 'search',
+    component: Search,
+    beforeEnter:authguard,
+
   },
   {
     path: '/signup',
@@ -45,21 +49,29 @@ const routes = [
     path: '/MyMap',
     name: 'MyMap',
     component: MyMap,
+    beforeEnter:authguard,
+
   },
   {
     path: '/learn',
     name: 'learn',
-    component: Learn
+    component: Learn,
+    beforeEnter:authguard,
+
   },
   {
     path: '/inbox',
     name: 'inbox',
-    component: Inbox
+    component: Inbox,
+    beforeEnter:authguard,
+
   },
   {
     path: '/account',
     name: 'account',
-    component: Account
+    component: Account,
+    beforeEnter:authguard,
+
   },
   {
     path:'/register',

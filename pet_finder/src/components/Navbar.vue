@@ -2,8 +2,11 @@
     <nav>
         <!-- left side of app bar -->
         <v-app-bar flat app class="px-2">
+
+            <!-- hamburger bar/navigation drawer for small screens -->
             <v-app-bar-nav-icon class="brown--text hidden-md-and-up" @click="hamburger=!hamburger"></v-app-bar-nav-icon>
-            <!-- hamburger bar/navigation drawer for small screels -->
+
+
             <!-- logo -->
             <v-btn plain color="brown" to="/">
             <v-img :src="require('../assets/Dog1Invert.png')" class="mr-2" max-height="40" max-width="40" contain/>
@@ -18,63 +21,22 @@
         <v-spacer></v-spacer>
 
         <!-- right side of app bar -->
-        <div class="mx-10">
-        <v-btn plain color="primary" class="mx-1 font-weight-bold hidden-sm-only" to="/ReportPet">
-            <span>Report Pet</span>
+
+        <div class="hidden-sm-only">
+        <v-btn plain depressed color="primary" 
+        v-for="link in links" :key="link.text" :to="link.route" 
+        class="font-weight-bold hidden-sm-only">
+            <v-icon small left>{{link.icon}}</v-icon>
+            <span plain color="primary" class="text-body-2 font-weight-bold">{{ link.text }}</span>
         </v-btn>
 
-        <v-btn plain color="primary" class="mx-1 font-weight-bold hidden-sm-only" to="/Learn">
-            <span>Learn</span>
+        <!-- logout button -->
+        <v-btn plain depressed color="primary" class="font-weight-bold hidden-sm-only" v-if="userLoggedIn" @click="onLogout">
+            <v-icon small left>mdi-logout</v-icon>
+            <span plain color="primary" class="text-body-2 font-weight-bold">Logout</span>
         </v-btn>
 
-        <!-- drop down search -->
-        <v-menu bottom :offset-y=true>
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn plain color="primary" dark v-bind="attrs" v-on="on" class="mx-1 font-weight-bold hidden-sm-only">
-                    <span>Search</span>
-                    <v-icon>mdi-menu-down</v-icon>
-                </v-btn>
-            </template>
-
-            <!-- dropdown items. LINKS TO BE ADDED -->
-            <v-list>
-                <v-list-item color="primary" to="/Dashboard">
-                <v-list-item-title >View All Pets</v-list-item-title>
-                </v-list-item>
-                <v-list-item color="primary" to="/MyMap">
-                <v-list-item-title>Map</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
-
-        <!-- Inbox -->
-            <v-btn plain color="primary" class="mx-1 font-weight-bold hidden-sm-only" to="/Inbox">
-                <span>Matched Pets</span>
-            </v-btn>
-        
         </div>
-        <!-- Profile Drop down-->
-        <!-- <v-menu bottom :offset-y=true>
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn fab small elevation="1" color="brown lighten-4 hidden-sm-only" v-bind="attrs" v-on="on" class="ml-5">
-                <v-icon>mdi-account</v-icon>
-            </v-btn>
-            </template>
-
-            dropdown items. LINKS TO BE ADDED -->
-            <!-- <v-list>
-                <v-list-item>
-                <v-list-item-title>Help Me 1</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                <v-list-item-title>Help Me 2</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu> --> 
-        <v-btn fab small elevation="1" color="brown lighten-4 hidden-sm-only" to="/Account" class="ml-2">
-            <v-icon>mdi-account</v-icon>
-        </v-btn>
-
         </v-app-bar>
 
         <!-- navigation drawer -->
@@ -101,6 +63,15 @@
                             <v-list-item-title>{{ link.text }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
+                    <!-- logout button (seen only if user is logged in) -->
+                    <v-list-item v-if="userLoggedIn" @click="onLogout">
+                        <v-list-item-action>
+                            <v-icon>mdi-logout</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Logout</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
                 </v-list>
             </v-navigation-drawer>
     </nav>
@@ -125,27 +96,31 @@ export default {
     computed:{
         links(){
             let linkitems=[ {text: 'Home', route: '/', icon: 'mdi-home'},
-                {text:'Register', route:'/register'},
-                {text:'Login', route:'/login'},
+                {text:'Register', route:'/register', icon:'mdi-account-plus'},
+                {text:'Login', route:'/login', icon:'mdi-login'},
                 
             ]
             if(this.userLoggedIn){
                 linkitems=[
                 {text: 'Home', route: '/', icon: 'mdi-home'},
-                {text: 'Report a pet', route:'/ReportPet', icon: 'mdi-dog-side'},
-                {text: 'Learn about pets', route:'/Learn', icon: 'mdi-book'},
-                {text: 'View all pets', route:'/Dashboard', icon: 'mdi-magnify'},
-                {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
-                {text: 'My Account', route:'/Account', icon: 'mdi-account'},
-                ]
-            }
-            return linkitems
-
+                {text: 'Report Pet', route:'/ReportPet', icon: 'mdi-dog-side'},
+                {text: 'Search Pet', route:'/SearchAllPets', icon: 'mdi-magnify'},
+                // {text: 'Map View', route:'/MyMap', icon: 'mdi-map-outline'},
+                // {text: 'Matched Pets', route:'/Inbox', icon: 'mdi-paw'},
+                {text: 'Learn More', route:'/Learn', icon: 'mdi-book-outline'},
+                {text: 'Account', route:'/Account', icon: 'mdi-account'}
+            ]
         }
-    ,
+        return linkitems
+        },
     userLoggedIn(){
         return this.$store.getters.getuser!=null && this.$store.getters.getuser!=undefined
     }
+    },
+    methods:{
+        onLogout(){
+            this.$store.dispatch('logout')
+        }
     }
 }
 </script>

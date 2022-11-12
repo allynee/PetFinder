@@ -127,6 +127,12 @@
                     <v-col cols="12" align="center">
                         <v-btn x-large depressed color="brown lighten-4" type="submit" :disabled="!formIsValid" >
                             Submit
+                             <!-- button loader -->
+                             <template v-slot:loader>
+                                                <span class="custom-loader">
+                                                <v-icon light>mdi-cached</v-icon>
+                                                </span>
+                                            </template>
                         </v-btn>
                     </v-col>
                 </v-row>
@@ -138,6 +144,9 @@
         </v-btn>
     </div>
     </template>
+    
+  <style src="../style/style.css">
+</style>
     
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM&libraries=places"></script>
     
@@ -384,19 +393,19 @@
 
             const docRef= addDoc(collection(db, 'Pets'), form_doc)
             .then( (data)=>{
-                // this.formType='',
-                // this.petLocation='',
-                // this.petGeoLoc= '',
-                // this.petName='',
-                // this.petType='',
-                // this.petColor='',
-                // this.petGender='',
-                // this.collarColor='',
-                // this.petBreed='',
-                // this.petSize='',
-                alert('Pet listed with ID' + data.id)
-                key=data.id
                 const documentRef=doc(db, "Pets", key)
+                //updating petid into database
+                updateDoc(documentRef, {petid:key}, {merge:true})
+                .then((snapshot)=>{
+                    console.log('PetID updated')
+                    return
+                })
+                .catch((err)=>{
+                    console.log(err)
+                    return
+                })
+                alert('Pet listed!')
+                key=data.id
                 console.log(this.image)
                 const filename=this.image.name
                 const extension=filename.slice(filename.lastIndexOf('.'))
@@ -529,6 +538,7 @@
             } else {
                 this.petGeoLoc = {};
             }
+            console.log(petGeoLoc)
             this.submitForm()
             })
             .catch((e) => {this.petGeoLoc = {}
@@ -547,6 +557,9 @@
         //     // format date, apply validations, etc. Example below.
         //     // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
         //   },
+        loading(){
+            return this.$store.getters.loading
+        },
         filteredPetBreeds () {
             if(this.petType==""){
                 return this.defaultBreed;

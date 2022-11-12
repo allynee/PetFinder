@@ -39,9 +39,16 @@
 
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit" :disabled="!formIsValid">
+                                        <v-btn type="submit" :disabled="!formIsValid" :loading="loading">
                                             Login
-                                        </v-btn>
+                                            <!-- button loader -->
+                                            <template v-slot:loader>
+                                                <span class="custom-loader">
+                                                <v-icon light>mdi-cached</v-icon>
+                                                </span>
+                                            </template>
+                                            </v-btn>
+                                        
                                     </v-flex>
                                 </v-layout>
                             </form>
@@ -58,6 +65,10 @@
 
   </template>
   
+
+  <style src="../style/style.css">
+</style>
+
   <script>
     import db from '../firebase/index'
     // import router from '../router/index'
@@ -75,6 +86,9 @@
         }
       },
       computed:{
+        loading(){
+            return this.$store.getters.loading
+        },
         formIsValid(){
             return this.email!='' && 
             this.password!='' 
