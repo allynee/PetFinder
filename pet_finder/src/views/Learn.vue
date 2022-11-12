@@ -1,198 +1,195 @@
 <template>
     <div>
-    <v-container class="py-10">  
-        <!-- top -->
-        <v-row justify="center" class="text-center my-10" data-aos="fade-down">
-            <v-col cols="2" class="text-right">
-                <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
-            </v-col>
-            <v-col cols="2">
-                <v-img :src="require('../assets/BlackCat.png')" class="my-5" contain height="125"/>
-            </v-col>
-            <v-col cols="2">
-                <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
-            </v-col>
-            <v-col cols="2">
-                <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
-            </v-col>
-            <v-col cols="2">
-                <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
-            </v-col>
-            <v-col cols="12">
-                <h1 class="text-h4 brown--text text-center">Learn More about Different Pet Breeds</h1>
-            </v-col>
-            <v-col cols="8" align="center" >
-                <p class="text-h6 font-weight-light brown--text text--darken-2">
-                    This page contains images of more than 70 different breeds of dogs and cats to help you identify the breeds of different pets. 
-                    You can view all breeds under the "Information" tab, and then test your knowledge under the "Fun Quiz" tab!
-                </p>
-            </v-col>
-        </v-row>
-        <v-divider></v-divider>
-        <v-row class="mt-15">
-        <v-tabs v-model="tab" 
-        background-color="transparent" grow>
-        <v-tooltip top color="brown lighten-4">
-            <template v-slot:activator="{ on, attrs }">
-                <v-tab color="primary" dark v-bind="attrs" v-on="on">
-                Information
-                </v-tab>
-            </template>
-            <span class="black--text">Learn more about different pet breeds!</span>
-        </v-tooltip>
+        <v-container class="py-10">  
+            <!-- top -->
+            <v-row justify="center" class="text-center my-10" data-aos="fade-down">
+                <v-col cols="2" class="text-right">
+                    <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
+                </v-col>
+                <v-col cols="2">
+                    <v-img :src="require('../assets/BlackCat.png')" class="my-5" contain height="125"/>
+                </v-col>
+                <v-col cols="2">
+                    <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
+                </v-col>
+                <v-col cols="2">
+                    <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
+                </v-col>
+                <v-col cols="2">
+                    <v-img :src="require('../assets/OrangeCat.png')" class="my-5" contain height="125"/>
+                </v-col>
+                <v-col cols="12">
+                    <h1 class="text-h4 brown--text text-center">Learn More about Different Pet Breeds</h1>
+                </v-col>
+                <v-col cols="8" align="center" >
+                    <p class="text-h6 font-weight-light brown--text text--darken-2">
+                        This page contains images of more than 70 different breeds of dogs and cats to help you identify the breeds of different pets. 
+                        You can view all breeds under the "Information" tab, and then test your knowledge under the "Fun Quiz" tab!
+                    </p>
+                </v-col>
+            </v-row>
+            <v-divider></v-divider>
+            <v-row class="mt-15">
+            <v-tabs v-model="tab" 
+            background-color="transparent" grow>
+            <v-tooltip top color="brown lighten-4">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-tab color="primary" dark v-bind="attrs" v-on="on">
+                    Information
+                    </v-tab>
+                </template>
+                <span class="black--text">Learn more about different pet breeds!</span>
+            </v-tooltip>
 
-        <v-tooltip top color="brown lighten-4">
-            <template v-slot:activator="{ on, attrs }">
-                <v-tab color="primary" dark v-bind="attrs" v-on="on">
-                    Fun Quiz 
-                </v-tab>
-            </template>
-            <span class="black--text">Test your knowledge with a fun quiz!</span>
-        </v-tooltip>
-      </v-tabs>
-        </v-row>
+            <v-tooltip top color="brown lighten-4">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-tab color="primary" dark v-bind="attrs" v-on="on">
+                        Fun Quiz 
+                    </v-tab>
+                </template>
+                <span class="black--text">Test your knowledge with a fun quiz!</span>
+            </v-tooltip>
+        </v-tabs>
+            </v-row>
 
-        <!-- actual page content -->
-      <v-container class="py-10">
-      <v-tabs-items v-model="tab">
-        <v-tab-item class="brown lighten-5">
-            <template>
+            <!-- actual page content -->
+        <v-container class="py-10">
+        <v-tabs-items v-model="tab">
+            <v-tab-item class="brown lighten-5">
+                <template>
+                    <!-- filter buttons -->
+                    <v-row class="mt-10" justify="center">
+                        <p class="text-h6 font-weight-light brown--text text--darken-2">Select Pet Type:</p>
+                    </v-row>
+                    <v-row class="mt-5" justify="center">
+                            <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
+                            All Pets
+                            </v-btn>
+                            <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
+                            Dogs
+                            </v-btn>
+                            <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
+                            Cats
+                            </v-btn>
+                    </v-row>
+                    <v-row class="my-15" justify="center">
+                        <v-pagination v-model="page" :length="myLength" color="brown lighten-3"></v-pagination>
+                    </v-row>
+                    <v-row justify="center">
+                        <v-col cols="6" md="4" v-for="breed in pagedPets" :key="breed.name" data-aos="fade-up">
+                            <v-hover v-slot="{ hover }">
+                            <v-card v-model="page" class="mb-10 pa-2" max-width="360" flat :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                                <v-responsive>
+                                <v-img height="400" :src= "breed.image" ></v-img>
+                                </v-responsive>
+                                <v-card-title >{{ breed.name }}</v-card-title> 
+                            </v-card>
+                            </v-hover>
+                        </v-col>
+                    </v-row>
+                </template>
+            </v-tab-item>
+            <v-tab-item class="brown lighten-5">
                 <!-- filter buttons -->
-                <v-row class="mt-10" justify="center">
-                    <p class="text-h6 font-weight-light brown--text text--darken-2">Select Pet Type:</p>
+                <!-- <v-row class="mt-10" justify="center">
+                        <p class="text-h6 font-weight-light brown--text text--darken-2">Select Pet Type:</p>
                 </v-row>
                 <v-row class="mt-5" justify="center">
-                        <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
-                        All Pets
-                        </v-btn>
-                        <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
-                        Dogs
-                        </v-btn>
-                        <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
-                        Cats
-                        </v-btn>
+                            <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
+                            All Pets
+                            </v-btn>
+                            <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
+                            Dogs
+                            </v-btn>
+                            <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
+                            Cats
+                            </v-btn>
                 </v-row>
-                <v-row class="my-15" justify="center">
-                    <v-pagination v-model="page" :length="myLength" color="brown lighten-3"></v-pagination>
-                </v-row>
-                <v-row justify="center">
-                    <v-col cols="6" md="4" v-for="breed in pagedPets" :key="breed.name" data-aos="fade-up">
-                        <v-hover v-slot="{ hover }">
-                        <v-card v-model="page" class="mb-10 pa-2" max-width="360" flat :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                            <v-responsive>
-                            <v-img height="400" :src= "breed.image" ></v-img>
-                            </v-responsive>
-                            <v-card-title >{{ breed.name }}</v-card-title> 
-                        </v-card>
-                        </v-hover>
-                    </v-col>
-                </v-row>
-            </template>
-        </v-tab-item>
-        <v-tab-item class="brown lighten-5">
-            <!-- filter buttons -->
-            <!-- <v-row class="mt-10" justify="center">
-                    <p class="text-h6 font-weight-light brown--text text--darken-2">Select Pet Type:</p>
-            </v-row>
-            <v-row class="mt-5" justify="center">
-                        <v-btn @click="called=''" color="brown lighten-4" class="mx-5">
-                        All Pets
-                        </v-btn>
-                        <v-btn @click="callDogs()" color="brown lighten-4" class="mx-5">
-                        Dogs
-                        </v-btn>
-                        <v-btn @click="callCats()" color="brown lighten-4" class="mx-5">
-                        Cats
-                        </v-btn>
-            </v-row>
-            <v-card
-            elevation="24"
-            max-width="500"
-            class="mx-auto mt-15">
-                <v-carousel hide-delimiters
-                
-                >
-                <template v-slot:prev="{ on, attrs }">
-                <v-btn
-                color="brown lighten-4"
-                    v-bind="attrs"
-                    v-on="on"
-                    onclick="getsPetsList"
-                    fab
-                ><v-icon>mdi-chevron-left</v-icon></v-btn>
-                </template>
-                <template v-slot:next="{ on, attrs }">
-                <v-btn
-                color="brown lighten-4"
-                    v-bind="attrs"
-                    v-on="on"
-                    onclick="getPetsList"
-                    fab
-                ><v-icon>mdi-chevron-right</v-icon></v-btn>
-                </template>
-                <v-carousel-item
-                    v-for="breed in filteredPets"
-                    :key="breed"
-                    :src="breed.image"
+                <v-card
+                elevation="24"
+                max-width="500"
+                class="mx-auto mt-15">
+                    <v-carousel hide-delimiters
+                    
                     >
-                </v-carousel-item>
-                </v-carousel>
-                <v-list>
-                    <v-list-item v-for="pet in getPetsList"
-                        :key="pet">
-                                <v-btn
-                                block
-                                outlined
-                                color="primary"
-                                class="mx-auto"
-                                >
-                                {{pet}}
-                                </v-btn>
-                    </v-list-item>
-                </v-list>
-            </v-card> -->
+                    <template v-slot:prev="{ on, attrs }">
+                    <v-btn
+                    color="brown lighten-4"
+                        v-bind="attrs"
+                        v-on="on"
+                        onclick="getsPetsList"
+                        fab
+                    ><v-icon>mdi-chevron-left</v-icon></v-btn>
+                    </template>
+                    <template v-slot:next="{ on, attrs }">
+                    <v-btn
+                    color="brown lighten-4"
+                        v-bind="attrs"
+                        v-on="on"
+                        onclick="getPetsList"
+                        fab
+                    ><v-icon>mdi-chevron-right</v-icon></v-btn>
+                    </template>
+                    <v-carousel-item
+                        v-for="breed in filteredPets"
+                        :key="breed"
+                        :src="breed.image"
+                        >
+                    </v-carousel-item>
+                    </v-carousel>
+                    <v-list>
+                        <v-list-item v-for="pet in getPetsList"
+                            :key="pet">
+                                    <v-btn
+                                    block
+                                    outlined
+                                    color="primary"
+                                    class="mx-auto"
+                                    >
+                                    {{pet}}
+                                    </v-btn>
+                        </v-list-item>
+                    </v-list>
+                </v-card> -->
 
-            <!-- test -->
-    <div v-show="!quizStart">
-        <v-row justify="center" class="my-10">
-          <h1 class="text-md-h1 text-sm-h2 brown--text text--darken-1 font-weight-light" data-aos="fade-down">
-            Quiz Time!
-          </h1>
-        </v-row>
-        <v-row justify="center">
-        <v-img :src="require('../assets/OrangeCat.png')" contain max-height="300" max-width="300" class="my-5"></v-img>
-        </v-row>
-        <v-row justify="center">
-          <p class="text-md-h4 text-sm-h5 font-weight-light brown--text text--darken-2">
-            Do you know your different pet breeds?
-        </p>
-        </v-row>
-        <v-row justify="center">
-            <v-col cols="12" md="8" align="center">
-                <p class="text-h6 font-weight-light brown--text text--darken-2">
-            It's time to check out how much you know!
-            This will be a quiz with 5 questions to test your knowledge on pet breeds. 
-            Go ahead and press the "Start Quiz" button whenever you're ready!
-        </p>
-            </v-col>
-        </v-row>
-        <v-row justify="center" class="my-5">
-          <v-btn x-large flat @click="quizStart=!quizStart" color="brown lighten-4">Start Quiz</v-btn>
-        </v-row>
-    </div>
-   <quiz v-show="!showModal && quizStart" @quiz-completed="handleQuizCompleted" :key="quizKey" />
-   <custom-modal
-     v-show="showModal"
-     :score="score"
-     @reload="updateQuiz"/>
+                <!-- test -->
+        <div v-show="!quizStart">
+            <v-row justify="center" class="my-10">
+            <h1 class="text-md-h1 text-sm-h2 brown--text text--darken-1 font-weight-light" data-aos="fade-down">
+                Quiz Time!
+            </h1>
+            </v-row>
+            <v-row justify="center">
+            <v-img :src="require('../assets/OrangeCat.png')" contain max-height="300" max-width="300" class="my-5"></v-img>
+            </v-row>
+            <v-row justify="center">
+            <p class="text-md-h4 text-sm-h5 font-weight-light brown--text text--darken-2">
+                Do you know your different pet breeds?
+            </p>
+            </v-row>
+            <v-row justify="center">
+                <v-col cols="12" md="8" align="center">
+                    <p class="text-h6 font-weight-light brown--text text--darken-2">
+                    It's time to check how much you know<br>
+                    This will be a fun quiz with 5 questions to test your knowledge on all pet breeds <br>
+                    Press the "Start Quiz" button whenever you're ready!
+                    </p>
+                </v-col>
+            </v-row>
+            <v-row justify="center" class="my-5">
+            <v-btn x-large flat @click="quizStart=!quizStart" color="brown lighten-4">Start Quiz</v-btn>
+            </v-row>
+        </div>
+    <quiz v-show="!showModal && quizStart" @quiz-completed="handleQuizCompleted" :key="quizKey" />
+    <custom-modal v-show="showModal" :score="score" @reload="updateQuiz"/>
         </v-tab-item>
-      </v-tabs-items>
-    </v-container>
-    </v-container>
-    <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
-        <v-icon>mdi-chevron-up</v-icon>
-    </v-btn>
-</div>
+        </v-tabs-items>
+        </v-container>
+        </v-container>
+        <v-btn v-scroll="onScroll" v-show="fab" fab fixed bottom right color="brown lighten-4" @click="toTop">
+            <v-icon>mdi-chevron-up</v-icon>
+        </v-btn>
+    </div>
 </template>
 
 <script>
@@ -200,11 +197,11 @@ import AOS from 'aos'
 import Quiz from "../components/Quiz.vue";
 import CustomModal from "../components/CustomModal.vue";
 
-export default {
+export default { 
     components: { Quiz, CustomModal },
     mounted() {
       AOS.init({
-        duration: 1200,
+        duration: 1400,
       })
     },
   data () {
@@ -248,7 +245,7 @@ export default {
             {name:'Chihuahua Dog', image:'dog33.png', pet:'dog'},
             {name:'Cocker Spaniel Dog', image:'dog34.png', pet:'dog'},
             {name:'Dalmatian Dog', image:'dog35.png', pet:'dog'},
-            {name:'Doberman Dog',image:'dog36.png', pet:'dog'},
+            {name:'Dobermann Dog',image:'dog36.png', pet:'dog'},
             {name:'French Bulldog', image:'dog37.png', pet:'dog'},
             {name:'German Shepherd Dog', image:'dog38.png', pet:'dog'},
             {name:'Golden Retriever Dog', image:'dog39.png', pet:'dog'},

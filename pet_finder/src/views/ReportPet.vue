@@ -33,7 +33,7 @@
                 <v-row justify="center mb-3">
                 <!-- Pet's Name -->
                     <v-col cols="12" md="6">
-                        <v-text-field label="Pet's Name" placeholder="Enter unknown if pet's name is not known"
+                        <v-text-field label="Pet's Name*" placeholder="Enter unknown if pet's name is not known"
                         :rules="inputRules" name:pname outlined v-model="petName">
                         </v-text-field>
                     </v-col>
@@ -68,7 +68,7 @@
                             <v-text-field v-model="date" label="Pet's Last Seen Date*" outlined :rules="calRule"
                                     v-bind="attrs" v-on="on"></v-text-field>
                         </template>
-                        <v-date-picker v-model="date" :min="new Date().toISOString()" no-title scrollable>
+                        <v-date-picker v-model="date" no-title scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="menu = false">
                             Cancel
@@ -284,7 +284,7 @@
             
             ],
     
-        petColours: ["Beige", "Black", "Brown", "Grey", "White", "Others"],
+        petColours: ["Beige", "Black", "Brown", "Orange", "Grey", "White", "Others"],
         collarColours: ["No Collar", "Beige", "Black","Brown", "Grey", "White", "Pink", "Blue", "Yellow", "Red", "Others"],
         petGenders: ['Male','Female',"Unknown"],
         petSizes: ['Small', 'Medium', 'Large'],
@@ -383,6 +383,16 @@
 
             const docRef= addDoc(collection(db, 'Pets'), form_doc)
             .then( (data)=>{
+                // this.formType='',
+                // this.petLocation='',
+                // this.petGeoLoc= '',
+                // this.petName='',
+                // this.petType='',
+                // this.petColor='',
+                // this.petGender='',
+                // this.collarColor='',
+                // this.petBreed='',
+                // this.petSize='',
                 alert('Pet listed with ID' + data.id)
                 key=data.id
                 const documentRef=doc(db, "Pets", key)
@@ -497,7 +507,6 @@
         // toTop () {
         //   this.$vuetify.goTo(0)
         // }
-
         //address to geoloc
         getGeoloc(){
             this.myGeocoder = new google.maps.Geocoder();

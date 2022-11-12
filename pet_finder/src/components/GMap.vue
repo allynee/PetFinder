@@ -1,24 +1,22 @@
 <template>
-    <div class="container">
-        <div class="text-center">
-            <h1>Your coordinates:</h1>
-            <p>{{myCoordinates.lat}} Latitude, {{myCoordinates.lng}} Longtitude</p>
-            <!-- <h1>Map coordinates:</h1>
-            <p>{{mapCoordinates.lat}} Latitude, {{mapCoordinates.lng}} Longtitude</p> -->
-        </div>
+    <v-container>
         <GmapMap :center="myCoordinates"
                 :zoom="zoom"
-                style="width:640px;height:360px;margin: 32px auto;"
+                style="max-width:100%;height:100%;"
                 ref="mapRef"
                 @dragend="handleDrag"></GmapMap>
         <!-- :center="{lat: 10, lng:10}" -->
-    </div>
+    </v-container>
 </template>
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCsbcA8EHPhaZbxQ_Gubm_ZhQyy-pcn6JM&libraries=places"></script>
 
 <script>
     export default{
+        // props: {
+        //     score: Object,
+        // },
+        // Chnage my coordinates to a prop
         data(){
             return{
                 map: null,
