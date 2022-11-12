@@ -96,6 +96,7 @@
       methods:{
 
         sampleLogin(){
+            this.$store.commit('setLoading',true)
             const auth=getAuth()
             signInWithEmailAndPassword(auth, this.email, this.password)
             .then( (credentials)=>{
@@ -106,10 +107,12 @@
                 .then( (snapshot)=>{
                     const user_obj= snapshot.data()
                     this.$store.dispatch('signUserIn',user_obj)
+
                     console.log(user_obj)
 
                 })
                 .catch( (err)=>{
+                    this.$store.commit('setLoading', false)
                     alert('Username or Password not found! Please enter again!')
                     console.log(err)
                     console.log(2)
@@ -128,6 +131,7 @@
                 // // console.log(data)
             })
             .catch((err)=>{
+                this.$store.commit('setLoading',false)
                 console.log(1)
                 alert('Username or Password not found! Please enter again!')
                 console.log(err)

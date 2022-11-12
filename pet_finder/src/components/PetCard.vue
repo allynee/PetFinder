@@ -1,16 +1,16 @@
 <template>
 <div>
 <v-hover v-slot="{ hover }">
-<v-card flat :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" maxwidth="400" outlined>
+<v-card flat :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }" style="max-width:400px" outlined>
 
     <!-- Lost or Found -->
     <div :class="{'green': isGreen, 'red': !isGreen, 'lighten-3' : true ,'py-2':true}">
-        <div class="text-h6 text-center">{{aPet.petStatus}} Pet</div>
+        <div class="text-h6 text-center">{{aPet.petStatus}}</div>
     </div>
 
     <!-- Image -->
-    <v-card-text>
-        <v-img :src="getImgUrl(aPet.petImage)" class="my-2" contain max-height="1500" max-width="1500"/>
+    <v-card-text class="d-flex justify-center align-center" style="height:300px;">
+        <v-img :src="aPet.image" class="" contain max-height="250" max-width="350"/>
     </v-card-text>
         
     <!-- Pet Name -->
@@ -23,18 +23,18 @@
     </v-list-item>
 
     <!-- Location -->
-    <v-list-item>
+    <v-list-item class="text-left">
     <v-icon left class="primary--text">mdi-map-marker</v-icon>
-    <v-list-item-subtitle class="primary--text mx-2">{{aPet.petLoc}}</v-list-item-subtitle>
+    <v-list-item-subtitle class="primary--text mx-2">{{aPet.petLocation}}</v-list-item-subtitle>
     </v-list-item>
         
     <!-- Date -->
-    <v-list-item class="mb-2">
+    <v-list-item class="mb-2 text-left">
     <!-- <v-list-item-icon>
         <v-icon class="primary--text">mdi-calendar</v-icon>
     </v-list-item-icon> -->
     <v-icon left class="primary--text">mdi-calendar</v-icon>
-    <v-list-item-subtitle class="primary--text mx-2"> {{ aPet.missingSince}}</v-list-item-subtitle>
+    <v-list-item-subtitle class="primary--text mx-2"> {{ aPet.petDate}}</v-list-item-subtitle>
     </v-list-item>
         
     <v-divider></v-divider>
@@ -63,14 +63,14 @@ export default {
         }
     },
     methods: {
-        getImgUrl(pic){
-            console.log(this.aPet.petStatus)
-        return require('../assets/' + pic)
-        },
+        // getImgUrl(pic){
+        //     console.log(this.aPet.petStatus)
+        // return require('../assets/' + pic)
+        // },
     },
     computed: {
         isGreen(){
-            if(this.aPet.petStatus=="Found"){
+            if(this.aPet.petStatus=="Found Pet"){
                 return true
             }else{
                 return false

@@ -132,6 +132,8 @@
       methods:{
 
         onRegister(){
+            this.$store.commit('setLoading',true)
+
             const auth=getAuth()
             //Async Create User function
             createUserWithEmailAndPassword(auth, this.email, this.password)
@@ -152,6 +154,8 @@
                 const docRef=doc(db,"Users", uid)
                 setDoc(docRef, newUser)
                 .then(()=>{
+                    this.$store.commit('setLoading',false)
+
                     console.log('Registration successful')
                     this.$router.push('/login')
                 })
@@ -162,12 +166,16 @@
                 //     this.$router.push('/login')
                 // })
                 .catch( (err)=>{
+                    this.$store.commit('setLoading',false)
+
                     console.log(err)
                     alert('Failed to add user to database')
                     return
                 })
             })
             .catch( (err)=>{
+                this.$store.commit('setLoading',false)
+
                 console.log(err)
                 alert('Email already in use! Please retry!')
                 return

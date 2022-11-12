@@ -1,3 +1,4 @@
+// import { getDoc } from 'firebase/firestore'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import db from '../firebase/index'
@@ -26,31 +27,20 @@ export const store =new Vuex.Store({
         //listed pets: [],
         user:null,
         allPetsArray:null,
+        loading:false,
     },
     mutations:{
         setUser(state, payload){
             state.user=payload
+        },
+
+        setLoading( state,payload){
+            state.loading=payload
         }
     },
     actions:{
-        signUserIn( {commit}, payload){
-            // const auth=getAuth()
-            // signInWithEmailAndPassword(auth,payload.email, payload.password )
-            // .then( (credentials)=>{
-            //     var uid=credentials.user.uid
-            //     const q=query(collection(db, 'Users', ), where('userid', '==',uid))
-            //     getDocs(q)
-            //     .then( (documents)=>{
-            //         console.log(documents)
-            //         var user_obj=documents[0]
-            //         console.log(user_obj)
-            //     })
-            //     .catch( (err)=>{
-            //         console.log(err)
-            //     })
-
-            // })
-
+        signUserIn( {commit}, payload){  
+            commit('setLoading',false)         
             const loggedUser= payload
             commit('setUser', loggedUser)
         }

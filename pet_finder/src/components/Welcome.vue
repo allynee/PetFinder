@@ -43,7 +43,7 @@
 
 
     <v-container class="">
-      <v-row justify="space-between" class="brown lighten-5 my-5 pa-15">
+      <!-- <v-row justify="space-between" class="brown lighten-5 my-5 pa-15">
         <v-col cols="6" align="left" class="" data-aos="fade-up">
               <div class="mb-5 text-h4 brown--text text--darken-4 font-weight-bold">
                 Browse All Lost and Found Pets
@@ -56,7 +56,7 @@
           <p>** Placeholder image, will replace with video</p>
           <v-img :src="require('../assets/Placeholder1.png')" class="my-3" contain/>
         </v-col> 
-      </v-row>
+      </v-row> -->
  
       <!-- <v-row justify="space-between" class="my-8">
         <v-col cols="7" align="left" class="pa-0" data-aos="fade-up">
@@ -109,7 +109,7 @@
                 Learn
               </div>
               <p class="text-h6 text-center font-weight-light brown--text text--darken-1">
-                Curious to learn more about our furry friends? Head over to "Learn" where there are informational cards and a game to Test Your Knowledge.
+                Curious to learn more about our furry friends? Head over to "Learn" where there are informational cards and a fun quiz to test your knowledge!
               </p>
               <v-btn to="/Learn?tab=one" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Learn Now</v-btn>
         </v-col>
@@ -416,7 +416,7 @@
       <p style="margin-top:50px;margin-bottom:50px" class="text-h6 text-center font-weight-light black--text text--darken-1">
         Sign up now to get instant access to hundreds of lost pets waiting to be reclaimed by their owner. 
       </p>
-      <v-btn to="/ReportPet" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center;">Sign Up</v-btn>
+      <v-btn to="/SignUp" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center;">Sign Up</v-btn>
     </v-container>
 
     <v-row justify ="center" align="center">
