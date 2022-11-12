@@ -3,7 +3,7 @@
         <v-row justify="center">
             <v-col cols="8" align="center">
                 <p class="text-h6 font-weight-light brown--text text--darken-2">
-                We are currently at question <strong>{{ index + 1 }}</strong> of <strong>{{ questions.length }}</strong>
+                We are currently at question <strong>{{ index + 1 }}</strong> of <strong>{{ randomQuestions.length }}</strong>
                 </p>
                 <p class="text-h6 font-weight-light brown--text text--darken-2">
                 You have <strong>{{ correctAnswers }} correct {{ pluralizeAnswer }}</strong> so far
@@ -23,14 +23,14 @@
         </v-row>
         <v-row justify="center">
         <!-- Only first question is displayed -->
-                <v-btn flat x-large
-                v-for="answer in currentQuestion.answers"
-                :index="currentQuestion.key"
-                :key="answer"
-                :value = "answer"
-                v-html="answer"
-                @click.prevent="handleClick"
-                ></v-btn>
+        <v-btn x-large tile color="brown lighten-4"
+        v-for="answer in currentQuestion.answers"
+        :index="index"
+        :key="answer"
+        :value = "answer"
+        v-html="answer"
+        @click.prevent="handleClick"
+        ></v-btn>
         </v-row>
     </v-container>
 </template>
@@ -248,13 +248,23 @@ export default {
     };
   },
   computed: {
+    randomQuestions(){
+      let questionList = [];
+      let question = {};
+      while(questionList.length<5){
+        question = this.questions[Math.floor(Math.random() * this.questions.length)]
+        if(!questionList.includes(question)){
+          questionList.push(question)
+        }
+      }
+      return questionList;
+    },
     pluralizeAnswer() {
-      // For grammatical correctness
       return this.correctAnswers === 1 ? "answer" : "answers";
     },
     correctAnswers() {
        let streakCounter = 0;
-       this.questions.forEach(function (question) {
+       this.randomQuestions.forEach(function (question) {
          if (!question.rightAnswer) {
            return;
          } else if (question.rightAnswer === true) {
@@ -264,27 +274,27 @@ export default {
        return streakCounter;
    },
    currentQuestion() {
-        return this.questions[this.index];
+        return this.randomQuestions[this.index];
    },
    quizCompleted() {
       /* Check if all questions have been answered */
       let questionsAnswered = 0;
-      this.questions.forEach(function (question) {
+      this.randomQuestions.forEach(function (question) {
         question.rightAnswer !== null ? questionsAnswered++ : null;
       });
-      return questionsAnswered === this.questions.length;
+      return questionsAnswered === this.randomQuestions.length;
     },
     score() {
         return {
-          allQuestions: this.questions.length,
-          answeredQuestions: this.questions.reduce((count, currentQuestion) => {
+          allQuestions: this.randomQuestions.length,
+          answeredQuestions: this.randomQuestions.reduce((count, currentQuestion) => {
             if (currentQuestion.userAnswer) {
               // userAnswer is set when user has answered a question, no matter if right or wrong
               count++;
             }
             return count;
           }, 0),
-          correctlyAnsweredQuestions: this.questions.reduce(
+          correctlyAnsweredQuestions: this.randomQuestions.reduce(
             (count, currentQuestion) => {
               if (currentQuestion.rightAnswer) {
                 // rightAnswer is true, if user answered correctly
@@ -302,15 +312,7 @@ export default {
       return require('../assets/' + pic)
     },
     handleClick(e) {
-        this.questions[this.index].userAnswer = e.target.value;
-    //   let index = e.target.getAttribute("index");
-    //   let pollutedUserAnswer = e.target.innerHTML; // innerHTML is polluted with decoded HTML entities e.g ' from &#039;
-    //   /* Clear from pollution with ' */
-    //   let userAnswer = pollutedUserAnswer.replace(/'/, "&#039;");
-    //   //set answer
-    //   this.questions[index].userAnswer = userAnswer;
-      /* Set class "clicked" on button with userAnswer -> for CSS Styles; Disable other sibling buttons */
-      
+        this.randomQuestions[this.index].userAnswer = e.target.value;      
       e.target.classList.add("clicked");
       let allButtons = document.querySelectorAll(`[index="${this.index}"]`);
       for (let i = 0; i < allButtons.length; i++) {
@@ -321,9 +323,9 @@ export default {
     },
     
     checkCorrectAnswer(e, index) {
-      let question = this.questions[index];
+      let question = this.randomQuestions[index];
     //   if (question.userAnswer) {
-        if (this.index < this.questions.length - 1) {
+        if (this.index < this.randomQuestions.length - 1) {
           setTimeout(
             function () {
               this.index += 1;
@@ -336,19 +338,20 @@ export default {
           /* Set class on Button if user answered right, to celebrate right answer with animation joyfulButton */
           this.message="Correct, Good job!"
           e.target.classList.add("rightAnswer");
-          /* Set rightAnswer on question to true, computed property can track a streak out of 20 questions */
-          this.questions[index].rightAnswer = true;
+          /* Set rightAnswer on question to true, computed property can track a streak out of 5 questions */
+          this.randomQuestions[index].rightAnswer = true;
         } else {
           /* Mark users answer as wrong answer */
           this.message="Incorrect :("
           e.target.classList.add("wrongAnswer");
-          this.questions[index].rightAnswer = false;
+          this.randomQuestions[index].rightAnswer = false;
+
           /* Show right Answer */
-          let correctAnswer = this.questions[index].correctAnswer;
+          let correctAnswer = question.correctAnswer;
           let allButtons = document.querySelectorAll(`[index="${index}"]`);
-          allButtons.forEach(function (button) {
-            if (button.innerHTML === correctAnswer) {
-              button.classList.add("showRightAnswer");
+          allButtons.forEach(element => {
+            if(element.value==correctAnswer){
+              element.classList.add("showRightAnswer");
             }
           });
         // }
@@ -365,29 +368,55 @@ export default {
   },
 };
 </script>
-   
-<style scoped>
 
+<style scoped lang="scss">
 button {
-  font-size: 1.1rem;
-  box-sizing: border-box;
   padding: 1rem;
   margin: 0.5rem;
   width: 35%;
-  background-color: rgba(100, 100, 100, 0.3);
 
-}
-button:hover:enabled {
-  transform: scale(1.02);
-  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12),
+  &:hover:enabled {
+    transform: scale(1.02);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12),
     0 3px 1px -1px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-}
-button:focus {
-  outline: none;
-}
-button:active:enabled {
-  transform: scale(1.05);
+  }
+  &:active:enabled {
+    transform: scale(1.05);
+  }
+  &.rightAnswer {
+    animation: flashButton;
+    animation-duration: 700ms;
+    animation-delay: 200ms;
+    animation-iteration-count: 3;
+    animation-timing-function: ease-in-out;
+    color: black;
+    background: linear-gradient(
+      210deg,
+      rgba(0, 178, 72, 0.25),
+      rgba(0, 178, 72, 0.5)
+    );
+  }
+  &.wrongAnswer {
+    color: black;
+    background: linear-gradient(
+      210deg,
+      rgba(245, 0, 87, 0.25),
+      rgba(245, 0, 87, 0.5)
+    );
+  }
+  &.showRightAnswer {
+    animation: flashButton;
+    animation-duration: 700ms;
+    animation-delay: 200ms;
+    animation-iteration-count: 2;
+    animation-timing-function: ease-in-out;
+    color: black;
+    background: linear-gradient(
+      210deg,
+      rgba(0, 178, 72, 0.25),
+      rgba(0, 178, 72, 0.5)
+    );
+  }
 }
 @keyframes flashButton {
   0% {
@@ -402,42 +431,5 @@ button:active:enabled {
     opacity: 1;
     transform: scale(1);
   }
-}
-button.clicked {
-  pointer-events: none;
-}
-button.rightAnswer {
-  animation: flashButton;
-  animation-duration: 700ms;
-  animation-delay: 200ms;
-  animation-iteration-count: 3;
-  animation-timing-function: ease-in-out;
-  color: black;
-  background: linear-gradient(
-    210deg,
-    rgba(0, 178, 72, 0.25),
-    rgba(0, 178, 72, 0.5)
-  );
-}
-button.wrongAnswer {
-  color: black;
-  background: linear-gradient(
-    210deg,
-    rgba(245, 0, 87, 0.25),
-    rgba(245, 0, 87, 0.5)
-  );
-}
-button.showRightAnswer {
-  animation: flashButton;
-  animation-duration: 700ms;
-  animation-delay: 200ms;
-  animation-iteration-count: 2;
-  animation-timing-function: ease-in-out;
-  color: black;
-  background: linear-gradient(
-    210deg,
-    rgba(0, 178, 72, 0.25),
-    rgba(0, 178, 72, 0.5)
-  );
 }
 </style>

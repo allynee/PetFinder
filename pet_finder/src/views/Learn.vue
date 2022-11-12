@@ -170,10 +170,10 @@
             <v-row justify="center">
                 <v-col cols="12" md="8" align="center">
                     <p class="text-h6 font-weight-light brown--text text--darken-2">
-                It's time to check out how much you know!
-                This will be a quiz with 5 questions to test your knowledge on pet breeds. 
-                Go ahead and press the "Start Quiz" button whenever you're ready!
-            </p>
+                    It's time to check how much you know<br>
+                    This will be a fun quiz with 5 questions to test your knowledge on all pet breeds <br>
+                    Press the "Start Quiz" button whenever you're ready!
+                    </p>
                 </v-col>
             </v-row>
             <v-row justify="center" class="my-5">
@@ -181,11 +181,8 @@
             </v-row>
         </div>
     <quiz v-show="!showModal && quizStart" @quiz-completed="handleQuizCompleted" :key="quizKey" />
-    <custom-modal
-        v-show="showModal"
-        :score="score"
-        @reload="updateQuiz"/>
-            </v-tab-item>
+    <custom-modal v-show="showModal" :score="score" @reload="updateQuiz"/>
+        </v-tab-item>
         </v-tabs-items>
         </v-container>
         </v-container>
@@ -200,11 +197,11 @@ import AOS from 'aos'
 import Quiz from "../components/Quiz.vue";
 import CustomModal from "../components/CustomModal.vue";
 
-export default {
+export default { 
     components: { Quiz, CustomModal },
     mounted() {
       AOS.init({
-        duration: 1200,
+        duration: 1400,
       })
     },
   data () {
