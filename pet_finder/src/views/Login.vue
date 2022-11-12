@@ -1,9 +1,12 @@
 <template>
-    <v-container>
-        <v-layout>
-            <v-flex xs12 sm6 offset-sm3>
-                <v-card>
-                    <v-card-text>
+    <div class="white bground d-flex align-center">
+        <v-container class="mx-auto ">
+            <v-row class="mb-7 mt-0 pt-0">
+            <span class="text-h4 text-capitalize brown--text mx-auto">Login</span>
+            </v-row>
+            <v-row>
+                <v-card style="width:45%;height:75%;" elevation="2" class="mx-auto brown pt-9 pb-15 lighten-4">
+                    <v-card-text> 
                         <v-container>
                             <form @submit.prevent="sampleLogin">
                                 <v-layout row>
@@ -19,7 +22,7 @@
                                     </v-flex>
                                 </v-layout>
 
-                             
+                            
 
                                 <v-layout row>
                                     <v-flex xs12>
@@ -39,7 +42,7 @@
 
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit" :disabled="!formIsValid">
+                                        <v-btn block outlined color="brown" type="submit" :disabled="!formIsValid">
                                             Login
                                         </v-btn>
                                     </v-flex>
@@ -47,10 +50,10 @@
                             </form>
                         </v-container>
                     </v-card-text>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </v-container>
+                </v-card> 
+            </v-row>
+        </v-container>
+    </div>
 
 
    
@@ -107,4 +110,12 @@
       }
     }
   </script>
-  
+  <style scoped>
+  .bground {
+    background: url('../assets/dogss.png');
+    background-size: cover;
+    height: 120vh;
+    background-position: 20px;
+    width: 100%
+  }
+  </style>

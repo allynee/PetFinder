@@ -241,6 +241,174 @@ export default {
             //right answer is true if user answered correctly
             index: 0,
             userAnswer: ""},
+        // question26
+        {   question: "dog31.png",
+            correctAnswer: "Brittany Dog",
+            answers: ["German Shepherd Dog","Brittany Dog","Greyhound Dog","Shih Tzu Dog"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question27
+        {   question: "dog43.png",
+            correctAnswer: "Maltese Dog",
+            answers: ["Maltese Dog","Pug Dog","Great Dane Dog","Briard Dog"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question28
+        {   question: "dog30.png",
+            correctAnswer: "British Bulldog",
+            answers: ["Cocker Spaniel Dog","Chihuahua Dog","British Bulldog","Boston Terrier Dog"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question29
+        {   question: "dog40.png",
+            correctAnswer: "American Curl Cat",
+            answers: ["Japanese Bobtail Cat","American Curl Cat","Norwegian Forest Cat","Russian Blue Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+         // question30
+         {   question: "cat36.png",
+            correctAnswer: 'Turkish Van Cat',
+            answers: ['Turkish Van Cat',"Savannah Cat","Havana Brown Cat","LaPerm Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question31
+        {   question: "cat43.png",
+            correctAnswer: 'Egyptian Mau Cat',
+            answers: ['Cornish Rex Cat',"Egyptian Mau Cat","Bombay Cat","Abyssinian Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question32
+        {   question: "cat20.png",
+            correctAnswer: 'Devon Rex Cat',
+            answers: ['Chartreux Cat',"Ragamuffin Cat","Munchkin Cat","Devon Rex Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question33
+        {   question: "cat29.png",
+            correctAnswer: 'Pixiebob Cat',
+            answers: ['Pixiebob Cat',"Ragdoll Cat","Siberian Cat","Scottish Fold Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question34
+        {   question: "cat20.png",
+            correctAnswer: 'Scottish Fold Cat',
+            answers: ['Cornish Rex Cat',"Birman Cat","Maine Coon Cat","Scottish Fold Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question35
+        {   question: "dog17.png",
+            correctAnswer: 'Bearded Collie Dog',
+            answers: ['Australian Cattle Dog',"Chihuahua Dog","Bearded Collie Dog","Great Dane Dog"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question36
+        {   question: "dog34.png",
+            correctAnswer: 'Cocker Spaniel Dog',
+            answers: ['Cocker Spaniel Dog',"Dalmatian Dog","Boston Terrier Dog","Australian Kelpie Dog"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question37
+        {   question: "dog49.png",
+            correctAnswer: 'Welsh Corgi Dog',
+            answers: ['Dobermann Dog',"Welsh Corgi Dog","Pomeranian Dog","Bearded Collie Dog"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question38
+        {   question: "cat9.png",
+            correctAnswer: 'Munchkin Cat',
+            answers: ['Pixiebob Cat',"Japanese Bobtail Cat","Burmese Cat","Munchkin Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question39
+        {   question: "cat30.png",
+            correctAnswer: 'Russian Blue Cat',
+            answers: ['Russian Blue Cat',"Exotic Shorthair Cat","Selkirk Rex Cat","Turkish Angora Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question40
+        {   question: "cat30.png",
+            correctAnswer: 'Russian Blue Cat',
+            answers: ['Russian Blue Cat',"Exotic Shorthair Cat","Selkirk Rex Cat","Turkish Angora Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question41
+        {   question: "dog35.png",
+            correctAnswer: 'Dalmatian Dog',
+            answers: ['Greyhound Dog',"Dalmatian Dog","Basset Hound Dog","Yorkshire Terrier Dog"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question42
+        {   question: "cat27.png",
+            correctAnswer: 'Maine Coon Cat',
+            answers: ['Maine Coon Cat',"Manx Cat","Japanese Bobtail Cat","LaPerm Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question43
+        {   question: "cat19.png",
+            correctAnswer: 'Birman Cat',
+            answers: ['Oriental Shorthair Cat',"Egyptian Mau Cat","Birman Cat","Ragdoll Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question44
+        {   question: "cat32.png",
+            correctAnswer: 'Scottish Fold Cat',
+            answers: ['Scottish Fold Cat',"Manx Cat","Devon Rex Cat","Himalayan Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question45
+        {   question: "cat32.png",
+            correctAnswer: 'Scottish Fold Cat',
+            answers: ['Scottish Fold Cat',"Manx Cat","Devon Rex Cat","Himalayan Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
+        // question46
+        {   question: "cat42.png",
+            correctAnswer: 'Cornish Rex Cat',
+            answers: ['Norwegian Forest Cat',"Himalayan Cat","Cornish Rex Cat","Pixiebob Cat"],
+            rightAnswer: null,
+            //right answer is true if user answered correctly
+            index: 0,
+            userAnswer: ""},
         
       ],
       loading: true,
