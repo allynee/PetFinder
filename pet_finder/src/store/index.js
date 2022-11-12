@@ -30,6 +30,7 @@ export const store = new Vuex.Store({
         user:null,
         // allPetsArray:null,
         loading:false,
+        loadedPet:null,
     },
     mutations:{
         setUser(state, payload){
@@ -41,6 +42,9 @@ export const store = new Vuex.Store({
         //update array (add/delete)
         addPetArray(state, form_input){
             state.user.listedPets.push(form_input)
+        },
+        changePetid(state, pet_obj){
+            state.loadedPet=pet_obj
         }
     },
     actions:{
@@ -84,6 +88,15 @@ export const store = new Vuex.Store({
                 console.log("PetID failed to update in user database")
             })
         },
+
+        loadedPet({commit}, petid){
+            const petRef=doc(db,'Pets',petid)
+            getDoc(petRef)
+            .then( (snapshot)=>{
+                const pet_obj=snapshot.data()
+                commit('changePetid', pet_obj)
+            })
+        }
             
     },
     getters:{
@@ -93,6 +106,9 @@ export const store = new Vuex.Store({
         },
         loading(state){
             return state.loading
+        },
+        loadedpet(state){
+            return state.loadedPet
         }
         
    

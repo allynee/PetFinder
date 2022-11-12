@@ -12,6 +12,7 @@ import SignUp from '../views/SignUp.vue'
 import Learn from '../views/Learn.vue'
 import Account from '../views/Account.vue'
 import IndivPet from '../components/IndivPet.vue'
+import Onepet from '../views/Onepet.vue'
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,12 @@ const routes = [
     component: Search,
     beforeEnter:authguard,
 
+  },
+  {
+    path:'/SearchAllPets/:petid',
+    props:true,
+    name:'Onepet',
+    component:Onepet
   },
   {
     path: '/signup',
