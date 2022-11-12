@@ -11,7 +11,7 @@
                 </v-col>
             </v-row>
             <v-divider></v-divider>
-            <v-form class="px-3 my-5" v-model="valid" ref="form" @submit.prevent="submitForm" data-aos="fade-down">
+            <v-form class="px-3 my-5" v-model="valid" ref="form" @submit.prevent="getGeoloc" data-aos="fade-down">
                 <v-row justify="center" class="my-5">
                 <!-- Choose btwn lost and found -->
                 <v-col cols="12"> 
@@ -105,7 +105,10 @@
                 </v-col>
                 <!-- Submit Photo -->
                 <v-col cols="12" md="6">
-                    <v-file-input outlined label="Pet's Image" accept="image/*" placeholder="Upload an Image of the Pet"
+                    <v-file-input outlined label="Pet's Image" accept="image/*"
+                     placeholder="Upload an Image of the Pet"
+                     :model="imageText"
+                     @change="filePicked()"
                 prepend-icon="" append-icon="mdi-camera">
                 <!-- <template v-slot:append>
                     <v-tooltip top>
@@ -143,7 +146,8 @@
     // const { validationMixin, default: Vuelidate } = require('vuelidate')
     // const { required} = require('vuelidate/lib/validators')
     import db from '../firebase/index'
-    import { collection, addDoc } from 'firebase/firestore'
+    import { collection, addDoc, doc, updateDoc } from 'firebase/firestore'
+    import {uploadBytes, getDownloadURL, ref, getStorage} from 'firebase/storage'
     //collection ref
     
     // //import gmaps
@@ -296,6 +300,9 @@
         petBreed:'',
         petSize:'',
         date:null,
+        imageText:'',
+        imageURL:"",
+        image:null,
         fromDateMenu: false,
         fromDateVal: null,
         minDate: "2019-07-04",
@@ -354,55 +361,67 @@
             }
         },
         submitForm() {
-            this.petGeoLoc = getGeoloc()
-            if (this.formType=='Lost Pet'){
-                const doc= {
-                    petName:this.petName,
-                    petLocation: this.petLocation,
-                    petDate: this.date,
-                    petType: this.petType,
-                    petBreed: this.petBreed[0],
-                    petColor:this.petColor[0],
-                    collarColor:this.collarColor,
-                    petSize:this.petSize,
-                    petGender:this.petGender,
-                    //left image
-                }
-                // console.log(doc)
-                const docRef= addDoc(collection(db, 'LostPets'), doc)
-                .then( ()=> {
-                    alert('Lost pet listed with ID', docRef.id)
+            // this.getGeoloc()
+            console.log(this.petGeoLoc)
+            const form_doc={
+                formType: this.formType,
+                petName:this.petName,
+                petLocation: this.petLocation,
+                petDate: this.date,
+                petType: this.petType,
+                petBreed: this.petBreed[0],
+                petColor:this.petColor[0],
+                collarColor:this.collarColor,
+                petSize:this.petSize,
+                petGender:this.petGender,
+                image:'',
+                petGeoLoc: this.petGeoLoc
+            }
+            console.log(form_doc)
+            let key
+
+            const docRef= addDoc(collection(db, 'Pets'), form_doc)
+            .then( (data)=>{
+                alert('Pet listed with ID' + data.id)
+                key=data.id
+                const documentRef=doc(db, "Pets", key)
+                const filename=this.image.name
+                const extension=filename.slice(filename.lastIndexOf('.'))
+
+                const imageRef=ref( getStorage(), `Pets/${key}${extension}`)
+                uploadBytes(imageRef, this.file)
+                .then( (snapshot)=>{
+                    console.log("Uploaded to storage")
+                    console.log("snapshot:"+ snapshot)
+                    getDownloadURL(snapshot.ref)
+                    .then( (url)=>{
+                        console.log("Got Download URL")
+                        updateDoc(documentRef, {image:url}, {merge:true})
+                        .then( ()=>{
+                            console.log("pic added to database")
+                        })
+                        .catch( ()=>{
+                            console.log("Pic not added to database")
+                        })
+
+                    })
+                    .catch( (err)=>{
+                        console.log(err)
+                        console.log("Error getting download URL")
+                    })
+
                 })
                 .catch( (err)=>{
                     console.log(err)
-                    alert("Failed to add lost pet. Please check the fields and try again!")
+                    console.log("Error uploading to storage")
                 })
-            }
-    
-            else{
-                const doc= {
-                    petName:this.petName,
-                    petLocation: this.petLocation,
-                    petDate: this.date,
-                    petType: this.petType,
-                    petBreed: this.petBreed[0],
-                    petColor:this.petColor[0],
-                    collarColor:this.collarColor,
-                    petSize:this.petSize,
-                    petGender:this.petGender,
-                    //left image
-                }
-                // console.log(doc)
-                const docRef= addDoc(collection(db, 'FoundPets'), doc)
-                .then( ()=> {
-                    alert('Found pet listed with ID', docRef.id)
-                })
-                .catch( (err)=>{
-                    console.log(err)
-                    alert("Failed to add found pet. Please check the fields and try again!")
-                })
-            }
-            
+            })
+            .catch( (err)=>{
+                console.log(err)
+                console.log("error adding pet into database")
+            })
+
+           
     
         },
         // get user current location
@@ -485,12 +504,21 @@
             .then((response) => {
             if (response.results[0]) {
                 this.petGeoLoc = response.results[0].geometry.location;
+                console.log(this.petGeoLoc)
             } else {
                 this.petGeoLoc = {};
             }
+            this.submitForm()
             })
-            .catch((e) => this.petGeoLoc = {});
+            .catch((e) => {this.petGeoLoc = {}
+            this.submitForm()});
         },
+        filePicked(){
+            const files=event.target.files[0]
+            this.filename=files.name
+            this.image=files
+        }
+
     },
     computed: {
         //   fromDateDisp() {
