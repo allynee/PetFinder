@@ -122,7 +122,7 @@
               <p class="text-h6 text-center font-weight-light brown--text text--darken-1">
                 Browse all the pets and check to see if yours is there. If you see your pet, reclaim it by contacting the individual who posted the information.
               </p>
-              <v-btn to="/MyMap" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Search Now</v-btn>
+              <v-btn to="/DashBoard" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Search Now</v-btn>
         </v-col> 
       </v-row>
     </v-container>
@@ -416,7 +416,7 @@
       <p style="margin-top:50px;margin-bottom:50px" class="text-h6 text-center font-weight-light black--text text--darken-1">
         Sign up now to get instant access to hundreds of lost pets waiting to be reclaimed by their owner. 
       </p>
-      <v-btn to="/SignUp" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center;">Sign Up</v-btn>
+      <v-btn to="/Register" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center;">Sign Up</v-btn>
     </v-container>
 
     <v-row justify ="center" align="center">

@@ -3,8 +3,8 @@
         <div class="text-center">
             <h1>Your coordinates:</h1>
             <p>{{myCoordinates.lat}} Latitude, {{myCoordinates.lng}} Longtitude</p>
-            <h1>Map coordinates:</h1>
-            <p>{{mapCoordinates.lat}} Latitude, {{mapCoordinates.lng}} Longtitude</p>
+            <!-- <h1>Map coordinates:</h1>
+            <p>{{mapCoordinates.lat}} Latitude, {{mapCoordinates.lng}} Longtitude</p> -->
         </div>
         <GmapMap :center="myCoordinates"
                 :zoom="zoom"

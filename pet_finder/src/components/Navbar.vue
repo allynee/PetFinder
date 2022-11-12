@@ -116,7 +116,8 @@ export default {
                 {text: 'Home', route: '/', icon: 'mdi-home'},
                 {text: 'Report a pet', route:'/ReportPet', icon: 'mdi-dog-side'},
                 {text: 'Learn about pets', route:'/Learn', icon: 'mdi-book'},
-                {text: 'View all pets', route:'/Dashboard', icon: 'mdi-magnify'},
+                {text: 'View all pets', route:'/Dashboard', icon: 'mdi-rabbit'},
+                {text: 'Map of all pets', route:'/MyMap', icon: 'mdi-magnify'},
                 {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
                 {text: 'My Account', route:'/Account', icon: 'mdi-account'}
             ]
