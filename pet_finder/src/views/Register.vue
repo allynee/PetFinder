@@ -95,7 +95,7 @@
   <script>
     import db from '../firebase/index'
     // import router from '../router/index'
-    import { addDoc,collection } from 'firebase/firestore'
+    import { doc, setDoc } from 'firebase/firestore'
     import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
   
     export default {
@@ -136,6 +136,9 @@
             //Async Create User function
             createUserWithEmailAndPassword(auth, this.email, this.password)
             .then( user=>{
+                console.log(user)
+                const uid=user.user.uid
+                console.log(uid)
                 this.userid=user.user.uid
                 const newUser={
                     userid: this.userid,
@@ -146,14 +149,21 @@
                     listedPets:[],
                 }
                 //Async function to add this user into collection (inner async loop)
-                addDoc(collection(db, 'Users'), newUser)
-                .then( ()=>{
-                    alert('Registration successful!')
+                const docRef=doc(db,"Users", uid)
+                setDoc(docRef, newUser)
+                .then(()=>{
+                    console.log('Registration successful')
                     this.$router.push('/login')
                 })
+
+                // addDoc(collection(db, 'Users'), newUser)
+                // .then( ()=>{
+                //     alert('Registration successful!')
+                //     this.$router.push('/login')
+                // })
                 .catch( (err)=>{
                     console.log(err)
-                    alert('Email already in use! Please retry!')
+                    alert('Failed to add user to database')
                     return
                 })
             })

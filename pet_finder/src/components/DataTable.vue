@@ -23,7 +23,7 @@
 <script>
    export default {
     props: {
-      pets: Object,
+      pets: Array,
     },
     data(){
         return{
