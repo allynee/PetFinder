@@ -45,9 +45,9 @@
         }
     },
     methods: {
-        getImgUrl(pic){
-        return require('../assets/' + pic)
-        },
+        // getImgUrl(pic){
+        // return require('../assets/' + pic)
+        // },
     },
 
    };

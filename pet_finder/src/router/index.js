@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ReportPet from '../views/ReportPet.vue'
-import Dashboard from '../views/Dashboard.vue'
+import Search from '../views/Dashboard.vue'
 import MyMap from '../views/MyMap.vue'
 import Inbox from '../views/Inbox.vue'
 import Register from '../views/Register.vue'
@@ -32,9 +32,9 @@ const routes = [
     component: ReportPet
   },
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Dashboard
+    path: '/SearchAllPets',
+    name: 'search',
+    component: Search
   },
   {
     path: '/signup',
