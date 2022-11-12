@@ -72,7 +72,6 @@ export default {
                 {text: 'Report Pet', route:'/ReportPet', icon: 'mdi-dog-side'},
                 {text: 'Search Pet', route:'/SearchAllPets', icon: 'mdi-magnify'},
                 // {text: 'Map View', route:'/MyMap', icon: 'mdi-rabbit'},
-                {text: 'Map of all pets', route:'/MyMap', icon: 'mdi-map-outline'},
                 // {text: 'Matched Pets', route:'/Inbox', icon: 'mdi-paw'},
                 {text: 'Learn More', route:'/Learn', icon: 'mdi-book-outline'},
                 {text: 'Account', route:'/Account', icon: 'mdi-account'}
