@@ -3,7 +3,7 @@
 <template>
   <div class="white darken-3">
     <v-container class="py-10">
-      <v-row justify="center" class="my-6">
+      <v-row justify="center" class="my-5">
         <v-col cols="9" align="center">
         <h1 class="text-md-h1 text-sm-h2 brown--text text--darken-2 font-weight-light" data-aos="fade-down">
               Is Your Pet Lost?
@@ -18,20 +18,19 @@
           <!-- </div> -->
         </v-cols>
       </v-row>
-      <v-row justify="center" class="my-6">
+      <v-row justify="center" class="">
         <v-col cols="8" align="center" >
         <h1 class="text-h4 brown--text text--darken-2 font-weight-bold">We're here to help.</h1>
         <br>
         <p class="text-h6 font-weight-light brown--text text--darken-1 mb-11">
-          FindPetNOW is an online platform that aims to support you in bringing your lost pet back home. 
-          Here, we have a community of dedicated pet owners who share the same love for their pets that you do for yours.
-          Report your lost dog, cat, terrapin and other pets today to boost the chances
+          FindPetNOW is an online platform that supports you in your journey <br>of finding your lost pet. 
+          Report your lost dog, cat, terrapin and other pets<br> today to boost the chances
           of finding your lost pet. 
         </p>
-        <p class="text-h6 font-weight-light brown--text text--darken-1">
+        <p class="text-h6 brown--text text--darken-1">
           Ready to get started?
         </p>
-        <v-btn elevation="2" :href=href @click.prevent="scroll" class="pa-8 brown lighten-4" style="font-size: 16px;">Let's Go</v-btn>
+        <v-btn elevation="2" :href=href @click.prevent="scroll" class="pa-8 brown lighten-4" style="font-size: 16px;">Let's Go!</v-btn>
         </v-col>
       </v-row>
       <v-row justify="center">
@@ -43,55 +42,7 @@
 
     </v-container>
 
-
-    <v-container class="">
-      <!-- <v-row justify="space-between" class="brown lighten-5 my-5 pa-15">
-        <v-col cols="6" align="left" class="" data-aos="fade-up">
-              <div class="mb-5 text-h4 brown--text text--darken-4 font-weight-bold">
-                Browse All Lost and Found Pets
-              </div>
-              <p class="text-h6 font-weight-light brown--text text--darken-1">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate molestias quos harum tenetur adipisci provident praesentium beatae dolor quidem nihil dicta, soluta eum, et dolorum laborum, hic eos! Explicabo, deserunt.
-              </p>
-        </v-col>  
-        <v-col cols="5" data-aos="fade-up">
-          <p>** Placeholder image, will replace with video</p>
-          <v-img :src="require('../assets/Placeholder1.png')" class="my-3" contain/>
-        </v-col> 
-      </v-row> -->
- 
-      <!-- <v-row justify="space-between" class="my-8">
-        <v-col cols="7" align="left" class="pa-0" data-aos="fade-up">
-            <div class="brown lighten-3 mr-8 pa-15">
-              <div class="mb-5 text-h4 white--text font-weight-bold">
-                How to Report a Lost/Found Pet
-              </div>
-              <p class="text-h6 font-weight-light white--text text--darken-1">
-                If you lost your pet or 
-              </p>
-            </div>
-        </v-col>  
-        <v-col cols="5" class="brown lighten-3" data-aos="fade-up">
-          <div class="brown lighten-3 mr-5 pb-15 pt-15 pl-15 pr-15">
-              <div class="mb-5 text-h4 white--text text--darken-4 font-weight-bold">
-                Learn More About our Furry Friends
-              </div>
-              <p class="text-h6 font-weight-light white--text text--darken-1">
-                Curious to find out more about the 190 different breeds of dogs and 42 different breeds of cats in the world? 
-              </p>
-              <p class="text-h6 font-weight-light white--text text--darken-1">
-                Head over to 'Learn' where there are informational cards and a game to Test Your Knowledge!
-              </p>
-            </div>
-            <v-row style="display:flex;justify-content:center">
-              <v-btn to="/learn?tab=one" large class="mr-3 mb-5 pt-7 pb-7 px-4">Informational Cards</v-btn>
-              <v-btn to="/learn?tab=two" large class="pt-7 pb-7">Test Your Knowledge</v-btn>
-            </v-row>
-        </v-col> 
-      </v-row> -->
-    </v-container>
-
-    <v-container class="container-fluid pa-15" id="sect1">
+    <v-container class="container-fluid pa-15 mb-10" id="sect1">
       <v-row justify="space-between">
         <v-col cols="12" lg="4" class="" data-aos="fade-up">
               <v-img :src="require('../assets/ReadingDog.png')" class="my-3"
@@ -130,7 +81,7 @@
     </v-container>
 
     <!-- user reviews -->
-    <v-container data-aos="fade-up" class="brown lighten-4 mb-6 pa-15">
+    <v-container data-aos="fade-up" class="brown lighten-4 mb-15 pa-15">
       <p class="mb-5 text-h4 white--text font-weight-bold">
         Our Users Say...
       </p>
