@@ -23,17 +23,16 @@
         <v-card flat class="pa-5 rounded-xl"> 
 
           <!-- All, Lost, or Found -->
-          <v-row justify="center" class="my-2">
-                
+          <v-row justify="center" class="">
                 <v-radio-group v-model="petStatus">
                 <v-col cols="12" align="center">
-                  <v-btn rounded depressed color="brown lighten-5 mx-4">
+                  <v-btn rounded depressed color="brown lighten-5 mx-4 my-2">
                         <v-radio label="All Pets" value="All" required ></v-radio>
                     </v-btn> 
-                        <v-btn rounded depressed color="brown lighten-5 mx-4">
+                        <v-btn rounded depressed color="brown lighten-5 mx-4 my-2">
                             <v-radio label="Lost Pets" value="Lost Pet" required ></v-radio>
                         </v-btn> 
-                        <v-btn rounded depressed color="brown lighten-5 mx-4" >
+                        <v-btn rounded depressed color="brown lighten-5 mx-4 my-2" >
                             <v-radio label="Found Pets" value="Found Pet" required ></v-radio>
                         </v-btn>
                 </v-col>
@@ -155,7 +154,7 @@
     <div v-show="view=='grid'" data-aos="fade-up">
     <v-row class="my-5">
     <!-- Dashboard -->
-    <v-col cols="12" md="6" lg="4" v-for="aPet in myPets" :key="aPet.petName" align="center">
+    <v-col cols="12" md="6" lg="4" v-for="aPet in myPets" :key="aPet.petid" align="center">
       <PetCard :aPet="aPet"></PetCard>
     </v-col>
     </v-row>
@@ -322,17 +321,13 @@ import AOS from 'aos'
         this.allPetsArray.push( {...doc.data()})
       })
     })
-    console.log(this.allPetsArray)
   },
   computed: {
       // toggleView(){
 
       // },
       myPets(){
-        console.log(this.allPetsArray)
-
         return this.allPetsArray.filter(pet => {
-          console.log(this.allPetsArray)
           let finalFilter = "";
           // pet breed
           if(this.petBreedsSelected.length!=0){
@@ -344,8 +339,6 @@ import AOS from 'aos'
           }
           // // pet color
           if(this.petColorsSelected.length!=0){
-            console.log(this.petColorsSelected)
-            console.log(pet.petColor)
             finalFilter += `${this.petColorsSelected.includes(pet.petColor)}`;
           }
 

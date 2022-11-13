@@ -4,6 +4,7 @@
     <gmap-map :center="center" :zoom="12" style="width: 100%; height: 500px">
       <GmapCluster>
         <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
+            <v-icon>mdi-paw</v-icon>
         </gmap-info-window>
 
         <gmap-marker :key="i" v-for="(m,i) in markers" :position="m.position" :clickable="true" @click="toggleInfoWindow(m,i);">
@@ -13,6 +14,7 @@
 <!--  @click="center=m.position" -->
     </v-container>
 </div>
+
 </template> 
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/markerclustererplus/2.1.4/markerclusterer.js"></script> -->
@@ -32,7 +34,7 @@ data(){
             lat: 1.3521,
             lng: 103.8198
         },
-
+        click: false,
         // info window nonsense
         infoWindowPos: null,
         infoWinOpen: false,
@@ -51,6 +53,9 @@ data(){
 methods: {
     toggleInfoWindow: function(marker, idx) {
         this.infoWindowPos = marker.position;
+        // marker.infoText += ` <span style="width:100%; text-align: center">
+        //             <button type="button" onclick="${this.redirect(pet.petid)}">Click Me</button>
+        //          </span>`
         this.infoOptions.content = marker.infoText;
         this.center = marker.position;
 
@@ -65,13 +70,10 @@ methods: {
             this.currentMidx = idx;
         }
     },
-    redirect(petid){
-        console.log(petid)
-        this.$store.dispatch('loadedPet', petid)
-        this.$router.push('/SearchAllPets/'+ petid)
+    test(){
+        console.log("test");
     }
 },
-
 computed: {
     markers(){
         // console.log(this.allPets)
@@ -79,10 +81,8 @@ computed: {
         let lat=1.3691;
         let lng = 103.8454;
         this.allPets.forEach(pet => {
-            console.log(pet)
-            // console.log(1)
+
             let petid=pet.petid
-            console.log(petid)
             let myLat = pet.petGeoLoc.lat;
             let myLng = pet.petGeoLoc.lng;
             let petObj = {
@@ -93,17 +93,25 @@ computed: {
                 infoText: 
                 `   
                 <div style="display:flex ; flex-wrap: wrap; align-items: center; justify-content: center; 
-                width: 225px; height: 300px; background-color: #EFEBE9"; padding:20px;>
-                <h2 style="width:100%;text-align: center; margin: 5px">${pet.petName}</h2>
-                <span style="width:150px; margin: 5px auto 10px auto; ">
-                <img src="${pet.image}" style="max-height:100px;width:100%;"/>
+                width: 225px; height: 300px; background-color: #EFEBE9; padding: 5px 0px 5px 0px">
+                <span style="margin:5px; width:100%; text-align: center">${pet.petLocation}</span>
+                <h2 style="width:100%;text-align: center; margin: 3px 5px 3px 5px">${pet.petName}</h2>
+
+                <span style="width:150px; margin: 3px 1px 3px 1px; ">
+                    <img src="${pet.image}" style="max-height:200px;width:100%;"/>
                 </span>
-                <span style="margin:5px; width:100%; text-align: center"> ${pet.petLocation}</span>
-
-                <btn @click="redirect(${petid})">Click</btn>             
-
+                
+                </span>
+                <span style="margin:5px; width:100%; text-align: center">Last Seen Date: ${pet.petDate}</span>
+                </span>
+                <span style="margin:5px; width:100%; text-align: center">Breed: ${pet.petBreed}</span>
+                </span>
+                <span style="margin:5px; width:100%; text-align: center">Gender: ${pet.petGender}</span>
+                
                 </div>
                 `
+                // <span style="margin:5px; width:100%; text-align: center"> ${pet.petLocation}</span>
+                // <a href="SearchAllPets/${petid}"><span>Click</span></a>          
                 // <span style="background-color:#BCAAA4;padding:5px; margin:5px; width: 120px;"><a href="/SearchAllPets/${pet.petid}">Haiz </a></span>
             };
             markers.push(petObj);
@@ -115,5 +123,4 @@ computed: {
     }
 },
 } 
-
 </script>

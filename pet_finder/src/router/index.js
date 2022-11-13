@@ -40,7 +40,7 @@ const routes = [
     props:true,
     name:'Onepet',
     component:Onepet,
-    beforeEnter:authguard
+    // beforeEnter:authguard
   },
   {
     path: '/signup',
