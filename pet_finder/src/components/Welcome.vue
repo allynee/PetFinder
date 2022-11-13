@@ -25,7 +25,7 @@
         <p class="text-h6 font-weight-light brown--text text--darken-1 mb-11">
           FindPetNOW is an online platform that aims to support you in bringing your lost pet back home. 
           Here, we have a community of dedicated pet owners who share the same love for their pets that you do for yours.
-          You need to act quickly to find your missing pet. Report your lost dog, cat, terrapin and other pets today to boost the chances
+          Report your lost dog, cat, terrapin and other pets today to boost the chances
           of finding your lost pet. 
         </p>
         <p class="text-h6 font-weight-light brown--text text--darken-1">
