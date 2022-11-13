@@ -22,53 +22,48 @@
                 <v-icon style="color:rgb(196,164,132)">mdi-cog</v-icon>
             </v-tab> -->
 
-    <v-tab>
+    <!-- <v-tab>
         Recommended Pets
         <v-icon style="color:rgb(196,164,132)">mdi-heart</v-icon>
-    </v-tab>
+    </v-tab> -->
     <v-tab>
         My Pets
         <v-icon style="color:rgb(196,164,132)">mdi-paw</v-icon>
     </v-tab>
-
+   
     <v-tabs-items v-model="tab">
 
         <!-- About Me -->
         <v-tab-item>
             <v-form class="px-3 my-5">
-                        <p class="brown--text text-uppercase font-weight-bold">what is your name?</p>
+
                         <v-row justify="center mb-3">
-                            <v-col cols="12" md="6" class="margin-bottom: 5px;">
-                                <v-text-field label="First Name" value="person's name when he signed up (otherwise blank)"
+                            <v-col cols="12" md="6">
+                                <p class="brown--text text-uppercase font-weight-bold">what is your name?</p>
+                                <v-text-field label="Username" :value="userInfo.username"
                                 outlined>
                                 </v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field label="Last Name" value="person's name when he signed up (otherwise blank)"
-                                outlined>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Username" value="person's username when he signed up"
-                                outlined>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                            </v-col>
-                        </v-row>
-                        <p class="brown--text text-uppercase font-weight-bold">how can you be reached?</p>
-                        <v-row>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Email" value="person's email when he signed up"
-                                outlined>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Phone Number" value=" "
+                                <p class="brown--text text-uppercase font-weight-bold">how can you be reached?</p>
+                                <v-text-field label="Email" :value="userInfo.useremail"
                                 outlined>
                                 </v-text-field>
                             </v-col>
                         </v-row>
+
+                        <!-- <v-row justify="center mb-3">
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Username" :value="loadedPet.username"
+                                outlined>
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field label="Email" :value="loadedPet.useremail"
+                                outlined>
+                                </v-text-field>
+                            </v-col>
+                        </v-row> -->
                     </v-form>
                 </v-tab-item>
                 <!-- <v-tab-item>
@@ -124,7 +119,7 @@
                 </v-tab-item> -->
     
      <!-- Recommended Pets -->
-                <v-tab-item>
+                <!-- <v-tab-item>
                     <v-container>
                         <v-row dense>
                             <v-col cols="12">
@@ -151,12 +146,11 @@
                                         Launch Search
                                     </v-btn>
                                     </v-card-actions>
-                                </v-card>
-                            </v-col>
+                                </v-card> -->
+                            <!-- </v-col>
                         </v-row>
                     </v-container>
-                </v-tab-item>
-   
+                </v-tab-item>  -->
    
     <!-- My Pets -->
     <v-tab-item>
@@ -167,6 +161,12 @@
                 </v-col>
                 <v-col cols="12">
                     <h1 class="text-h4 brown--text text-center">My Reported Pets</h1>
+                </v-col>
+                <v-col cols="8" align="center" >
+                    <p class="text-h6 font-weight-light brown--text text--darken-2">
+                        For your easy reference, this tab contains cards of all the pets you reported to be lost and found.
+
+                    </p>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -241,10 +241,11 @@ import PetCard from "../components/UserPetCard.vue"
     computed:{
         listedPets(){
             return this.$store.getters.listedpet
-
-        }
-
+        },
+        userInfo(){
+            return this.$state.getters.getuser           
+        },
     }
-    
   }
+    
 </script>
