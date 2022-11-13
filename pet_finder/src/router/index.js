@@ -7,6 +7,7 @@ import MyMap from '../views/MyMap.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import authguard from './auth-guard.js'
+import Inbox from '../views/Inbox.vue'
 
 import SignUp from '../views/SignUp.vue'
 import Learn from '../views/Learn.vue'
@@ -65,13 +66,13 @@ const routes = [
     beforeEnter:authguard,
 
   },
-  // {
-  //   path: '/inbox',
-  //   name: 'inbox',
-  //   component: Inbox,
-  //   beforeEnter:authguard,
+  {
+    path: '/inbox',
+    name: 'inbox',
+    component: Inbox,
+    // beforeEnter:authguard,
 
-  // },
+  },
   {
     path: '/account',
     name: 'account',
