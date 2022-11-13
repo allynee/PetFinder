@@ -45,29 +45,6 @@ data(){
                 height: -35
             }
         },
-
-        // markers
-        // markers: [{
-        //     position: {
-        //       lat: 1.3691,
-        //       lng: 103.8454
-        //     },
-        //     infoText: '<strong>Marker 1</strong>'
-        //   }, {
-        //     position: {
-        //       lat: 1.3526,
-        //       lng: 103.8352
-        //     },
-        //     infoText: `<strong>${this.allPets[0].petName}</strong>`
-        //   }, 
-        // //   {
-        // //     position: {
-        // //       lat: this.allPets[0].petGeoLoc.lat,
-        // //       lng: this.allPets[0].petGeoLoc.lng
-        // //     },
-        // //     infoText: `<strong>${this.allPets[0].petName}.</strong>`
-        // //   }
-        // ]
 }
 },
 methods: {
@@ -93,12 +70,12 @@ computed: {
         let lat=1.3691;
         let lng = 103.8454;
         this.allPets.forEach(pet => {
-            // let myLat = pet.petGeoLoc.lat;
-            // let myLng = pet.petGeoLoc.lng;
+            let myLat = pet.petGeoLoc.lat;
+            let myLng = pet.petGeoLoc.lng;
             let petObj = {
                 position: {
-                    lat: lat,
-                    lng: lng
+                    lat: myLat,
+                    lng: myLng
                 },
                 infoText: 
                 `   
@@ -110,8 +87,6 @@ computed: {
                 `
             };
             markers.push(petObj);
-            lat+=0.001
-            lng+=0.001
         });
         return markers;
     }

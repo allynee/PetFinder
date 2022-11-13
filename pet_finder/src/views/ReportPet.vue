@@ -222,6 +222,7 @@
                 'Pomeranian Dog',
                 'Poodle Dog',
                 'Pug Dog',
+                'Shiba Inu Dog',
                 'Shih Tzu Dog',
                 'Siberian Husky Dog',
                 'Welsh Corgi Dog',
@@ -588,7 +589,10 @@
             .geocode({ address: this.petLocation })
             .then((response) => {
             if (response.results[0]) {
-                this.petGeoLoc = response.results[0].geometry.location;
+                this.petGeoLoc = {
+                    lat: response.results[0].geometry.location.lat(),
+                    lng: response.results[0].geometry.location.lng()
+                };
                 console.log(this.petGeoLoc)
             } else {
                 this.petGeoLoc = {};
