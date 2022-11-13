@@ -22,7 +22,7 @@
 
     <!-- right side of app bar -->
 
-    <div class="hidden-sm-only">
+    <div class="hidden-sm-and-down">
         <span v-for="(link,i) in links" :key="i">
             <v-btn v-if="i<4" plain depressed color="primary" :to="link.route" 
             class="font-weight-bold hidden-sm-only">
