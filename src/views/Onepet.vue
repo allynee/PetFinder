@@ -165,7 +165,7 @@
                 // return require('../assets/' + pic)
                 // },
                 bgColor(){
-                    if (this.petStatus == 'Found Pet'){
+                    if (this.loadedPet.petStatus == 'Found Pet'){
                         return "text-h5 green lighten-3 font-weight-medium text-center mb-4 py-3"
                     }
                     else {
