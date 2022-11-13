@@ -22,9 +22,9 @@
         <v-col cols="8" align="center" >
         <h1 class="text-h4 brown--text text--darken-2 font-weight-bold">We're here to help.</h1>
         <br>
-        <p class="text-h6 font-weight-light brown--text text--darken-1">
+        <p class="text-h6 font-weight-light brown--text text--darken-1 mb-11">
           FindPetNOW is an online platform that aims to support you in bringing your lost pet back home. 
-          Here, we have a community of dedicated pet owners who share the same love for their pets that you do yours.
+          Here, we have a community of dedicated pet owners who share the same love for their pets that you do for yours.
           You need to act quickly to find your missing pet. Report your lost dog, cat, terrapin and other pets today to boost the chances
           of finding your lost pet. 
         </p>
@@ -124,7 +124,7 @@
               <p class="text-h6 text-center font-weight-light brown--text text--darken-1">
                 Browse all the pets and check to see if yours is there. If you see your pet, reclaim it by contacting the individual who posted the information.
               </p>
-              <v-btn to="/DashBoard" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Search Now</v-btn>
+              <v-btn to="/SearchAllPets" class="pa-8 brown lighten-4" style="font-size: 16px;display:flex;justify-content:center">Search Now</v-btn>
         </v-col> 
       </v-row>
     </v-container>
