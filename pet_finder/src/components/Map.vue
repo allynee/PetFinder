@@ -52,6 +52,7 @@ methods: {
     toggleInfoWindow: function(marker, idx) {
         this.infoWindowPos = marker.position;
         this.infoOptions.content = marker.infoText;
+        console.log(this.infoOptions.content)
 
         //check if its the same marker that was selected if yes toggle
         if (this.currentMidx == idx) {
@@ -65,17 +66,23 @@ methods: {
         }
     },
     redirect(petid){
-
+        console.log(petid)
         this.$store.dispatch('loadedPet', petid)
         this.$router.push('/SearchAllPets/'+ petid)
     }
 },
+
 computed: {
     markers(){
+        // console.log(this.allPets)
         let markers = [];
         let lat=1.3691;
         let lng = 103.8454;
         this.allPets.forEach(pet => {
+            console.log(pet)
+            // console.log(1)
+            let petid=pet.petid
+            console.log(petid)
             let myLat = pet.petGeoLoc.lat;
             let myLng = pet.petGeoLoc.lng;
             let petObj = {
@@ -92,10 +99,12 @@ computed: {
                 <img src="${pet.image}" style="max-height:100px;width:100%;"/>
                 </span>
                 <span style="margin:5px; width:100%; text-align: center"> ${pet.petLocation}</span>
-                <span style="background-color:#BCAAA4;padding:5px; margin:5px; width: 120px;"><a href="/SearchAllPets/${pet.petid}">Haiz </a></span>
+
+                <btn @click="redirect(${petid})">Click</btn>             
 
                 </div>
                 `
+                // <span style="background-color:#BCAAA4;padding:5px; margin:5px; width: 120px;"><a href="/SearchAllPets/${pet.petid}">Haiz </a></span>
             };
             markers.push(petObj);
         });

@@ -184,6 +184,7 @@
         tab: null,
         password: '',
         confirmPassword: '',
+        
         value: String,
         showPassword: String,
         pwdRules: [

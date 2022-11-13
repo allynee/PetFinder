@@ -11,7 +11,7 @@
                 </v-col>
             </v-row>
             <v-divider></v-divider>
-            <v-form class="px-3 my-5" v-model="valid" ref="form" @submit.prevent="getGeoloc" data-aos="fade-down">
+            <v-form class="px-3 my-5" v-model="valid" ref="form" @submit.prevent="getGeoloc" data-aos="fade-down" >
                 <v-row justify="center" class="my-5">
                 <!-- Choose btwn lost and found -->
                 <v-col cols="12"> 
@@ -135,6 +135,18 @@
                                             </template>
                         </v-btn>
                     </v-col>
+                </v-row>
+
+          
+
+                <v-row >
+                    <v-alert v-if="success" type="success">
+                    Pet listed successfully!
+                    </v-alert>
+                    <v-alert type="error" v-if="error">
+                    Failed to list pet. Try again!
+                    </v-alert>
+
                 </v-row>
             </v-form>
         </v-container>
@@ -315,6 +327,8 @@
         image:null,
         fromDateMenu: false,
         fromDateVal: null,
+        success:false,
+        fail:false,
         minDate: "2019-07-04",
         colorRule: [
             v => v.length >= 1 || "Pet's colour cannot be empty"
@@ -431,9 +445,13 @@
                                 //     petid:key
                                 // }
                                 this.$store.dispatch('updatePetArray', form_doc)
+                                this.$ref.form.reset()
+                                this.success=true
                             })
                             .catch( ()=>{
                                 this.$store.commit('setLoading',false)
+                                this.success=false
+                                this.fail=true
 
                                 console.log("Pic not added to database")
                             })
@@ -441,7 +459,8 @@
                         })
                         .catch( (err)=>{
                             this.$store.commit('setLoading',false)
-
+                            this.success=false
+                                this.fail=true
                             console.log(err)
                             console.log("Error getting download URL")
                         })
@@ -449,7 +468,8 @@
                     })
                     .catch( (err)=>{
                         this.$store.commit('setLoading',false)
-
+                        this.success=false
+                                this.fail=true
                         console.log(err)
                         console.log("Error uploading to storage")
                     })
@@ -459,6 +479,8 @@
                 .catch((err)=>{
                     console.log('failed to add petid')
                     console.log(err)
+                    this.success=false
+                    this.fail=true
                     return
                 })
             //     alert('Pet listed!')
