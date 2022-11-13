@@ -213,7 +213,7 @@ import PetCard from "../components/UserPetCard.vue"
         tab: null,
         password: '',
         confirmPassword: '',
-        
+
         value: String,
         showPassword: String,
         pwdRules: [

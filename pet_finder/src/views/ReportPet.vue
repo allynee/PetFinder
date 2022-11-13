@@ -11,7 +11,7 @@
                 </v-col>
             </v-row>
             <v-divider></v-divider>
-            <v-form class="px-3 my-5" v-model="valid" ref="form" @submit.prevent="getGeoloc" data-aos="fade-down" >
+            <v-form class="px-3 my-5" v-model="valid" ref="formInput" @submit.prevent="getGeoloc" data-aos="fade-down" >
                 <v-row justify="center" class="my-5">
                 <!-- Choose btwn lost and found -->
                 <v-col cols="12"> 
@@ -140,12 +140,14 @@
           
 
                 <v-row >
+                    <v-col>
                     <v-alert v-if="success" type="success">
                     Pet listed successfully!
                     </v-alert>
                     <v-alert type="error" v-if="error">
                     Failed to list pet. Try again!
                     </v-alert>
+                    </v-col>
 
                 </v-row>
             </v-form>
@@ -445,7 +447,7 @@
                                 //     petid:key
                                 // }
                                 this.$store.dispatch('updatePetArray', form_doc)
-                                this.$ref.form.reset()
+                                this.$refs.formInput.reset()
                                 this.success=true
                             })
                             .catch( ()=>{

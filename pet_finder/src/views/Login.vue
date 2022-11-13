@@ -15,6 +15,17 @@
                     <v-card-text>  -->
                         <v-container>
                             <form @submit.prevent="sampleLogin">
+                                <!-- <v-row >
+                                    <v-col>
+                                    <v-alert v-if="this.loggedout" type="info">
+                                    You have logged out successfully
+                                    </v-alert>
+                                   
+                                    </v-col>
+
+                                </v-row> -->
+
+
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
