@@ -30,7 +30,7 @@
         My Pets
         <v-icon style="color:rgb(196,164,132)">mdi-paw</v-icon>
     </v-tab>
-
+   
     <v-tabs-items v-model="tab">
 
         <!-- About Me -->
@@ -113,7 +113,7 @@
                     <v-container>
                         <v-row dense>
                             <v-col cols="12">
-                                <!-- <v-card
+                                <v-card
                                     color="#D1C3B7"
                                     dark
                                 >
@@ -137,11 +137,10 @@
                                     </v-btn>
                                     </v-card-actions>
                                 </v-card> -->
-                            </v-col>
+                            <!-- </v-col>
                         </v-row>
                     </v-container>
-                </v-tab-item> -->
-   
+                </v-tab-item>  -->
    
     <!-- My Pets -->
     <v-tab-item>
