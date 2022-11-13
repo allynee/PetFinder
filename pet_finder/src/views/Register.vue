@@ -93,7 +93,7 @@
 
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit" :disabled="!formIsValid" :loading="loading">
+                                        <v-btn type="submit" block brown outlined :disabled="!formIsValid" :loading="loading">
                                             Register
                                             <!-- button loader -->
                                             <template v-slot:loader>

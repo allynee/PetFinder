@@ -17,13 +17,13 @@
                 <v-icon style="color:rgb(196,164,132)">mdi-account</v-icon>
             </v-tab>
 
-            <v-tab>
+            <!-- <v-tab>
                 Account Settings
                 <v-icon style="color:rgb(196,164,132)">mdi-cog</v-icon>
-            </v-tab>
+            </v-tab> -->
 
             <v-tab>
-                Liked Pets
+                Recommended Pets
                 <v-icon style="color:rgb(196,164,132)">mdi-heart</v-icon>
             </v-tab>
             <v-tab>
@@ -69,7 +69,7 @@
                         </v-row>
                     </v-form>
                 </v-tab-item>
-                <v-tab-item>
+                <!-- <v-tab-item>
                     <v-form ref="form" v-model="valid" class="px-3 my-5">
                         <p class="brown--text text-uppercase font-weight-bold">Email</p>
                         <v-row class="mb-5">
@@ -119,7 +119,7 @@
                             Update Password
                         </v-btn>
                     </v-form>
-                </v-tab-item>
+                </v-tab-item> -->
                 <v-tab-item>
                     <v-container>
                         <v-row dense>
