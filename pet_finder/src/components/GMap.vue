@@ -1,13 +1,12 @@
 <template>
     <v-container>
+
         <GmapMap :center="petGeoLoc" :zoom="15" style="max-width:100%;height:100%;">
         
-        <gmap-info-window :options="infoOptions" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
-        </gmap-info-window>
-        
-        <GmapMarker :clickable="true"
-                :position="petGeoLoc"
-                :draggable="true" @click="infoWinOpen=true"></GmapMarker>
+            <gmap-info-window :options="infoOptions" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
+            </gmap-info-window>
+            
+            <GmapMarker :clickable="true" :position="petGeoLoc" :draggable="true" @click="infoWinOpen=true"></GmapMarker>
         </GmapMap>
     </v-container>
 </template>
@@ -25,18 +24,20 @@
             return{
             // info window nonsense
             infoWinOpen: false,
-            infoOptions: { 
-                content: this.petLoc,
-                //help info window sit above our marker
-                pixelOffset: {
-                    width: 0,
-                    height: -35
-                },
-                position: this.petGeoLoc
-            },
             }
         },
         computed: {
+            infoOptions(){
+                let infoOptions = {}
+                infoOptions.content = this.petLoc
+                infoOptions.pixelOffset = 
+                    {
+                        width: 0,
+                        height: -45
+                    },
+                infoOptions.position = this.petGeoLoc 
+                return infoOptions
+            }
         }
     }
 
