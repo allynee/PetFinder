@@ -93,7 +93,7 @@ computed: {
                 infoText: 
                 `   
                 <div style="display:flex ; flex-wrap: wrap; align-items: center; justify-content: center; 
-                width: 225px; height: 300px; background-color: #EFEBE9; padding: 5px 0px 5px 0px">
+                width: 225px; height: 400px; background-color: #EFEBE9; padding: 5px 0px 5px 0px">
                 <span style="margin:5px; width:100%; text-align: center">${pet.petLocation}</span>
                 <h2 style="width:100%;text-align: center; margin: 3px 5px 3px 5px">${pet.petName}</h2>
 

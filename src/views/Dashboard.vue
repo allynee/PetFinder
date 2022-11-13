@@ -27,7 +27,7 @@
                 <v-radio-group v-model="petStatus">
                 <v-col cols="12" align="center">
                   <v-btn rounded depressed color="brown lighten-5 mx-4 my-2">
-                        <v-radio label="All Pets" value="All" required ></v-radio>
+                       <v-radio label="All Pets" value="All" required ></v-radio>
                     </v-btn> 
                         <v-btn rounded depressed color="brown lighten-5 mx-4 my-2">
                             <v-radio label="Lost Pets" value="Lost Pet" required ></v-radio>
