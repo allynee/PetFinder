@@ -70,6 +70,16 @@
                                                 </span>
                                             </template>
                                             </v-btn>
+
+                                            <v-row >
+                                                <v-col class="my-3">
+                                            
+                                                <v-alert type="error" v-if="error">
+                                                Login failed. Please enter again!
+                                                </v-alert>
+                                                </v-col>
+
+                                            </v-row>
                                         
                                     </v-flex>
                                 </v-layout>
@@ -105,6 +115,7 @@
             email:'',
             password:'',
             userid:'',
+            error:false,
         }
       },
       computed:{
@@ -149,7 +160,7 @@
                 })
                 .catch( (err)=>{
                     this.$store.commit('setLoading', false)
-                    alert('Username or Password not found! Please enter again!')
+                    this.error=true
                     console.log(err)
                     console.log(2)
                 })
@@ -169,7 +180,7 @@
             .catch((err)=>{
                 this.$store.commit('setLoading',false)
                 console.log(1)
-                alert('Username or Password not found! Please enter again!')
+                this.error=true
                 console.log(err)
             })
         },
