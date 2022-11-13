@@ -6,7 +6,7 @@
         <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
         </gmap-info-window>
 
-        <gmap-marker :key="i" v-for="(m,i) in markers" :position="m.position" :clickable="true" @click="toggleInfoWindow(m,i); center=m.position">
+        <gmap-marker :key="i" v-for="(m,i) in markers" :position="m.position" :clickable="true" @click="toggleInfoWindow(m,i);">
         </gmap-marker>
       </GmapCluster>
     </gmap-map>
@@ -42,7 +42,7 @@ data(){
             //help info window sit above our marker
             pixelOffset: {
                 width: 0,
-                height: -35
+                height: -45
             }
         },
 
@@ -52,7 +52,7 @@ methods: {
     toggleInfoWindow: function(marker, idx) {
         this.infoWindowPos = marker.position;
         this.infoOptions.content = marker.infoText;
-        console.log(this.infoOptions.content)
+        this.center = marker.position;
 
         //check if its the same marker that was selected if yes toggle
         if (this.currentMidx == idx) {
