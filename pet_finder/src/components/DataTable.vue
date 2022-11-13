@@ -8,13 +8,55 @@
 
         <!-- loading loading-text="Loading... Please wait" -->
     <v-data-table 
-    :headers="headers" :items="pets" :items-per-page="10" 
+    :headers="headers" :items="pets" :items-per-page="5" 
     :search="search"
-      class="elevation-0 brown lighten-5 text-primary text-center">
+    class="elevation-0 brown lighten-5 text-primary text-center">
+
+        <template v-slot:[`item.petName`]="{ item }">
+          <v-list class="brown lighten-5 text-primary">
+            <v-list-item class="p-0">
+              <v-chip :class="{'green': isGreen(item.petStatus), 'red': !isGreen(item.petStatus), 'lighten-3' : true ,'py-2':true}">{{item.petStatus}}</v-chip>  
+            </v-list-item>
+            <v-list-item class="mx-1 my-2">
+                <span class="text-h5">{{item.petName}}</span>
+            </v-list-item>
+            <v-list-item>
+              <v-btn depressed small class="brown lighten-4 text-capitalize my-3" @click="redirect(item.petid)">
+                <span class="primary--text">view pet profile</span>
+                <v-icon right class="primary--text">mdi-arrow-top-right</v-icon>
+              </v-btn>
+            </v-list-item>
+          </v-list>
+
+        </template>
+
         <template v-slot:[`item.image`]="{ item }">
-          <div class="p-2">
-            <v-img :src='item.image' contain max-height="150" max-width="225" class="my-5"></v-img>
-          </div>
+            <v-img :src='item.image' contain max-height="150" max-width="250" class="my-10"></v-img> 
+        </template>
+
+        <template v-slot:[`item.petBreed`]="{ item }">
+            <v-list class="brown lighten-5 text-primary">
+              <v-list-item class="my-0 py-0">
+                <v-icon small left>mdi-paw</v-icon>
+                <span class="text-caption">Pet Breed: {{item.petBreed}}</span>
+              </v-list-item>
+              <v-list-item>
+                <v-icon small left>mdi-paw</v-icon>
+                <span class="text-caption">Pet Color: {{item.petColor}}</span>
+              </v-list-item>
+              <v-list-item>
+                <v-icon small left>mdi-paw</v-icon>
+                <span class="text-caption">Gender: {{item.petGender}}</span>
+              </v-list-item>
+              <v-list-item>
+                <v-icon small left>mdi-paw</v-icon>
+                <span class="text-caption">Size: {{item.petSize}}</span>
+              </v-list-item>
+              <v-list-item>
+                <v-icon small left>mdi-paw</v-icon>
+                <span class="text-caption">Collar Color: {{item.collarColor}}</span>
+              </v-list-item>
+            </v-list>
         </template>
       </v-data-table>
     </v-container>
@@ -30,24 +72,29 @@
         search: "",
         //data table
         headers: [
-          { text: "Pet Image", value: "image", sortable: false },
-          { text: 'Pet Name', value: 'petName' },
+          { text: 'Name', value: 'petName' },
+          { text: "Photo", value: "image", sortable: false },
           { text: 'Last Seen Date', value: 'petDate' },
           { text: 'Last Seen Location', value: 'petLocation' },
-          { text: 'Pet Type', value: 'petType' },
-          { text: 'Pet Breed', value: 'petBreed' },
-          { text: 'Pet Colour', value: 'petColor' },
-          { text: 'Pet Gender', value: 'petGender' },
-          { text: 'Pet Collar Colour', value: 'collarColor' },
-          { text: 'Pet Size', value: 'petSize' },
-          { text: 'Pet Status', value: 'petStatus' },
+          { text: 'Pet Details', value: 'petBreed' },
         ],
         }
     },
     methods: {
-        // getImgUrl(pic){
-        // return require('../assets/' + pic)
-        // },
+      redirect(petid){
+            this.$store.dispatch('loadedPet', petid)
+            this.$router.push('/SearchAllPets/'+ petid)
+      },
+      isGreen(petstatus){
+            if(petstatus=="Found Pet"){
+                return true
+            }else{
+                return false
+            }
+      }
+    },
+    computed: {
+
     },
 
    };

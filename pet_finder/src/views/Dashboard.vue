@@ -226,6 +226,7 @@ import AOS from 'aos'
                 'Pomeranian Dog',
                 'Poodle Dog',
                 'Pug Dog',
+                'Shiba Inu Dog',
                 'Shih Tzu Dog',
                 'Siberian Husky Dog',
                 'Welsh Corgi Dog',
@@ -356,10 +357,10 @@ import AOS from 'aos'
           if(this.petSizesSelected.length!=0){
             finalFilter += `${this.petSizesSelected.includes(pet.petSize)}`;
           }
-          // // pet collar color
-          // if(this.collarColorsSelected.length!=0){
-          //   finalFilter += `${this.collarColorsSelected.includes(pet.collarColor)}`;
-          // }
+          // pet collar color
+          if(this.collarColorsSelected.length!=0){
+            finalFilter += `${this.collarColorsSelected.includes(pet.collarColor)}`;
+          }
 
           // status
           if(this.petStatus!="" && this.petStatus!="All"){
