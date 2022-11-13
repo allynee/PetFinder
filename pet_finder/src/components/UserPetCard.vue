@@ -11,7 +11,8 @@
                 <v-tooltip top color="brown lighten-4">
                     <template v-slot:activator="{ on, attrs }">
                         <v-tab color="primary" v-bind="attrs" v-on="on">
-                            <v-btn small icon outlined class="text-capitalize my-1" @click="redirect(aPet.petid)">
+                            <!-- delete button -->
+                            <v-btn small icon outlined class="text-capitalize my-1" @click="deletePet(aPet)">
                             <v-icon class="primary--text mx-0">mdi-trash-can-outline</v-icon>
                             </v-btn>
                         </v-tab>
@@ -90,7 +91,14 @@
                 console.log(petid)
                 this.$store.dispatch('loadedPet', petid)
                 this.$router.push('/SearchAllPets/'+ petid)
-            }
+            },
+            deletePet(pet_obj){
+                
+                this.$store.dispatch('deletePetArray', pet_obj)
+                var newarray=this.$store.getters.getuser
+                console.log(newarray)
+                this.$store.dispatch('deleteUserArray',newarray)
+            },
         },
         computed: {
             isGreen(){

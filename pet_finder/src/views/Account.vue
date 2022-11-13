@@ -243,7 +243,7 @@ import PetCard from "../components/UserPetCard.vue"
             return this.$store.getters.listedpet
         },
         userInfo(){
-            return this.$state.getters.getuser           
+            return this.$store.getters.getuser           
         },
     }
   }

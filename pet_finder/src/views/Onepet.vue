@@ -109,7 +109,11 @@
             <!-- Owner Information -->
             <v-row class="my-10 px-10">
                 <v-col cols="12" class="brown lighten-5 px-12">
-                    <h1 class="text-h6 primary--text mb-5">Contact the Poster</h1>
+                    <h1 class="text-h6 primary--text mb-5 d-inline">Poster</h1>
+                    <v-btn depressed class="brown lighten-4 mx-5 my-2 d-inline " @click="contactOthers(loadedPet)">
+                        
+                            <span>Contact poster</span>
+                    </v-btn>
                     <v-card outlined class="px-5">
                         <h1 class="text-body-1 primary--text my-5">Owner Username: <strong>{{loadedPet.username}}</strong></h1>
                         <v-divider></v-divider>
@@ -167,6 +171,11 @@
                         return "text-h5 red lighten-3 font-weight-medium text-center mb-4 py-3"
                     }
                     
+                },
+                contactOthers(others_obj){
+                    this.$store.dispatch('setOthers',others_obj)
+                    this.$router.push('/inbox')
+
                 }
             },
             computed: {
