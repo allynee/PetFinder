@@ -29,6 +29,13 @@
             <v-icon small left>{{link.icon}}</v-icon>
             <span plain color="primary" class="text-body-2 font-weight-bold">{{ link.text }}</span>
         </v-btn>
+
+        <!-- logout button -->
+        <v-btn plain depressed color="primary" class="font-weight-bold hidden-sm-only" v-if="userLoggedIn" @click="onLogout">
+            <v-icon small left>mdi-logout</v-icon>
+            <span plain color="primary" class="text-body-2 font-weight-bold">Logout</span>
+        </v-btn>
+
         </div>
         </v-app-bar>
 
@@ -56,6 +63,15 @@
                             <v-list-item-title>{{ link.text }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
+                    <!-- logout button (seen only if user is logged in) -->
+                    <v-list-item v-if="userLoggedIn" @click="onLogout">
+                        <v-list-item-action>
+                            <v-icon>mdi-logout</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Logout</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
                 </v-list>
             </v-navigation-drawer>
     </nav>
@@ -80,8 +96,8 @@ export default {
     computed:{
         links(){
             let linkitems=[ {text: 'Home', route: '/', icon: 'mdi-home'},
-                {text:'Register', route:'/register'},
-                {text:'Login', route:'/login'},
+                {text:'Register', route:'/register', icon:'mdi-account-plus'},
+                {text:'Login', route:'/login', icon:'mdi-login'},
                 
             ]
             if(this.userLoggedIn){
@@ -89,17 +105,23 @@ export default {
                 {text: 'Home', route: '/', icon: 'mdi-home'},
                 {text: 'Report Pet', route:'/ReportPet', icon: 'mdi-dog-side'},
                 {text: 'Search Pet', route:'/SearchAllPets', icon: 'mdi-magnify'},
+                // {text: 'Map View', route:'/MyMap', icon: 'mdi-map-outline'},
+                // {text: 'Matched Pets', route:'/Inbox', icon: 'mdi-paw'},
                 {text: 'Learn More', route:'/Learn', icon: 'mdi-book-outline'},
-                // {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
-                {text: 'Account', route:'/Account', icon: 'mdi-account'},
-                ]
-            }
-            return linkitems
+                {text: 'Account', route:'/Account', icon: 'mdi-account'}
+            ]
         }
-    ,
+        return linkitems
+        },
     userLoggedIn(){
         return this.$store.getters.getuser!=null && this.$store.getters.getuser!=undefined
     }
+    },
+    methods:{
+        onLogout(){
+            this.$store.dispatch('logout')
+            this.$router.push('./')
+        }
     }
 }
 </script>

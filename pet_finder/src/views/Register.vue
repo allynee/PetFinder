@@ -91,28 +91,39 @@
                         </v-checkbox>
                     </span>
 
-                    <v-layout row>
-                        <v-flex xs12>
-                            <v-btn block outlined color="brown" type="submit" :disabled="!formIsValid">
-                                Register
-                            </v-btn>
-                        </v-flex>
-                    </v-layout>
-
-                    <!-- <v-btn block :disabled="!valid" @click="validate"
-                        color="brown" outlined>
-                        Submit
-                    </v-btn> -->
-                </form>
-            </v-container>
-        </v-container>
-    </div>
+                                <v-layout row>
+                                    <v-flex xs12>
+                                        <v-btn type="submit" :disabled="!formIsValid" :loading="loading">
+                                            Register
+                                            <!-- button loader -->
+                                            <template v-slot:loader>
+                                                <span class="custom-loader">
+                                                <v-icon light>mdi-cached</v-icon>
+                                                </span>
+                                            </template>
+                                        </v-btn>
+                                    </v-flex>
+                                </v-layout>
+                            </form>
+                        </v-container>
+                        </v-container>
+                        </div>
+                      
+                        
+                    <!-- </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout> -->
+    
 
 
    
 
 
   </template>
+  
+  <style src="../style/style.css">
+</style>
   
   <script>
     import db from '../firebase/index'
@@ -153,6 +164,9 @@
         }
       },
       computed:{
+        loading(){
+            return this.$store.getters.loading
+        },
         comparePasswords(){
             return this.password!=this.confirmpassword ? 'Passwords do not match!': ''
         },
@@ -173,6 +187,8 @@
       methods:{
 
         onRegister(){
+            this.$store.commit('setLoading',true)
+
             const auth=getAuth()
             //Async Create User function
             createUserWithEmailAndPassword(auth, this.email, this.password)
@@ -193,6 +209,8 @@
                 const docRef=doc(db,"Users", uid)
                 setDoc(docRef, newUser)
                 .then(()=>{
+                    this.$store.commit('setLoading',false)
+
                     console.log('Registration successful')
                     this.$router.push('/login')
                 })
@@ -203,12 +221,16 @@
                 //     this.$router.push('/login')
                 // })
                 .catch( (err)=>{
+                    this.$store.commit('setLoading',false)
+
                     console.log(err)
                     alert('Failed to add user to database')
                     return
                 })
             })
             .catch( (err)=>{
+                this.$store.commit('setLoading',false)
+
                 console.log(err)
                 alert('Email already in use! Please retry!')
                 return

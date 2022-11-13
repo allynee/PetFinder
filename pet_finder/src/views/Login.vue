@@ -48,13 +48,20 @@
 
                 
 
-                                <!-- <v-layout row> -->
-                                    <!-- <v-flex xs12> -->
-                                        <v-btn class="mt-5" block outlined color="brown" type="submit" :disabled="!formIsValid">
+                                <v-layout row>
+                                    <v-flex xs12>
+                                        <v-btn type="submit" :disabled="!formIsValid" :loading="loading">
                                             Login
-                                        </v-btn>
-                                    <!-- </v-flex> -->
-                                <!-- </v-layout> -->
+                                            <!-- button loader -->
+                                            <template v-slot:loader>
+                                                <span class="custom-loader">
+                                                <v-icon light>mdi-cached</v-icon>
+                                                </span>
+                                            </template>
+                                            </v-btn>
+                                        
+                                    </v-flex>
+                                </v-layout>
                             </form>
                         </v-container>
                     <!-- </v-card-text>
@@ -69,6 +76,10 @@
 
   </template>
   
+
+  <style src="../style/style.css">
+</style>
+
   <script>
     import db from '../firebase/index'
     // import router from '../router/index'
@@ -86,6 +97,9 @@
         }
       },
       computed:{
+        loading(){
+            return this.$store.getters.loading
+        },
         formIsValid(){
             return this.email!='' && 
             this.password!='' 
@@ -107,6 +121,7 @@
       methods:{
 
         sampleLogin(){
+            this.$store.commit('setLoading',true)
             const auth=getAuth()
             signInWithEmailAndPassword(auth, this.email, this.password)
             .then( (credentials)=>{
@@ -117,10 +132,12 @@
                 .then( (snapshot)=>{
                     const user_obj= snapshot.data()
                     this.$store.dispatch('signUserIn',user_obj)
+
                     console.log(user_obj)
 
                 })
                 .catch( (err)=>{
+                    this.$store.commit('setLoading', false)
                     alert('Username or Password not found! Please enter again!')
                     console.log(err)
                     console.log(2)
@@ -139,6 +156,7 @@
                 // // console.log(data)
             })
             .catch((err)=>{
+                this.$store.commit('setLoading',false)
                 console.log(1)
                 alert('Username or Password not found! Please enter again!')
                 console.log(err)

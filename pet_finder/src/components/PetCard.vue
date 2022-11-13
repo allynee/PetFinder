@@ -41,7 +41,7 @@
     
     <!-- More Details: to add unique pet id as query -->
     <v-card-actions>
-         <v-btn depressed small class="brown lighten-4 text-capitalize my-3" to="/indivPet">
+         <v-btn depressed small class="brown lighten-4 text-capitalize my-3" @click="redirect(aPet.petid)">
         <span class="primary--text">view more details</span>
         <v-icon right class="primary--text">mdi-arrow-top-right</v-icon>
         </v-btn>
@@ -73,6 +73,10 @@ export default {
         //     console.log(this.aPet.petStatus)
         // return require('../assets/' + pic)
         // },
+        redirect(petid){
+            this.$store.dispatch('loadedPet', petid)
+            this.$router.push('/SearchAllPets/'+ petid)
+        }
     },
     computed: {
         isGreen(){

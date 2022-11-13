@@ -10,10 +10,10 @@ import 'aos/dist/aos.css'
 //backend stuff
 import { store } from './store/index'
 import "./firebase/index"
+import {getAuth, onAuthStateChanged} from 'firebase/auth'
 // import { 
 //     getFirestore, collection, getDocs
 // } from 'firebase/firestore'
-
 
 
 //connecting to firebase 
@@ -73,6 +73,15 @@ new Vue({
   vuetify,
   store:store,
   render: h => h(App),
+  created(){
+    const auth= getAuth();
+    onAuthStateChanged(auth, (user)=>{
+      if(user){
+        console.log(user.uid)
+        this.$store.dispatch('autoSignIn', user.uid)
+      }
+    })
+  },
   mounted() {
     AOS.init()
   },
