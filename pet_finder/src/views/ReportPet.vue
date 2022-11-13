@@ -222,6 +222,7 @@
                 'Pomeranian Dog',
                 'Poodle Dog',
                 'Pug Dog',
+                'Shiba Inu Dog',
                 'Shih Tzu Dog',
                 'Siberian Husky Dog',
                 'Welsh Corgi Dog',
