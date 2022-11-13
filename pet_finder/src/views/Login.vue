@@ -50,7 +50,7 @@
 
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit" :disabled="!formIsValid" :loading="loading">
+                                        <v-btn block outlined brown type="submit" :disabled="!formIsValid" :loading="loading">
                                             Login
                                             <!-- button loader -->
                                             <template v-slot:loader>

@@ -8,11 +8,10 @@
                     <!-- <p :class="bgColor()">
                         {{this.petStatus}} Pet
                     </p> -->
-                    <!-- <v-img :src="getImgUrl(aPet.petImage)"></v-img>  -->
                     <v-img :src="loadedPet.image" max-height="250" max-width="250" class="pt-15"></v-img>
                 </v-card>
             </v-row>
-            <h1 class="text-h5 primary--text text-center my-10">{{loadedPet.petname}}</h1>
+            <h1 class="text-h5 primary--text text-center my-10">{{loadedPet.petName}}</h1>
     
             <v-container class="pa-10">
             <!-- Pet Info -->
@@ -24,17 +23,75 @@
                     <v-col cols="12">
                     <v-card outlined>
                         <v-list dense>
-                        <div v-for="(item, i) in items"  :key="i">
+                        <!-- <div v-for="(item, i) in items"  :key="i">
                             <v-list-item class="ma-0">
                                 <v-list-item-content>
-                                <v-list-item-title v-text="item.cont"></v-list-item-title>
+                                <v-list-item-title v-text=Type></v-list-item-title>
                                 </v-list-item-content>
                                 <v-list-item-content>
                                 <v-list-item v-text="item.text"></v-list-item>
                                 </v-list-item-content>
                             </v-list-item>
                             <v-divider v-show="i!=items.length-1"></v-divider>
-                        </div>
+                        </div> -->
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Type</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item>{{loadedPet.petType}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
+
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Breed</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item >{{loadedPet.petBreed}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
+
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Colour</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item >{{loadedPet.petColor}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
+
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Collar Colour</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item >{{loadedPet.collarColor}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
+
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Size</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item >{{loadedPet.petSize}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
+
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Gender</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item >{{loadedPet.petGender}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
                         </v-list>
                     </v-card>
                     </v-col>
@@ -59,7 +116,7 @@
                     <v-col cols="12">
                     <v-card outlined>
                         <v-list dense>
-                        <div v-for="(detail, i) in details"  :key="i">
+                        <!-- <div v-for="(detail, i) in details"  :key="i">
                             <v-list-item class="ma-0">
                                 <v-list-item-content>
                                 <v-list-item-title v-text="detail.cont"></v-list-item-title>
@@ -69,7 +126,27 @@
                                 </v-list-item-content>
                             </v-list-item>
                             <v-divider v-show="i!=details.length-1"></v-divider>
-                        </div>
+                        </div> -->
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Last Seen Location</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item>{{loadedPet.petLocation}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
+
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Last Seen Date</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item>{{loadedPet.petDate}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
+
                         </v-list>
                     </v-card>
                     </v-col>
@@ -86,17 +163,25 @@
                     <v-col cols="12">
                     <v-card outlined>
                         <v-list dense>
-                        <div v-for="(ownerDetail, i) in ownerDetails" :key="i">
                             <v-list-item class="ma-0">
                                 <v-list-item-content>
-                                <v-list-item-title v-text="ownerDetail.cont"></v-list-item-title>
+                                    <v-list-item-title>Username</v-list-item-title>
                                 </v-list-item-content>
                                 <v-list-item-content>
-                                <v-list-item v-text="ownerDetail.text"></v-list-item>
+                                    <v-list-item>{{loadedPet.username}}</v-list-item>
                                 </v-list-item-content>
                             </v-list-item>
-                            <v-divider v-show="i!=ownerDetails.length-1"></v-divider>
-                        </div>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
+
+                            <v-list-item class="ma-0">
+                                <v-list-item-content>
+                                    <v-list-item-title>Email</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-content>
+                                    <v-list-item>{{loadedPet.useremail}}</v-list-item>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-divider v-show="i!=items.length-1"></v-divider>
                         </v-list>
                     </v-card>
                     </v-col>
@@ -116,12 +201,12 @@
             props: {
                 aPet: Object,
                 
-            },
+            }, 
             data(){
                 return{
                     petStatus: 'Found',
                     items: [
-                        { text: 'aPet.petType', cont: 'Type'},
+                        { text: 'aPet.petBreed', cont: 'Type'},
                         { text: 'aPet.petBreed', cont: 'Breed'},
                         { text: 'aPet.petColour', cont: 'Colour'},
                         { text: 'aPet.collarColour', cont: 'Collar Colour'},
@@ -156,7 +241,9 @@
             },
             computed: {
                 loadedPet(){
+                    console.log('here' + this.$store.getters.loadedpet)
                     return this.$store.getters.loadedpet
+                    
                 }
             }
         }
