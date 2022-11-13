@@ -109,38 +109,24 @@
                 </v-tab-item> -->
     
      <!-- Recommended Pets -->
-                <v-tab-item>
-                    <v-container>
-                        <v-row dense>
-                            <v-col cols="12">
-                                <!-- <v-card
-                                    color="#D1C3B7"
-                                    dark
-                                >
-                                    <v-card-title class="text-h5 black--text">
-                                    "Dogs near Boon Lay"
-                                    </v-card-title>
-
-                                    <v-card-subtitle>
-                                        <v-checkbox style="border-radius:100%" color="black" >
-                                            <template v-slot:label>
-                                                <div class="black--text">
-                                                    Send me daily emails when new pets are added
-                                                </div>
-                                            </template>
-                                        </v-checkbox>
-                                    </v-card-subtitle>
-
-                                    <v-card-actions>
-                                    <v-btn text >
-                                        Launch Search
-                                    </v-btn>
-                                    </v-card-actions>
-                                </v-card> -->
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-tab-item>
+    <!-- <v-tab-item>
+        <v-container class="pa-10">
+            <v-row justify="center" class="text-center mb-10" data-aos="fade-down">
+                <v-col cols="12">
+                    <v-img :src="require('../assets/elephant.png')" contain height="120"/>
+                </v-col>
+                <v-col cols="12">
+                    <h1 class="text-h4 brown--text text-center">My Recommended Pets</h1>
+                </v-col>
+                <v-col cols="8" align="center" >
+                    <p class="text-h6 font-weight-light brown--text text--darken-2">
+                        Pets which are similar .
+                    </p>
+                </v-col>
+            </v-row>
+            <v-divider></v-divider>
+        </v-container>
+    </v-tab-item> -->
    
    
     <!-- My Pets -->
@@ -152,6 +138,12 @@
                 </v-col>
                 <v-col cols="12">
                     <h1 class="text-h4 brown--text text-center">My Reported Pets</h1>
+                </v-col>
+                <v-col cols="8" align="center" >
+                    <p class="text-h6 font-weight-light brown--text text--darken-2">
+                        For your easy reference, this tab contains cards of all the pets you reported to be lost and found.
+
+                    </p>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
