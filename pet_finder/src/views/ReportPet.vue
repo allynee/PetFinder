@@ -125,7 +125,7 @@
                 <!-- Submit -->
                 <v-row align="center" justify="center" class="mt-5">
                     <v-col cols="12" align="center">
-                        <v-btn x-large depressed color="brown lighten-4" type="submit" :disabled="!formIsValid" :loading="loading">
+                        <v-btn depressed color="brown lighten-4" block outlined type="submit" :disabled="!formIsValid" :loading="loading">
                             Submit
                              <!-- button loader -->
                              <template v-slot:loader>

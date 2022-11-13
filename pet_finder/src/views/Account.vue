@@ -38,16 +38,6 @@
             <v-form class="px-3 my-5">
                         <p class="brown--text text-uppercase font-weight-bold">what is your name?</p>
                         <v-row justify="center mb-3">
-                            <v-col cols="12" md="6" class="margin-bottom: 5px;">
-                                <v-text-field label="First Name" value="person's name when he signed up (otherwise blank)"
-                                outlined>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Last Name" value="person's name when he signed up (otherwise blank)"
-                                outlined>
-                                </v-text-field>
-                            </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field label="Username" value="person's username when he signed up"
                                 outlined>
@@ -60,11 +50,6 @@
                         <v-row>
                             <v-col cols="12" md="6">
                                 <v-text-field label="Email" value="person's email when he signed up"
-                                outlined>
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field label="Phone Number" value=" "
                                 outlined>
                                 </v-text-field>
                             </v-col>
@@ -128,7 +113,7 @@
                     <v-container>
                         <v-row dense>
                             <v-col cols="12">
-                                <v-card
+                                <!-- <v-card
                                     color="#D1C3B7"
                                     dark
                                 >
@@ -151,7 +136,7 @@
                                         Launch Search
                                     </v-btn>
                                     </v-card-actions>
-                                </v-card>
+                                </v-card> -->
                             </v-col>
                         </v-row>
                     </v-container>
@@ -241,10 +226,12 @@ import PetCard from "../components/UserPetCard.vue"
     computed:{
         listedPets(){
             return this.$store.getters.listedpet
-
-        }
-
+        },
+        loadedPet(){
+            // console.log('here' + this.$store.getters.loadedpet)
+            return this.$store.getters.loadedpet            
+        },
     }
-    
   }
+    
 </script>
