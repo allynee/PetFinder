@@ -63,7 +63,8 @@
                             :append-icon="value ? 'mdi-eye-off' : 'mdi-eye'"
                             @click:append="() => (value = !value)"
                             :type="value ? 'password' : 'text'"
-                            :rules="pwdRules">
+                            :rules="[passwordLength]"
+                            >
                             </v-text-field>
                         </v-flex>
                     </v-layout>
@@ -162,13 +163,13 @@
                 v => v.length >= 8 || 'Minimum length is 8 characters',
                 v => /[0-9]/.test(v) || 'Must contain at least 1 digit',
             ],
-            pwdRules: [
-                v => !!v || 'Please type password.',
-                v => (v && v.length >= 6) || 'Minimum length is 6 characters',
-                v => /[a-z]/.test(v) || 'Must contain at least 1 lowercase letter',
-                v => /[A-Z]/.test(v) || 'Must contain at least 1 uppercase letter',
-                v => /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>?~]/.test(v) || 'Must contain at least 1 symbol'
-            ],
+            // pwdRules: [
+            //     v => !!v || 'Please type password.',
+            //     v => (v && v.length >= 6) || 'Minimum length is 6 characters',
+            //     v => /[a-z]/.test(v) || 'Must contain at least 1 lowercase letter',
+            //     v => /[A-Z]/.test(v) || 'Must contain at least 1 uppercase letter',
+            //     v => /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>?~]/.test(v) || 'Must contain at least 1 symbol'
+            // ],
         }
       },
       computed:{
@@ -178,9 +179,23 @@
         comparePasswords(){
             return this.password!=this.confirmpassword ? 'Passwords do not match!': ''
         },
-        // passwordLength(){
-        //     return this.password.length<6 ? 'Password must have at least 6 characters long!' :''
-        // },
+        passwordLength(){
+            if (this.password.length < 6){
+                return 'Minimum length is 6 characters'
+            }
+            else if(!this.password.match(/[a-z]/)){
+                return 'Must contain at least 1 lowercase letter'
+            }
+            else if(!this.password.match(/[A-Z]/)){
+                return 'Must contain at least 1 uppercase letter'
+            }
+            else if(!this.password.match(/[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>?~]/)){
+                return 'Must contain at least 1 symbol'
+            }
+            else {
+                return true
+            }
+        },
         formIsValid(){
             return this.fullname!='' && 
             this.email!='' &&
