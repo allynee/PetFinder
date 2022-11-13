@@ -39,16 +39,16 @@
 
                         <v-row justify="center mb-3">
                             <v-col cols="12" md="6">
-                                <p class="brown--text text-uppercase font-weight-bold">what is your name?</p>
-                                <v-text-field label="Username" :value="userInfo.username"
-                                outlined>
-                                </v-text-field>
+                                <p class="brown--text text-uppercase font-weight-bold">what is your username?</p>
+                                <p class="text-h6 font-weight-light brown--text text--darken-2">
+                                    {{userInfo.username}}
+                                </p>
                             </v-col>
                             <v-col cols="12" md="6">
                                 <p class="brown--text text-uppercase font-weight-bold">how can you be reached?</p>
-                                <v-text-field label="Email" :value="userInfo.useremail"
-                                outlined>
-                                </v-text-field>
+                                <p class="text-h6 font-weight-light brown--text text--darken-2">
+                                    {{userInfo.email}}
+                                </p>
                             </v-col>
                         </v-row>
 
@@ -243,7 +243,7 @@ import PetCard from "../components/UserPetCard.vue"
             return this.$store.getters.listedpet
         },
         userInfo(){
-            return this.$state.getters.getuser           
+            return this.$store.getters.getuser           
         },
     }
   }
