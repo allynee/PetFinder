@@ -45,7 +45,8 @@ const routes = [
     path:'/SearchAllPets/:petid',
     props:true,
     name:'Onepet',
-    component:Onepet
+    component:Onepet,
+    beforeEnter:authguard
   },
   {
     path: '/signup',

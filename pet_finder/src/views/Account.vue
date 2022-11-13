@@ -184,7 +184,7 @@
         tab: null,
         password: '',
         confirmPassword: '',
-        
+
         value: String,
         showPassword: String,
         pwdRules: [
@@ -211,7 +211,7 @@
     },
     computed:{
         listedPets(){
-            return this.$stores.getters.listedpet
+            return this.$store.getters.listedpet
 
         }
 

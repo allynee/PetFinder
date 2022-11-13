@@ -47,6 +47,13 @@
                     <v-list-item-title>{{ link.text }}</v-list-item-title>
                 </v-list-item>
                 </span>
+                <!-- logout -->
+                <v-list-item v-if="userLoggedIn" @click="onLogout">
+                            <v-icon small left>mdi-logout</v-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>Logout</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
             </v-list>
         </v-menu> 
         </div>
@@ -74,6 +81,15 @@
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>{{ link.text }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <!-- logout -->
+                    <v-list-item v-if="userLoggedIn" @click="onLogout">
+                        <v-list-item-action>
+                            <v-icon>mdi-logout</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Logout</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
@@ -105,7 +121,6 @@ export default {
                 {text: 'My Account', route:'/Account', icon: 'mdi-account'},
                 {text: 'Matched Pets', route:'/MatchedPets', icon: 'mdi-paw'},
                 {text: 'Inbox', route:'/Inbox', icon: 'mdi-inbox'},
-                {text: 'Logout', route:'/logout', icon: 'mdi-logout'}
             ]
         }
         return linkitems
@@ -115,6 +130,10 @@ export default {
     }
     },
     methods:{
+        onLogout(){
+            this.$store.dispatch('logout')
+            this.$router.push('/login')
+        }
     }
 }
 </script>
