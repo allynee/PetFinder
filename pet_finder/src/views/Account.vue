@@ -22,10 +22,10 @@
                 <v-icon style="color:rgb(196,164,132)">mdi-cog</v-icon>
             </v-tab> -->
 
-    <v-tab>
+    <!-- <v-tab>
         Recommended Pets
         <v-icon style="color:rgb(196,164,132)">mdi-heart</v-icon>
-    </v-tab>
+    </v-tab> -->
     <v-tab>
         My Pets
         <v-icon style="color:rgb(196,164,132)">mdi-paw</v-icon>
@@ -124,7 +124,7 @@
                 </v-tab-item> -->
     
      <!-- Recommended Pets -->
-                <v-tab-item>
+                <!-- <v-tab-item>
                     <v-container>
                         <v-row dense>
                             <v-col cols="12">
@@ -155,7 +155,7 @@
                             </v-col>
                         </v-row>
                     </v-container>
-                </v-tab-item>
+                </v-tab-item> -->
    
    
     <!-- My Pets -->

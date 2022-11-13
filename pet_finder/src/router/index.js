@@ -12,7 +12,6 @@ import Inbox from '../views/Inbox.vue'
 import SignUp from '../views/SignUp.vue'
 import Learn from '../views/Learn.vue'
 import Account from '../views/Account.vue'
-import IndivPet from '../components/IndivPet.vue'
 import Onepet from '../views/Onepet.vue'
 import MatchedPets from '../views/MatchedPets.vue'
 
@@ -23,11 +22,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
-  },
-  {
-    path: '/indivpet',
-    name: 'indivpet',
-    component: IndivPet
   },
   {
     path: '/reportpet',
