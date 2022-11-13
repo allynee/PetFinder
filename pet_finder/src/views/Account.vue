@@ -11,7 +11,10 @@
             show arrows
             >
             <v-tabs-slider></v-tabs-slider>
-
+            <v-tab>
+            My Pets
+            <v-icon style="color:rgb(196,164,132)">mdi-paw</v-icon>
+            </v-tab>
             <v-tab>
                 About Me
                 <v-icon style="color:rgb(196,164,132)">mdi-account</v-icon>
@@ -26,12 +29,33 @@
         Recommended Pets
         <v-icon style="color:rgb(196,164,132)">mdi-heart</v-icon>
     </v-tab> -->
-    <v-tab>
-        My Pets
-        <v-icon style="color:rgb(196,164,132)">mdi-paw</v-icon>
-    </v-tab>
    
     <v-tabs-items v-model="tab">
+        <!-- My Pets -->
+    <v-tab-item>
+        <v-container class="pa-10">
+            <v-row justify="center" class="text-center mb-10" data-aos="fade-down">
+                <v-col cols="12">
+                    <v-img :src="require('../assets/DogCat.png')" class="my-3" contain height="100"/>
+                </v-col>
+                <v-col cols="12">
+                    <h1 class="text-h4 brown--text text-center">My Reported Pets</h1>
+                </v-col>
+                <v-col cols="8" align="center" >
+                    <p class="text-h6 font-weight-light brown--text text--darken-2">
+                        For your easy reference, this tab contains cards of all the pets you reported to be lost and found.
+
+                    </p>
+                </v-col>
+            </v-row>
+            <v-divider></v-divider>
+            <v-row class="my-10">
+                <v-col cols="12" md="6" lg="4" v-for="aPet in listedPets" :key="aPet.petName" align="center">
+                    <PetCard :aPet="aPet"></PetCard>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-tab-item>
 
         <!-- About Me -->
         <v-tab-item>
@@ -152,31 +176,7 @@
                     </v-container>
                 </v-tab-item>  -->
    
-    <!-- My Pets -->
-    <v-tab-item>
-        <v-container class="pa-10">
-            <v-row justify="center" class="text-center mb-10" data-aos="fade-down">
-                <v-col cols="12">
-                    <v-img :src="require('../assets/DogCat.png')" class="my-3" contain height="100"/>
-                </v-col>
-                <v-col cols="12">
-                    <h1 class="text-h4 brown--text text-center">My Reported Pets</h1>
-                </v-col>
-                <v-col cols="8" align="center" >
-                    <p class="text-h6 font-weight-light brown--text text--darken-2">
-                        For your easy reference, this tab contains cards of all the pets you reported to be lost and found.
-
-                    </p>
-                </v-col>
-            </v-row>
-            <v-divider></v-divider>
-            <v-row class="my-10">
-                <v-col cols="12" md="6" lg="4" v-for="aPet in listedPets" :key="aPet.petName" align="center">
-                    <PetCard :aPet="aPet"></PetCard>
-                </v-col>
-            </v-row>
-        </v-container>
-    </v-tab-item>
+    
 
 
             </v-tabs-items>
