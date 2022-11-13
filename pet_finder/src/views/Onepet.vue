@@ -103,7 +103,15 @@
             <v-col cols="12" md="6" class="px-5">
                 <v-container>
                     <v-row class="px-3 mb-1"> LAST SEEN LOCATION</v-row>
-                    <MyMap style="width:100%;height:400px;"></MyMap>
+                    <MyMap style="width:100%;height:400px;" :petGeoLoc="loadedPet.petGeoLoc" :petLoc="loadedPet.petLocation"></MyMap>
+                    <v-row class="px-3 my-1">
+                    <a :href="gmapsLink" style="text-decoration: none;">
+                        <v-btn small outlined class="ml-5 my-1 py-3">
+                            <v-icon left>mdi-map-outline</v-icon>
+                            <span>Open in Google Maps</span>
+                        </v-btn>
+                    </a>
+                    </v-row>
                 </v-container>
             </v-col>
     
@@ -244,6 +252,11 @@
                     console.log('here' + this.$store.getters.loadedpet)
                     return this.$store.getters.loadedpet
                     
+                },
+                gmapsLink(){
+                    let str = "https://www.google.com/maps/place/"
+                    str += this.loadedPet.petLocation;
+                    return str
                 }
             }
         }
