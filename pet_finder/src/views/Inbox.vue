@@ -56,7 +56,7 @@
 
             
             await Talk.ready
-                // console.log(this.user.userid)
+                console.log(this.user.userid)
                 const me=new Talk.User({
                     id:this.user.userid,    
                     name: this.user.username,
@@ -64,10 +64,13 @@
                 })
 
                 //now hardcoding from firebase
+                const others_obj=this.$store.getters.getOthers
+                console.log(others_obj)
+
                 const other=new Talk.User({
-                    id:'nK9kXBPxBYhLYNAKSGqSr8kQKIs2',
-                    name:'elizabeth1',
-                    email:'el@gmail.com',
+                    id:others_obj.userid,
+                    name:others_obj.username,
+                    email:others_obj.email,
                 })
             
                 // console.log(me)

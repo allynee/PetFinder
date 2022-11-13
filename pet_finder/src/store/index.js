@@ -1,5 +1,5 @@
 // import { getDoc } from 'firebase/firestore'
-import { doc,getDoc,arrayUnion, updateDoc } from 'firebase/firestore'
+import { doc,getDoc,arrayUnion, updateDoc, deleteDoc } from 'firebase/firestore'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import db from '../firebase/index'
@@ -31,6 +31,8 @@ export const store = new Vuex.Store({
         // allPetsArray:null,
         loading:false,
         loadedPet:null,
+
+        others:null,
     },
     mutations:{
         setUser(state, payload){
@@ -45,6 +47,13 @@ export const store = new Vuex.Store({
         },
         changePetid(state, pet_obj){
             state.loadedPet=pet_obj
+        },
+        
+        deletePetArr(state, payload){
+            state.user.listedPets=payload
+        },
+        setOthers(state, payload){
+            state.others=payload
         }
     },
     actions:{
@@ -88,6 +97,49 @@ export const store = new Vuex.Store({
                 console.log("PetID failed to update in user database")
             })
         },
+        
+        deletePetArray({commit},payload){
+            const petid=payload.petid
+            deleteDoc(doc(db, 'Pets',petid))
+            .then( ()=>{
+                // console.log(this.store.state.user.listedPets)
+                var updatedUser= this.getters.getuser
+                console.log(1)
+                console.log(updatedUser)
+                var listedPets=updatedUser.listedPets
+                
+
+                console.log(listedPets)
+
+                var index= listedPets.indexOf(payload)
+                console.log(index)
+                listedPets.splice(index, 1)
+                console.log(listedPets)
+                updatedUser.listedPets=listedPets
+                console.log("Pet has been deleted from pet database")
+
+                // mutations
+                // commit('deletePetArr', listedPets)
+                
+                commit('deletePetArr', listedPets)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        },
+
+        deleteUserArray(payload){
+            const docRef=doc(db, 'Users', payload.userid)
+            updateDoc(docRef, payload.listedPets)
+            .then( ()=>{
+                console.log(0)
+                console.log('Pet has been removed in user database')
+            })
+            .catch((err)=>{
+                console.log(1)
+                console.log(err)
+            })
+        },
 
         loadedPet({commit}, petid){
             const petRef=doc(db,'Pets',petid)
@@ -96,6 +148,9 @@ export const store = new Vuex.Store({
                 const pet_obj=snapshot.data()
                 commit('changePetid', pet_obj)
             })
+        },
+        setOthers({commit},payload){
+            commit('setOthers', payload)
         }
             
     },
@@ -112,6 +167,10 @@ export const store = new Vuex.Store({
         },
         listedpet(state){
             return state.user.listedPets
+        },
+
+        getOthers(state){
+            return state.others
         }
         
    

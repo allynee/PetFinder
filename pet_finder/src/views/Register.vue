@@ -106,6 +106,16 @@
                                     </v-flex>
                                 </v-layout>
 
+                                <v-row >
+                                    <v-col class="my-3">
+                                
+                                    <v-alert type="error" v-if="errorstatus">
+                                    Email already in use!
+                                    </v-alert>
+                                    </v-col>
+
+                                </v-row>
+
                                 <!-- Error Message -->
                                 <!-- <v-layout row>
                                     <v-flex xs12>
@@ -247,17 +257,17 @@
                     this.$store.commit('setLoading',false)
 
                     console.log(err)
-                    alert('Failed to add user to database')
+                    this.errorstatus=true
                     return
                 })
             })
             .catch( (err)=>{
                 this.$store.commit('setLoading',false)
-
+                this.errorstatus=true
                 console.log(err)
                 //set error to true, display error 
                 // this.errorstatus=true
-                alert('Email already in use! Please retry!')
+                // alert('Email already in use! Please retry!')
                 return
             })
             // console.log('account created')

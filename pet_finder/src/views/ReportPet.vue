@@ -423,7 +423,7 @@
                 updateDoc(documentRef, {petid:key}, {merge:true})
                 .then((snapshot)=>{
                     console.log('PetID updated')
-                    alert('Pet listed!')
+                    // alert('Pet listed!')
                     console.log(this.image)
                     const filename=this.image.name
                     const extension=filename.slice(filename.lastIndexOf('.'))
