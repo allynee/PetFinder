@@ -12,7 +12,7 @@
                     <v-img :src="loadedPet.image" max-height="250" max-width="250" class="pt-15"></v-img>
                 </v-card>
             </v-row>
-            <h1 class="text-h5 primary--text text-center my-10">{{loadedPet.petname}}</h1>
+            <h1 class="text-h5 primary--text text-center my-10">{{loadedPet.petName}}</h1>
     
             <v-container class="pa-10">
             <!-- Pet Info -->
