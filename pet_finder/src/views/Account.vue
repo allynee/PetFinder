@@ -170,7 +170,7 @@
                 </v-col>
             </v-row>
             <v-divider></v-divider>
-            <v-row class="my-5">
+            <v-row class="my-10">
                 <v-col cols="12" md="6" lg="4" v-for="aPet in listedPets" :key="aPet.petName" align="center">
                     <PetCard :aPet="aPet"></PetCard>
                 </v-col>
@@ -204,7 +204,7 @@
 </template>
 
 <script>
-import PetCard from "../components/PetCard.vue"
+import PetCard from "../components/UserPetCard.vue"
   export default {
     components: {PetCard},
     data () {
