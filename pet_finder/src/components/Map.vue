@@ -45,6 +45,7 @@ data(){
                 height: -35
             }
         },
+
 }
 },
 methods: {
@@ -62,6 +63,11 @@ methods: {
             this.infoWinOpen = true;
             this.currentMidx = idx;
         }
+    },
+    redirect(petid){
+
+        this.$store.dispatch('loadedPet', petid)
+        this.$router.push('/SearchAllPets/'+ petid)
     }
 },
 computed: {
@@ -79,39 +85,26 @@ computed: {
                 },
                 infoText: 
                 `   
-                <h2>${pet.petName}</h2>
-                <br>
-                <img src="${pet.image}" style="max-height:100px;max-width: 100px "/>
-                <br>
-                <span> ${pet.petLocation}</span>
+                <div style="display:flex ; flex-wrap: wrap; align-items: center; justify-content: center; 
+                width: 225px; height: 300px; background-color: #EFEBE9"; padding:20px;>
+                <h2 style="width:100%;text-align: center; margin: 5px">${pet.petName}</h2>
+                <span style="width:150px; margin: 5px auto 10px auto; ">
+                <img src="${pet.image}" style="max-height:100px;width:100%;"/>
+                </span>
+                <span style="margin:5px; width:100%; text-align: center"> ${pet.petLocation}</span>
+                <span style="background-color:#BCAAA4;padding:5px; margin:5px; width: 120px;"><a href="/SearchAllPets/${pet.petid}">Haiz </a></span>
+
+                </div>
                 `
             };
             markers.push(petObj);
         });
         return markers;
+        //                 <button style="background-color:#BCAAA4;padding:5px; margin:5px; width: 120px;"
+        //                 onclick="${this.redirect(pet.petid)}"
+        // >View More Details</button>
     }
 },
 } 
 
-// markers: [
-    //{
-//       position: {
-//               lat: 1.3691,
-//               lng: 103.8454
-//             },
-//             infoText: '<strong>Marker 1</strong>'
-//           }, {
-//             position: {
-//               lat: 1.3526,
-//               lng: 103.8352
-//             },
-//             infoText: '<strong>Marker 2</strong>'
-//           }, {
-//             position: {
-//               lat: 2,
-//               lng: 101
-//             },
-//             infoText: '<strong>Marker 3</strong>'
-//           }]
-// }
 </script>

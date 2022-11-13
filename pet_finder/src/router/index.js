@@ -14,6 +14,7 @@ import Learn from '../views/Learn.vue'
 import Account from '../views/Account.vue'
 import IndivPet from '../components/IndivPet.vue'
 import Onepet from '../views/Onepet.vue'
+import MatchedPets from '../views/MatchedPets.vue'
 
 Vue.use(VueRouter)
 
@@ -39,7 +40,6 @@ const routes = [
     name: 'search',
     component: Search,
     beforeEnter:authguard,
-
   },
   {
     path:'/SearchAllPets/:petid',
@@ -57,7 +57,6 @@ const routes = [
     name: 'MyMap',
     component: MyMap,
     beforeEnter:authguard,
-
   },
   {
     path: '/learn',
@@ -89,7 +88,13 @@ const routes = [
     path:'/login',
     name:'/login',
     component:Login
-  }
+  },
+  {
+    path: '/MatchedPets',
+    name: 'MatchedPets',
+    component: MatchedPets,
+    beforeEnter:authguard,
+  },
 ]
 
 const router = new VueRouter({

@@ -1,41 +1,54 @@
 <template>
-    <nav>
-        <!-- left side of app bar -->
-        <v-app-bar flat app class="px-2">
+<nav>
+    <!-- left side of app bar -->
+    <v-app-bar flat app class="px-2">
 
-            <!-- hamburger bar/navigation drawer for small screens -->
-            <v-app-bar-nav-icon class="brown--text hidden-md-and-up" @click="hamburger=!hamburger"></v-app-bar-nav-icon>
+        <!-- hamburger bar/navigation drawer for small screens -->
+        <v-app-bar-nav-icon class="brown--text hidden-md-and-up" @click="hamburger=!hamburger"></v-app-bar-nav-icon>
 
 
-            <!-- logo -->
-            <v-btn plain color="brown" to="/">
-            <v-img :src="require('../assets/Dog1Invert.png')" class="mr-2" max-height="40" max-width="40" contain/>
-            <v-app-bar-title class="text-no-wrap">
-                <div>
+        <!-- logo -->
+        <v-btn plain color="brown" to="/">
+        <v-img :src="require('../assets/Dog1Invert.png')" class="mr-2" max-height="40" max-width="40" contain/>
+        <v-app-bar-title class="text-no-wrap">
+            <div>
                 <span class="font-weight-regular">findpet</span>
                 <span class="font-weight-bold">now</span>
-                </div>
-            </v-app-bar-title>
-            </v-btn>
+            </div>
+        </v-app-bar-title>
+        </v-btn>
 
-        <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
 
-        <!-- right side of app bar -->
+    <!-- right side of app bar -->
 
-        <div class="hidden-sm-only">
-        <v-btn plain depressed color="primary" 
-        v-for="link in links" :key="link.text" :to="link.route" 
-        class="font-weight-bold hidden-sm-only">
+    <div class="hidden-sm-only">
+        <span v-for="(link,i) in links" :key="i">
+            <v-btn v-if="i<4" plain depressed color="primary" :to="link.route" 
+            class="font-weight-bold hidden-sm-only">
             <v-icon small left>{{link.icon}}</v-icon>
             <span plain color="primary" class="text-body-2 font-weight-bold">{{ link.text }}</span>
         </v-btn>
+        </span>
 
-        <!-- logout button -->
-        <v-btn plain depressed color="primary" class="font-weight-bold hidden-sm-only" v-if="userLoggedIn" @click="onLogout">
-            <v-icon small left>mdi-logout</v-icon>
-            <span plain color="primary" class="text-body-2 font-weight-bold">Logout</span>
-        </v-btn>
+        <!-- Profile Drop down-->
+        <v-menu bottom :offset-y=true>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn fab small elevation="1" class="brown lighten-4 hidden-sm-only ml-3" v-bind="attrs" v-on="on">
+                    <v-icon >mdi-account</v-icon>
+                </v-btn>
+            </template>
 
+        <!-- dropdown items. LINKS TO BE ADDED -->
+            <v-list class="">
+                <span v-for="(link,i) in links" :key="i"> 
+                <v-list-item v-if="i>=4" :to="link.route">
+                    <v-icon small left>{{link.icon}}</v-icon>
+                    <v-list-item-title>{{ link.text }}</v-list-item-title>
+                </v-list-item>
+                </span>
+            </v-list>
+        </v-menu> 
         </div>
         </v-app-bar>
 
@@ -63,15 +76,6 @@
                             <v-list-item-title>{{ link.text }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                    <!-- logout button (seen only if user is logged in) -->
-                    <v-list-item v-if="userLoggedIn" @click="onLogout">
-                        <v-list-item-action>
-                            <v-icon>mdi-logout</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title>Logout</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
                 </v-list>
             </v-navigation-drawer>
     </nav>
@@ -83,14 +87,6 @@ export default {
         return{
             showDropdown: false,
             hamburger: false,
-            // links: [
-            //     {text: 'Home', route: '/', icon: 'mdi-home'},
-            //     {text: 'Report a pet', route:'/ReportPet', icon: 'mdi-dog-side'},
-            //     {text: 'Learn about pets', route:'/Learn', icon: 'mdi-book'},
-            //     {text: 'View all pets', route:'/Dashboard', icon: 'mdi-magnify'},
-            //     {text: 'Matched pets', route:'/Inbox', icon: 'mdi-paw'},
-            //     {text: 'My Account', route:'/Account', icon: 'mdi-account'}
-            // ]
         }
     },
     computed:{
@@ -105,10 +101,11 @@ export default {
                 {text: 'Home', route: '/', icon: 'mdi-home'},
                 {text: 'Report Pet', route:'/ReportPet', icon: 'mdi-dog-side'},
                 {text: 'Search Pet', route:'/SearchAllPets', icon: 'mdi-magnify'},
-                // {text: 'Map View', route:'/MyMap', icon: 'mdi-map-outline'},
-                // {text: 'Matched Pets', route:'/Inbox', icon: 'mdi-paw'},
                 {text: 'Learn More', route:'/Learn', icon: 'mdi-book-outline'},
-                {text: 'Account', route:'/Account', icon: 'mdi-account'}
+                {text: 'My Account', route:'/Account', icon: 'mdi-account'},
+                {text: 'Matched Pets', route:'/MatchedPets', icon: 'mdi-paw'},
+                {text: 'Inbox', route:'/Inbox', icon: 'mdi-inbox'},
+                {text: 'Logout', route:'/logout', icon: 'mdi-logout'}
             ]
         }
         return linkitems
@@ -118,10 +115,6 @@ export default {
     }
     },
     methods:{
-        onLogout(){
-            this.$store.dispatch('logout')
-            this.$router.push('./')
-        }
     }
 }
 </script>

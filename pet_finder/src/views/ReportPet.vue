@@ -89,11 +89,11 @@
                     </v-col>
                 <!-- Colour -->
                 <v-col cols="12" md="6">
-                    <v-combobox v-model="petColor" outlined :items="petColours" :rules="colorRule" label="Pet's Colour" placeholder="Select the Pet's Colour(s)..." class="text-brown"></v-combobox>
+                    <v-combobox v-model="petColor" outlined :items="petColours" :rules="colorRule" label="Pet's Colour*" placeholder="Select the Pet's Colour(s)..." class="text-brown"></v-combobox>
                 </v-col>
                 <!-- Collar colour -->
                 <v-col cols="12" md="6">
-                    <v-combobox v-model="collarColor" outlined :items="collarColours" :rules="collarColorRule" label="Pet's Collar Colour*" placeholder="Select the Pet's Collar Colour..." class="text-brown"></v-combobox>
+                    <v-combobox v-model="collarColor" outlined :items="collarColours" :rules="collarColorRule" label="Pet's Collar Colou*" placeholder="Select the Pet's Collar Colour..." class="text-brown"></v-combobox>
                 </v-col>
                 <!-- Size -->
                 <v-col cols="12" md="6">
@@ -105,7 +105,7 @@
                 </v-col>
                 <!-- Submit Photo -->
                 <v-col cols="12" md="6">
-                    <v-file-input outlined label="Pet's Image" accept="image/*"
+                    <v-file-input outlined label="Pet's Image*" accept="image/*"
                      placeholder="Upload an Image of the Pet"
                      :model="imageText"
                      @change="filePicked()"
