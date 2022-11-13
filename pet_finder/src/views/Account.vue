@@ -184,6 +184,7 @@
         tab: null,
         password: '',
         confirmPassword: '',
+        
         value: String,
         showPassword: String,
         pwdRules: [
@@ -203,7 +204,18 @@
         validate () {
             this.$refs.form.validate()
         },
+
+        deletePet(pet_obj){
+            this.$store.dispatch('deletePet', pet_obj)
+        },
     },
+    computed:{
+        listedPets(){
+            return this.$stores.getters.listedpet
+
+        }
+
+    }
     
   }
 </script>

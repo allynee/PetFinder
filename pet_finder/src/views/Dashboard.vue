@@ -381,6 +381,10 @@ import AOS from 'aos'
       const top = window.pageYOffset ||   e.target.scrollTop || 0
       this.fab = top > 20
     },
+    redirect(petid){
+            this.$store.dispatch('loadedPet', petid)
+            this.$router.push('/SearchAllPets/'+ petid)
+        },
     toTop () {
       this.$vuetify.goTo(0)
     },

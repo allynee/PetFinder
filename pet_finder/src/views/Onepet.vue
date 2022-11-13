@@ -194,6 +194,9 @@
                     </v-card>
                     </v-col>
                     </v-row>
+
+                
+                     
                 </v-container>
             </v-col>
             </v-row>
@@ -218,6 +221,7 @@
                         { text: 'aPet.petBreed', cont: 'Breed'},
                         { text: 'aPet.petColour', cont: 'Colour'},
                         { text: 'aPet.collarColour', cont: 'Collar Colour'},
+
                         { text: 'aPet.petSize', cont: 'Size' },
                         { text: 'aPet.petGender', cont: 'Gender'},
                     ],
@@ -241,7 +245,7 @@
                         return "text-h5 green lighten-3 font-weight-medium text-center mb-4 py-3"
                     }
                     else {
-                        console.log(this.petStatus)
+                        console.log(this.loadedPet.petStatus)
                         return "text-h5 red lighten-3 font-weight-medium text-center mb-4 py-3"
                     }
                     
@@ -249,7 +253,7 @@
             },
             computed: {
                 loadedPet(){
-                    console.log('here' + this.$store.getters.loadedpet)
+                    // console.log('here' + this.$store.getters.loadedpet)
                     return this.$store.getters.loadedpet
                     
                 },

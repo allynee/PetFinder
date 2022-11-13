@@ -109,6 +109,9 @@ export const store = new Vuex.Store({
         },
         loadedpet(state){
             return state.loadedPet
+        },
+        listedpet(state){
+            return state.user.listedPets
         }
         
    

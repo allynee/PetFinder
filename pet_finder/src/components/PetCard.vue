@@ -74,6 +74,7 @@ export default {
         // return require('../assets/' + pic)
         // },
         redirect(petid){
+            console.log(petid)
             this.$store.dispatch('loadedPet', petid)
             this.$router.push('/SearchAllPets/'+ petid)
         }

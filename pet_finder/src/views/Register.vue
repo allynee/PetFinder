@@ -104,6 +104,13 @@
                                         </v-btn>
                                     </v-flex>
                                 </v-layout>
+
+                                <!-- Error Message -->
+                                <!-- <v-layout row>
+                                    <v-flex xs12>
+                                        <p v-if="errorstatus"></p>
+                                    </v-flex>
+                                </v-layout> -->
                             </form>
                         </v-container>
                         </v-container>
@@ -142,6 +149,7 @@
             password:'',
             confirmpassword:'',
             userid:'',
+            errorstatus:false,
             value: String,
             showPassword: String,
             nameRules: [
@@ -232,6 +240,8 @@
                 this.$store.commit('setLoading',false)
 
                 console.log(err)
+                //set error to true, display error 
+                // this.errorstatus=true
                 alert('Email already in use! Please retry!')
                 return
             })
